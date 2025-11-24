@@ -29,15 +29,28 @@ const Radio: Component<Props> = (props) => {
 
   return (
     <>
-      <div class="flex flex-row items-center gap-2 rounded-[8px] bg-white p-5">
+      <div
+        class="flex flex-row items-center gap-2 rounded-[8px] bg-white p-5"
+        on:click={local.onSelect}
+      >
         <input
           type="radio"
           name={local.area.attr?.name}
           id={local.area.attr?.id}
           checked={local.isActive}
-          onChange={local.onSelect}
+          on:click={(e) => {
+            e.stopPropagation();
+            local.onSelect();
+          }}
         />
-        <label for={local.area.attr?.id}>{local.area.name}</label>
+        <label
+          for={local.area.attr?.id}
+          on:click={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          {local.area.name}
+        </label>
         <div class="info cursor-pointer" on:click={local.onSelectHint}>
           <svg
             width="14"
