@@ -1,6 +1,7 @@
 import { Title } from "@solidjs/meta";
 import Radio from "~/components/menu/radio";
 import { createStore } from "solid-js/store";
+import Area from "~/components/area/area";
 
 type Area = {
   name: string;
@@ -92,37 +93,11 @@ export default function AreaPage() {
     activeHintId: "",
   });
 
-  const selectAreaById = (id: string) =>
-    setStateArea({
-      activeId: id,
-      activeHintId:
-        stateArea.activeHintId && stateArea.activeHintId !== id
-          ? ""
-          : stateArea.activeHintId,
-    });
-  const selectAreaHintById = (id: string) =>
-    setStateArea(
-      "activeHintId",
-      stateArea.activeHintId === ""
-        ? id
-        : stateArea.activeHintId === id
-          ? ""
-          : id,
-    );
-
   return (
     <>
       <Title>Area</Title>
       <div class="flex flex-col gap-2">
-        {stateArea.areas.map((area, i) => (
-          <Radio
-            area={area}
-            isActive={stateArea.activeId === area.attr.id}
-            isActiveHint={stateArea.activeHintId === area.attr.id}
-            onSelect={() => selectAreaById(area.attr.id)}
-            onSelectHint={() => selectAreaHintById(area.attr.id)}
-          />
-        ))}
+        <Area areas={stateArea.areas} />
       </div>
     </>
   );
