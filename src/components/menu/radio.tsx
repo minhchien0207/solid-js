@@ -2,18 +2,21 @@ import { Component, JSX, mergeProps, splitProps } from "solid-js";
 import "./radio.css";
 
 type Props = {
-  area: { name?: string; attr?: Attr; hint?: any; children?: any };
+  area: {
+    name?: string;
+    attr?: {
+      name?: string;
+      id?: string;
+    };
+    hint?: any;
+    children?: any;
+  };
   isActive: boolean;
   isActiveHint: boolean;
   onSelect: () => void;
   onSelectHint: () => void;
   children?: any;
 };
-
-interface Attr {
-  name?: string;
-  id?: string;
-}
 
 const Radio: Component<Props> = (props) => {
   const [local, rest] = splitProps(props, [

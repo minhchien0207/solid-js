@@ -1,12 +1,13 @@
 import { Title } from "@solidjs/meta";
 // import Counter from '~/components/Counter';
 import Card from "~/components/card/Card";
-import { For, createSignal } from "solid-js";
+import { JSX, For, createEffect } from "solid-js";
 import { createStore } from "solid-js/store";
 import Step from "~/components/step";
 import Radio from "~/components/menu/radio";
+import Benefit from "~/components/benefit/benefit";
 
-type Area = {
+/* type Area = {
   name: string;
   attr: { name: string; id: string };
   active: boolean;
@@ -14,7 +15,7 @@ type Area = {
   hint?: any;
 };
 
-const initial: Area[] = [
+const initialArea: Area[] = [
   {
     name: "Đông Nam Á",
     attr: { name: "area", id: "sea" },
@@ -83,32 +84,95 @@ const initial: Area[] = [
       </div>
     ),
   },
+]; */
+
+type Benefit = {
+  svg?: JSX.Element;
+  svgActive?: JSX.Element;
+  name: string;
+  attr: { name: string; id: string };
+  active: boolean;
+  children?: any;
+};
+
+const initialBenefit: Benefit[] = [
+  {
+    name: "Trễ chuyến, hủy chuyến bay",
+    attr: { name: "benefit[]", id: "delay" },
+    active: false,
+  },
+  {
+    name: "Mất, hư hỏng hành lý",
+    attr: { name: "benefit[]", id: "baggage" },
+    active: false,
+  },
+  {
+    name: "Mất, hư hỏng giấy tờ du lịch",
+    attr: { name: "benefit[]", id: "documents" },
+    active: false,
+  },
+  {
+    name: "Chậm hành lý xách tay, ký gửi",
+    attr: { name: "benefit[]", id: "delay-baggage" },
+    active: false,
+  },
+  {
+    name: "Hỗ trợ chi phí y tế khi du lịch",
+    attr: { name: "benefit[]", id: "medical" },
+    active: false,
+  },
 ];
 
 export default function Home() {
-  const [state, setState] = createStore<{
+  /* const [stateArea, setStateArea] = createStore<{
     areas: Area[];
     activeId: string;
     activeHintId: string;
   }>({
-    areas: initial,
+    areas: initialArea,
     activeId: "",
     activeHintId: "",
   });
 
-  const selectById = (id: string) =>
-    setState({
+  const selectAreaById = (id: string) =>
+    setStateArea({
       activeId: id,
       activeHintId:
-        state.activeHintId && state.activeHintId !== id
+        stateArea.activeHintId && stateArea.activeHintId !== id
           ? ""
-          : state.activeHintId,
+          : stateArea.activeHintId,
     });
-  const selectHintById = (id: string) =>
-    setState(
+  const selectAreaHintById = (id: string) =>
+    setStateArea(
       "activeHintId",
-      state.activeHintId === "" ? id : state.activeHintId === id ? "" : id,
-    );
+      stateArea.activeHintId === ""
+        ? id
+        : stateArea.activeHintId === id
+          ? ""
+          : id,
+    ); */
+
+  const [stateBenefit, setStateBenefit] = createStore<{
+    benefits: Benefit[];
+    benefitIdActive: string[];
+  }>({
+    benefits: initialBenefit,
+    benefitIdActive: [],
+  });
+
+  const selectBenefitById = (id: string) =>
+    setStateBenefit((state) => {
+      const benefitIdActive = [...state.benefitIdActive];
+      const index = benefitIdActive.indexOf(id);
+      if (index > -1) {
+        benefitIdActive.splice(index, 1);
+      } else {
+        benefitIdActive.push(id);
+      }
+      return {
+        benefitIdActive: [...benefitIdActive],
+      };
+    });
 
   return (
     <main class="h-screen bg-[#EAEEFA]">
@@ -170,14 +234,24 @@ export default function Home() {
           {(item) => <Step {...item} />}
         </For> */}
 
-        <div class="flex flex-col gap-2">
-          {state.areas.map((area, i) => (
+        {/* <div class="flex flex-col gap-2">
+          {stateArea.areas.map((area, i) => (
             <Radio
               area={area}
-              isActive={state.activeId === area.attr.id}
-              isActiveHint={state.activeHintId === area.attr.id}
-              onSelect={() => selectById(area.attr.id)}
-              onSelectHint={() => selectHintById(area.attr.id)}
+              isActive={stateArea.activeId === area.attr.id}
+              isActiveHint={stateArea.activeHintId === area.attr.id}
+              onSelect={() => selectAreaById(area.attr.id)}
+              onSelectHint={() => selectAreaHintById(area.attr.id)}
+            />
+          ))}
+        </div> */}
+
+        <div class="flex flex-row gap-2">
+          {stateBenefit.benefits.map((benefit, i) => (
+            <Benefit
+              benefit={benefit}
+              isActive={stateBenefit.benefitIdActive.includes(benefit.attr.id)}
+              onSelect={() => selectBenefitById(benefit.attr.id)}
             />
           ))}
         </div>
