@@ -1,10 +1,38 @@
-import { MetaProvider, Title } from '@solidjs/meta';
-import { Router } from '@solidjs/router';
-import { FileRoutes } from '@solidjs/start/router';
-import { Suspense } from 'solid-js';
-import './app.css';
+import { MetaProvider, Title } from "@solidjs/meta";
+import { A, Router } from "@solidjs/router";
+import { FileRoutes } from "@solidjs/start/router";
+import { Suspense } from "solid-js";
+import { For } from "solid-js";
+import "./app.css";
 
 export default function App() {
+  const menu = [
+    {
+      name: "Trang chủ",
+      href: "/",
+    },
+    {
+      name: "Về chúng tôi",
+      href: "/about",
+    },
+    {
+      name: "Area",
+      href: "/area",
+    },
+    {
+      name: "Step",
+      href: "/step",
+    },
+    {
+      name: "Benefit",
+      href: "/benefit",
+    },
+    {
+      name: "Plan",
+      href: "/plan",
+    },
+  ];
+
   return (
     <Router
       root={(props) => (
@@ -21,44 +49,61 @@ export default function App() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    {' '}
+                    {" "}
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
                       d="M4 6h16M4 12h8m-8 6h16"
-                    />{' '}
+                    />{" "}
                   </svg>
                 </div>
                 <ul
                   tabindex="-1"
                   class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
-                  <li>
-                    <a href="/">Index</a>
-                  </li>
-                  <li>
-                    <a href="/about">About</a>
-                  </li>
+                  <For each={menu}>
+                    {(item) => (
+                      <li>
+                        <A
+                          href={item.href}
+                          end={item.href === "/"}
+                          activeClass="bg-gray-200"
+                        >
+                          {item.name}
+                        </A>
+                      </li>
+                    )}
+                  </For>
                 </ul>
               </div>
               <a class="btn btn-ghost text-xl">daisyUI</a>
             </div>
             <div class="navbar-center hidden lg:flex">
               <ul class="menu menu-horizontal px-1">
-                <li>
-                  <a href="/">Index</a>
-                </li>
-                <li>
-                  <a href="/about">About</a>
-                </li>
+                <For each={menu}>
+                  {(item) => (
+                    <li>
+                      <A
+                        href={item.href}
+                        end={item.href === "/"}
+                        activeClass="bg-gray-200"
+                      >
+                        {item.name}
+                      </A>
+                    </li>
+                  )}
+                </For>
               </ul>
             </div>
+            {/* in future is step */}
             <div class="navbar-end">
               <a class="btn">Button</a>
             </div>
           </div>
-          <Suspense>{props.children}</Suspense>
+          <div class="mr-auto ml-auto flex w-full grow justify-center gap-6 p-4 max-md:flex-col">
+            <Suspense>{props.children}</Suspense>
+          </div>
         </MetaProvider>
       )}
     >

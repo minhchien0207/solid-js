@@ -1,5 +1,5 @@
 // @refresh reload
-import { createHandler, StartServer } from '@solidjs/start/server';
+import { createHandler, StartServer } from "@solidjs/start/server";
 
 export default createHandler(() => (
   <StartServer
@@ -12,7 +12,9 @@ export default createHandler(() => (
           {assets}
         </head>
         <body>
-          <div id="app">{children}</div>
+          <div id="app" class="flex min-h-screen flex-col bg-[#EAEEFA]">
+            {children}
+          </div>
           {scripts}
         </body>
       </html>
