@@ -22,10 +22,9 @@ const Benefit: Component<BenefitProps> = (props) => {
 
   return (
     <div
-      class="flex cursor-pointer flex-col items-center justify-between gap-6 rounded-[8px] bg-white p-5 lg:min-h-[320px] lg:w-[209px]"
+      class="flex cursor-pointer flex-col items-center justify-between gap-6 rounded-[8px] bg-white p-5 transition-all duration-300 lg:min-h-[320px] lg:w-[209px] lg:hover:scale-[1.01]"
       classList={{
-        active: local.isActive,
-        "animate-pulse-v2": local.isActive,
+        "active animate-pulse-v2": local.isActive,
       }}
       onClick={local.onSelect}
     >

@@ -27,11 +27,11 @@ const Plan: Component<PlanProps> = (props) => {
 
   return (
     <div
-      class="relative flex cursor-pointer flex-col rounded-[16px] border bg-white p-5 transition-all duration-300 lg:w-[299px]"
+      class="relative flex cursor-pointer flex-col rounded-[16px] border bg-white p-5 transition-all duration-300 lg:w-[299px] lg:hover:scale-[1.01]"
       classList={{
         active: local.isActive,
         "border-transparent": !local.isActive,
-        "animate-pulse-v2 border-[#DD252E]": local.isActive,
+        "animate-pulse-v2 border-[#DD252E] scale-[1.01]": local.isActive,
       }}
       onClick={local.onSelect}
     >
