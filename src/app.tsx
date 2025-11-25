@@ -4,6 +4,7 @@ import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import { For } from "solid-js";
 import "./app.css";
+import { createSignal } from "solid-js";
 
 export default function App() {
   const menu = [
@@ -16,22 +17,29 @@ export default function App() {
       href: "/about",
     },
     {
-      name: "Area",
-      href: "/area",
-    },
-    {
-      name: "Step",
-      href: "/step",
-    },
-    {
-      name: "Benefit",
-      href: "/benefit",
-    },
-    {
-      name: "Plan",
-      href: "/plan",
+      name: "Component",
+      child: [
+        {
+          name: "Area",
+          href: "/area",
+        },
+        {
+          name: "Step",
+          href: "/step",
+        },
+        {
+          name: "Benefit",
+          href: "/benefit",
+        },
+        {
+          name: "Plan",
+          href: "/plan",
+        },
+      ],
     },
   ];
+
+  const [open, setOpen] = createSignal(false);
 
   return (
     <Router
@@ -65,13 +73,34 @@ export default function App() {
                   <For each={menu}>
                     {(item) => (
                       <li>
-                        <A
-                          href={item.href}
-                          end={item.href === "/"}
-                          activeClass="bg-gray-200"
-                        >
-                          {item.name}
-                        </A>
+                        {item.child ? (
+                          <>
+                            <a>{item.name}</a>
+                            <ul class="p-2">
+                              <For each={item.child}>
+                                {(child) => (
+                                  <li>
+                                    <A
+                                      href={child?.href ?? void 0}
+                                      end={child.href === "/"}
+                                      activeClass="bg-gray-200"
+                                    >
+                                      {child.name}
+                                    </A>
+                                  </li>
+                                )}
+                              </For>
+                            </ul>
+                          </>
+                        ) : (
+                          <A
+                            href={item?.href ?? void 0}
+                            end={item.href === "/"}
+                            activeClass="bg-gray-200"
+                          >
+                            {item.name}
+                          </A>
+                        )}
                       </li>
                     )}
                   </For>
@@ -84,13 +113,35 @@ export default function App() {
                 <For each={menu}>
                   {(item) => (
                     <li>
-                      <A
-                        href={item.href}
-                        end={item.href === "/"}
-                        activeClass="bg-gray-200"
-                      >
-                        {item.name}
-                      </A>
+                      {item.child ? (
+                        <details open={open()}>
+                          <summary>{item.name}</summary>
+                          <ul class="z-1 p-2">
+                            <For each={item.child}>
+                              {(child) => (
+                                <li on:click={() => setOpen(!open())}>
+                                  <A
+                                    href={child?.href ?? void 0}
+                                    end={child.href === "/"}
+                                    activeClass="bg-gray-200"
+                                    on:click={() => setOpen(!open())}
+                                  >
+                                    {child.name}
+                                  </A>
+                                </li>
+                              )}
+                            </For>
+                          </ul>
+                        </details>
+                      ) : (
+                        <A
+                          href={item?.href ?? void 0}
+                          end={item.href === "/"}
+                          activeClass="bg-gray-200"
+                        >
+                          {item.name}
+                        </A>
+                      )}
                     </li>
                   )}
                 </For>
