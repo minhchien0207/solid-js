@@ -22,15 +22,18 @@ const Benefit: Component<BenefitProps> = (props) => {
 
   return (
     <div
-      class="flex cursor-pointer flex-col items-center gap-6 rounded-[8px] bg-white p-5"
+      class="flex cursor-pointer flex-col items-center justify-between gap-6 rounded-[8px] bg-white p-5 lg:min-h-[320px] lg:w-[209px]"
       classList={{
         active: local.isActive,
+        "animate-pulse-v2": local.isActive,
       }}
       onClick={local.onSelect}
     >
-      {local.isActive ? local.benefit.svgActive : local.benefit.svg}
+      <div class="flex min-h-[98px] items-end">
+        {local.isActive ? local.benefit.svgActive : local.benefit.svg}
+      </div>
       <label
-        class="cursor-pointer font-semibold"
+        class="cursor-pointer text-center text-[18px] leading-[26px] font-semibold"
         for={local.benefit.attr?.id}
         onClick={(e) => {
           e.stopPropagation(); // prevent bubble to parent

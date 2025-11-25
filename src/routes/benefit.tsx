@@ -14,28 +14,45 @@ type Benefit = {
 
 const initialBenefit: Benefit[] = [
   {
+    svg: <img src="/images/benefit/delay.svg" />,
+    svgActive: <img src="/images/benefit/delay-color.svg" />,
     name: "Trễ chuyến, hủy chuyến bay",
     attr: { name: "benefit[]", id: "delay" },
     active: false,
   },
   {
+    svg: <img src="/images/benefit/baggage.svg" />,
+    svgActive: <img src="/images/benefit/baggage-color.svg" />,
     name: "Mất, hư hỏng hành lý",
     attr: { name: "benefit[]", id: "baggage" },
     active: false,
   },
   {
+    svg: <img src="/images/benefit/documents.svg" />,
+    svgActive: <img src="/images/benefit/documents-color.svg" />,
     name: "Mất, hư hỏng giấy tờ du lịch",
     attr: { name: "benefit[]", id: "documents" },
     active: false,
   },
   {
+    svg: <img src="/images/benefit/delay-baggage.svg" />,
+    svgActive: <img src="/images/benefit/delay-baggage-color.svg" />,
     name: "Chậm hành lý xách tay, ký gửi",
     attr: { name: "benefit[]", id: "delay-baggage" },
     active: false,
   },
   {
+    svg: <img src="/images/benefit/medical.svg" />,
+    svgActive: <img src="/images/benefit/medical-color.svg" />,
     name: "Hỗ trợ chi phí y tế khi du lịch",
     attr: { name: "benefit[]", id: "medical" },
+    active: false,
+  },
+  {
+    svg: <img src="/images/benefit/worldwide-support-247.svg" />,
+    svgActive: <img src="/images/benefit/worldwide-support-247-color.svg" />,
+    name: "Dịch vụ hỗ trợ toàn cầu 24/7",
+    attr: { name: "benefit[]", id: "worldwide-support" },
     active: false,
   },
 ];
@@ -67,7 +84,9 @@ export default function BenefitPage() {
     <main>
       <Title>Benefit</Title>
       <div class="flex w-full justify-center max-md:flex-col">
-        <div class="flex flex-row gap-2">
+        <div
+          class={`grid grid-cols-2 gap-6 md:grid-cols-${stateBenefit.benefits.length}`}
+        >
           {stateBenefit.benefits.map((benefit, i) => (
             <Benefit
               benefit={benefit}
