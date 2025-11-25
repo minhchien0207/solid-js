@@ -1,6 +1,6 @@
 import { Title } from "@solidjs/meta";
 import { For } from "solid-js";
-import Step from "~/components/step";
+import Step from "~/components/step/Step";
 
 export default function StepPage() {
   return (

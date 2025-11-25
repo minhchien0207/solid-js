@@ -1,5 +1,5 @@
 import { Title } from "@solidjs/meta";
-import Radio from "~/components/menu/radio";
+import Radio from "~/components/menu/Radio";
 import { createStore } from "solid-js/store";
 
 type Area = {

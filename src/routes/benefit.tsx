@@ -1,6 +1,6 @@
 import { Title } from "@solidjs/meta";
 import { JSX } from "solid-js";
-import Benefit from "~/components/benefit/benefit";
+import Benefit from "~/components/benefit/Benefit";
 import { createStore } from "solid-js/store";
 
 type Benefit = {
@@ -85,7 +85,7 @@ export default function BenefitPage() {
       <Title>Benefit</Title>
       <div class="flex w-full justify-center max-md:flex-col">
         <div
-          class={`grid grid-cols-2 gap-6 md:grid-cols-${stateBenefit.benefits.length}`}
+          class={`grid grid-cols-2 gap-6 md:grid-cols-${stateBenefit.benefits.length >= 6 ? 6 : stateBenefit.benefits.length}`}
         >
           {stateBenefit.benefits.map((benefit, i) => (
             <Benefit

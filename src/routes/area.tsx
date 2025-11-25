@@ -1,7 +1,7 @@
 import { Title } from "@solidjs/meta";
-import Radio from "~/components/menu/radio";
+import Radio from "~/components/menu/Radio";
 import { createStore } from "solid-js/store";
-import Area from "~/components/area/area";
+import Area from "~/components/area/Area";
 
 type Area = {
   name: string;

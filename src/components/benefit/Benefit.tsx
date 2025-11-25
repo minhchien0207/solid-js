@@ -1,4 +1,4 @@
-import { Component, JSX, mergeProps, splitProps, createEffect } from "solid-js";
+import { Component, JSX, splitProps } from "solid-js";
 import "./benefit.css";
 
 type BenefitProps = {
