@@ -14,12 +14,14 @@ type PlanProps = {
   };
   isActive: boolean;
   onSelect: () => void;
+  planIdActiveId?: string;
   children?: any;
 };
 
 const Plan: Component<PlanProps> = (props) => {
   const [local, rest] = splitProps(props, [
     "plan",
+    "planIdActiveId",
     "isActive",
     "onSelect",
     "children",
@@ -27,11 +29,12 @@ const Plan: Component<PlanProps> = (props) => {
 
   return (
     <div
-      class="relative flex cursor-pointer flex-col rounded-[16px] border bg-white p-5 transition-all duration-300 lg:w-[299px] lg:hover:scale-[1.01]"
+      class="relative flex cursor-pointer flex-col rounded-[16px] border bg-white p-5 transition-all duration-300 lg:w-[299px] lg:hover:scale-[1.05] lg:hover:opacity-100"
       classList={{
-        active: local.isActive,
-        "border-transparent": !local.isActive,
-        "animate-pulse-v2 border-[#DD252E] scale-[1.01]": local.isActive,
+        "opacity-100": !local.planIdActiveId, // support for case no plan selected
+        "border-transparent opacity-70":
+          !local.isActive || !local.planIdActiveId,
+        "active animate-pulse-v2 border-[#DD252E]": local.isActive,
       }}
       onClick={local.onSelect}
     >

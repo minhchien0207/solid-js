@@ -12,18 +12,26 @@ type BenefitProps = {
     };
     children?: any;
   };
+  benefitIdActiveId?: string[];
   isActive: boolean;
   onSelect: () => void;
   children?: any;
 };
 
 const Benefit: Component<BenefitProps> = (props) => {
-  const [local, rest] = splitProps(props, ["benefit", "isActive", "onSelect"]);
+  const [local] = splitProps(props, [
+    "benefit",
+    "benefitIdActiveId",
+    "isActive",
+    "onSelect",
+  ]);
 
   return (
     <div
-      class="flex cursor-pointer flex-col items-center justify-between gap-6 rounded-[8px] bg-white p-5 transition-all duration-300 lg:min-h-[320px] lg:w-[209px] lg:hover:scale-[1.01]"
+      class="flex cursor-pointer flex-col items-center justify-between gap-6 rounded-[8px] bg-white p-5 transition-all duration-300 lg:min-h-[320px] lg:w-[209px] lg:hover:scale-[1.05] lg:hover:opacity-100"
       classList={{
+        "opacity-100": local.benefitIdActiveId?.length === 0, // support for case no benefit selected
+        "opacity-70": !local.isActive,
         "active animate-pulse-v2": local.isActive,
       }}
       onClick={local.onSelect}

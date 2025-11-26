@@ -80,16 +80,25 @@ export default function BenefitPage() {
       };
     });
 
+  const cols = Math.min(stateBenefit.benefits.length, 6);
+  const cls = {
+    1: "lg:grid-cols-1",
+    2: "lg:grid-cols-2",
+    3: "lg:grid-cols-3",
+    4: "lg:grid-cols-4",
+    5: "lg:grid-cols-5",
+    6: "lg:grid-cols-6",
+  }[cols];
+
   return (
     <main>
       <Title>Benefit</Title>
       <div class="flex w-full justify-center max-md:flex-col">
-        <div
-          class={`grid grid-cols-2 gap-6 md:grid-cols-${stateBenefit.benefits.length >= 6 ? 6 : stateBenefit.benefits.length}`}
-        >
+        <div class={`grid grid-cols-2 gap-6 ${cls}`}>
           {stateBenefit.benefits.map((benefit, i) => (
             <Benefit
               benefit={benefit}
+              benefitIdActiveId={stateBenefit.benefitIdActive}
               isActive={stateBenefit.benefitIdActive.includes(benefit.attr.id)}
               onSelect={() => selectBenefitById(benefit.attr.id)}
             />
