@@ -2,6 +2,7 @@ import { Title } from "@solidjs/meta";
 import { JSX } from "solid-js";
 import Plan from "~/components/plan/Plan";
 import { createStore } from "solid-js/store";
+import { useParams, useSearchParams } from "@solidjs/router";
 
 type Plan = {
   name?: JSX.Element;
@@ -45,24 +46,24 @@ const initialPlan: Plan[] = [
           </div>
         ),
       },
-      {
-        svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
-        description: (
-          <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{" "}
-            <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
-          </div>
-        ),
-      },
-      {
-        svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
-        description: (
-          <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{" "}
-            <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
-          </div>
-        ),
-      },
+      // {
+      //   svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
+      //   description: (
+      //     <div class="">
+      //       Bảo hiểm tai nạn cá nhân lên đến{" "}
+      //       <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
+      //     </div>
+      //   ),
+      // },
+      // {
+      //   svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
+      //   description: (
+      //     <div class="">
+      //       Bảo hiểm chi phí y tế, điều trị lên đến{" "}
+      //       <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
+      //     </div>
+      //   ),
+      // },
     ],
   },
   {
@@ -215,17 +216,29 @@ const initialPlan: Plan[] = [
 ];
 
 export default function PlanPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const rawLayout = searchParams.layout;
+  const layout: "row" | "col" =
+    typeof rawLayout === "string" &&
+    (rawLayout === "row" || rawLayout === "col")
+      ? rawLayout
+      : "col";
+
   const [statePlan, setStatePlan] = createStore<{
     plans: Plan[];
     planIdActiveId?: string;
+    textHighlight?: string;
+    layout?: "row" | "col";
   }>({
     plans: initialPlan,
     planIdActiveId: undefined,
+    textHighlight: "Được đề xuất",
+    layout,
   });
 
   const selectPlanById = (id: string) => setStatePlan({ planIdActiveId: id });
 
-  const cols = Math.min(statePlan.plans.length, 6);
+  const cols = layout === "row" ? 1 : Math.min(statePlan.plans.length, 6);
   const cls = {
     1: "lg:grid-cols-1",
     2: "lg:grid-cols-2",
@@ -239,14 +252,23 @@ export default function PlanPage() {
     <main>
       <Title>Plan</Title>
       <div class="flex w-full justify-center max-md:flex-col">
-        <div class={`grid grid-cols-1 gap-6 ${cls}`}>
+        <div class={`grid gap-6 max-sm:grid-cols-1 ${cls}`}>
           {statePlan.plans.map((plan, i) => (
             <Plan
-              plan={plan}
+              data={plan}
+              style={{ layout, showButton: false }}
+              textHighlight={statePlan.textHighlight}
               planIdActiveId={statePlan.planIdActiveId}
               isActive={statePlan.planIdActiveId === plan.attr.id}
               onSelect={() => selectPlanById(plan.attr.id)}
-            />
+            >
+              <a
+                href="#"
+                class="text-primary text-[16px] leading-[24px] font-semibold"
+              >
+                Xem chi tiết quyền lợi bảo hiểm
+              </a>
+            </Plan>
           ))}
         </div>
       </div>

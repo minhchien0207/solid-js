@@ -1,8 +1,9 @@
 import { Component, JSX, splitProps } from "solid-js";
 import "./plan.css";
+import { A } from "@solidjs/router";
 
 type PlanProps = {
-  plan: {
+  data: {
     name?: JSX.Element;
     description?: JSX.Element;
     price?: JSX.Element;
@@ -12,7 +13,13 @@ type PlanProps = {
     };
     benefits?: any;
   };
+  textHighlight?: string;
   isActive: boolean;
+  style?: {
+    layout?: "col" | "row";
+    showButton?: boolean;
+    showBenefit?: boolean;
+  };
   onSelect: () => void;
   planIdActiveId?: string;
   children?: any;
@@ -20,17 +27,39 @@ type PlanProps = {
 
 const Plan: Component<PlanProps> = (props) => {
   const [local, rest] = splitProps(props, [
-    "plan",
+    "data",
+    "textHighlight",
+    "style",
     "planIdActiveId",
     "isActive",
     "onSelect",
     "children",
   ]);
 
+  const benefits = chunk2Array(local.data.benefits);
+
+  const layoutGeneral = local.style?.layout
+    ? local.style.layout === "row"
+      ? "max-sm:flex-col lg:flex-row"
+      : "flex-col"
+    : "flex-col";
+
+  const layoutBenefit = local.style?.layout
+    ? local.style.layout === "row"
+      ? benefits.length > 1
+        ? "max-sm:grid-cols-1 lg:grid-cols-2"
+        : "grid-cols-1"
+      : "grid-cols-1"
+    : "grid-cols-1";
+
   return (
     <div
-      class="relative flex cursor-pointer flex-col rounded-[16px] border bg-white p-5 transition-all duration-300 lg:w-[299px] lg:hover:scale-[1.05] lg:hover:opacity-100"
+      class={`relative flex cursor-pointer ${layoutGeneral} rounded-[16px] border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
       classList={{
+        "lg:w-[299px] p-5": local.style?.layout === "col",
+        "items-center justify-evenly p-10": local.style?.layout === "row",
+        "lg:w-[1140px]": local.style?.layout === "row" && benefits.length > 1,
+        "lg:w-[796px]": local.style?.layout === "row" && benefits.length === 1,
         "opacity-100": !local.planIdActiveId, // support for case no plan selected
         "border-transparent opacity-70":
           !local.isActive || !local.planIdActiveId,
@@ -40,52 +69,102 @@ const Plan: Component<PlanProps> = (props) => {
     >
       {local.isActive && (
         <div class="absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-[6px] text-center text-[18px] leading-[26px] font-semibold text-[#DD252E]">
-          Lựa chọn của bạn
+          {local.textHighlight ?? "Lựa chọn của bạn"}
         </div>
       )}
 
-      {/* Name + Description */}
-      <div class="mt-7 flex flex-col items-center">
-        <div class="name">{local.plan.name}</div>
-        <div class="text-light description mb-8 text-[16px] leading-[22px] text-[#76758A] italic">
-          {local.plan.description}
+      <div class="flex flex-col items-center">
+        {/* Name + Description */}
+        <div class="mt-7 flex flex-col items-center">
+          <div class="name">{local.data.name}</div>
+          <div class="text-light description mb-8 text-[16px] leading-[22px] text-[#76758A] italic">
+            {local.data.description}
+          </div>
         </div>
-      </div>
-      {/* Price */}
-      <div class="text-primary price mb-8 text-center text-[40px] font-bold">
-        {local.plan.price}
+        {/* Price */}
+        <div class="text-primary price mb-8 text-center text-[40px] leading-[56px] font-bold">
+          {local.data.price}
+        </div>
       </div>
       {/* Button */}
-      <button
-        type="button"
-        class="btn mb-8 w-full rounded-[8px]"
-        classList={{
-          "btn-primary text-white": local.isActive,
-          "bg-[#EEF1FC] text-primary": !local.isActive,
-        }}
-      >
-        {local.isActive ? "Gói đã chọn" : "Chọn gói"}
-      </button>
-      {/* Benefit */}
-      {local.plan?.benefits && (
-        <div class="benefit-parent flex flex-col gap-[22px]">
-          <div class="text-[18px] leading-[26px] font-semibold text-[#18171C]">
-            Gói bảo hiểm bao gồm:
-          </div>
-          {local.plan.benefits.map(
-            (benefit: { svg?: JSX.Element; description?: JSX.Element }) => (
-              <div class="benefit-child flex items-center gap-[11px]">
-                <div class="icon">{benefit.svg}</div>
-                <div class="description text-[16px] leading-[22px]">
-                  {benefit.description}
-                </div>
-              </div>
-            ),
-          )}
-        </div>
+      {(local.style?.showButton ?? true) && (
+        <button
+          type="button"
+          class="btn mb-8 w-full rounded-[8px]"
+          classList={{
+            "btn-primary text-white": local.isActive,
+            "bg-[#EEF1FC] text-primary": !local.isActive,
+          }}
+        >
+          {local.isActive ? "Gói đã chọn" : "Chọn gói"}
+        </button>
       )}
+      {/* Benefit + child plan */}
+      <div class="flex flex-col items-center gap-4">
+        {/* Benefit */}
+        {local.data?.benefits && (
+          <div
+            class="flex flex-col gap-[22px]"
+            classList={{
+              "lg:w-[644px]":
+                local.style?.layout === "row" && benefits.length > 1,
+              "lg:w-[322px]":
+                local.style?.layout === "row" && benefits.length === 1,
+            }}
+          >
+            <div class="text-[18px] leading-[26px] font-semibold text-[#18171C]">
+              Gói bảo hiểm bao gồm:
+            </div>
+            <div class={`grid gap-[22px] max-sm:grid-cols-1 ${layoutBenefit}`}>
+              {benefits.map(
+                (
+                  arrBenefit: {
+                    svg?: JSX.Element;
+                    description?: JSX.Element;
+                  }[],
+                ) => (
+                  <div class="flex flex-col items-center gap-[11px]">
+                    {arrBenefit.map(
+                      (benefit: {
+                        svg?: JSX.Element;
+                        description?: JSX.Element;
+                      }) => (
+                        <div class="flex items-center gap-[11px]">
+                          <div class="icon">{benefit.svg}</div>
+                          <div class="description text-[16px] leading-[22px]">
+                            {benefit.description}
+                          </div>
+                        </div>
+                      ),
+                    )}
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        )}
+        {local.children}
+      </div>
     </div>
   );
+};
+
+const chunkArray = (array: any[], size: number) => {
+  const chunkedArray = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunkedArray.push(array.slice(i, i + size));
+  }
+  return chunkedArray;
+};
+
+const chunk2Array = (array: any[]) => {
+  const chunkedArray = [];
+  const end = array.length > 2 ? Math.round(array.length / 2) : array.length;
+  chunkedArray.push(array.slice(0, end));
+  if (array.length > 2) {
+    chunkedArray.push(array.slice(end, end + array.length));
+  }
+  return chunkedArray;
 };
 
 export default Plan;
