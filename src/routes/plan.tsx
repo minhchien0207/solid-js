@@ -2,7 +2,7 @@ import { Title } from "@solidjs/meta";
 import { JSX } from "solid-js";
 import Plan from "~/components/plan/Plan";
 import { createStore } from "solid-js/store";
-import { useParams, useSearchParams } from "@solidjs/router";
+import { useSearchParams } from "@solidjs/router";
 
 type Plan = {
   name?: JSX.Element;
@@ -267,7 +267,7 @@ export default function PlanPage() {
                 class="text-primary text-[16px] leading-[24px] font-semibold"
                 onClick={(e) => {
                   e.stopPropagation();
-                  alert(`Xem chi tiết quyền lợi ${plan.name}`);
+                  alert(`Xem chi tiết quyền lợi ${toPlainText(plan.name)}`);
                 }}
               >
                 Xem chi tiết quyền lợi bảo hiểm
@@ -278,4 +278,11 @@ export default function PlanPage() {
       </div>
     </main>
   );
+}
+
+function toPlainText(v: unknown) {
+  if (!v) return "";
+  if (typeof v === "string") return v;
+  if (v instanceof Node) return (v as HTMLElement).textContent || "";
+  return String(v);
 }

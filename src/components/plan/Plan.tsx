@@ -1,6 +1,5 @@
 import { Component, JSX, splitProps } from "solid-js";
 import "./plan.css";
-import { A } from "@solidjs/router";
 
 type PlanProps = {
   data: {
@@ -64,7 +63,8 @@ const Plan: Component<PlanProps> = (props) => {
         "opacity-100": !local.planIdActiveId, // support for case no plan selected
         "border-transparent opacity-70":
           !local.isActive || !local.planIdActiveId,
-        "active animate-pulse-v2 border-[#DD252E]": local.isActive,
+        "active max-sm:animate-zoom-in-out lg:animate-zoom-out-in border-[#DD252E]":
+          local.isActive,
         "pb-12": local.style?.showImgBottom,
       }}
       onClick={local.onSelect}

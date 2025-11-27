@@ -35,6 +35,10 @@ export default function App() {
           name: "Plan",
           href: "/plan",
         },
+        {
+          name: "Upgrade Plan",
+          href: "/upgrade-plan",
+        },
       ],
     },
   ];

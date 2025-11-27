@@ -8,8 +8,8 @@
   --color-primary: #26245f;
 
   @theme {
-    --animate-pulse-v2: pulse-v2 1s ease-in-out;
-    @keyframes pulse-v2 {
+    --animate-zoom-in-out: zoom-in-out 500ms ease-in-out;
+    @keyframes zoom-in-out {
       0% {
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
@@ -17,6 +17,22 @@
       50% {
         -webkit-transform: scale3d(1.05, 1.05, 1.05);
         transform: scale3d(1.05, 1.05, 1.05);
+      }
+      100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+      }
+    }
+
+    --animate-zoom-out-in: zoom-out-in 1s ease-in-out;
+    @keyframes zoom-out-in {
+      0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+      }
+      50% {
+        -webkit-transform: scale3d(0.95, 0.95, 0.95);
+        transform: scale3d(0.95, 0.95, 0.95);
       }
       100% {
         -webkit-transform: scale3d(1, 1, 1);
