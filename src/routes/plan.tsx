@@ -256,7 +256,7 @@ export default function PlanPage() {
           {statePlan.plans.map((plan, i) => (
             <Plan
               data={plan}
-              style={{ layout, showButton: false }}
+              style={{ layout, showButton: true, showImgBottom: true }}
               textHighlight={statePlan.textHighlight}
               planIdActiveId={statePlan.planIdActiveId}
               isActive={statePlan.planIdActiveId === plan.attr.id}
@@ -265,6 +265,10 @@ export default function PlanPage() {
               <a
                 href="#"
                 class="text-primary text-[16px] leading-[24px] font-semibold"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  alert(`Xem chi tiết quyền lợi ${plan.name}`);
+                }}
               >
                 Xem chi tiết quyền lợi bảo hiểm
               </a>

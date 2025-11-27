@@ -19,6 +19,7 @@ type PlanProps = {
     layout?: "col" | "row";
     showButton?: boolean;
     showBenefit?: boolean;
+    showImgBottom?: boolean;
   };
   onSelect: () => void;
   planIdActiveId?: string;
@@ -54,16 +55,17 @@ const Plan: Component<PlanProps> = (props) => {
 
   return (
     <div
-      class={`relative flex cursor-pointer ${layoutGeneral} rounded-[16px] border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
+      class={`relative flex cursor-pointer ${layoutGeneral} z-0 gap-6 overflow-hidden rounded-[16px] border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
       classList={{
         "lg:w-[299px] p-5": local.style?.layout === "col",
-        "items-center justify-evenly p-10": local.style?.layout === "row",
+        "items-center justify-evenly p-15": local.style?.layout === "row",
         "lg:w-[1140px]": local.style?.layout === "row" && benefits.length > 1,
         "lg:w-[796px]": local.style?.layout === "row" && benefits.length === 1,
         "opacity-100": !local.planIdActiveId, // support for case no plan selected
         "border-transparent opacity-70":
           !local.isActive || !local.planIdActiveId,
         "active animate-pulse-v2 border-[#DD252E]": local.isActive,
+        "pb-12": local.style?.showImgBottom,
       }}
       onClick={local.onSelect}
     >
@@ -73,32 +75,62 @@ const Plan: Component<PlanProps> = (props) => {
         </div>
       )}
 
-      <div class="flex flex-col items-center">
-        {/* Name + Description */}
-        <div class="mt-7 flex flex-col items-center">
-          <div class="name">{local.data.name}</div>
-          <div class="text-light description mb-8 text-[16px] leading-[22px] text-[#76758A] italic">
-            {local.data.description}
-          </div>
-        </div>
-        {/* Price */}
-        <div class="text-primary price mb-8 text-center text-[40px] leading-[56px] font-bold">
-          {local.data.price}
-        </div>
-      </div>
-      {/* Button */}
-      {(local.style?.showButton ?? true) && (
-        <button
-          type="button"
-          class="btn mb-8 w-full rounded-[8px]"
+      {local.planIdActiveId && local.isActive && local.style?.showImgBottom && (
+        <div
+          class="absolute bottom-0 left-0 z-[-1] w-full"
           classList={{
-            "btn-primary text-white": local.isActive,
-            "bg-[#EEF1FC] text-primary": !local.isActive,
+            "bottom-0": local.style?.layout === "col",
+            "lg:bottom-[-40px]":
+              local.style?.layout === "row" && benefits.length === 1,
+            "lg:bottom-[-70px]":
+              local.style?.layout === "row" && benefits.length > 1,
+            "animate-fade-in": local.isActive,
+            "animate-fade-out": !local.isActive,
           }}
         >
-          {local.isActive ? "Gói đã chọn" : "Chọn gói"}
-        </button>
+          <img src="/images/pc-wave.webp" class="w-full opacity-70" />
+        </div>
       )}
+
+      <div class="flex w-full flex-col items-center gap-6">
+        <div
+          class="flex flex-col items-center"
+          classList={{
+            "gap-4": local.style?.layout === "row",
+            "gap-8": local.style?.layout === "col",
+          }}
+        >
+          {/* Name + Description */}
+          <div
+            class="flex flex-col items-center"
+            classList={{
+              "mt-7": local.style?.layout === "col",
+            }}
+          >
+            <div class="name">{local.data.name}</div>
+            <div class="text-light description text-[16px] leading-[22px] text-[#76758A] italic">
+              {local.data.description}
+            </div>
+          </div>
+          {/* Price */}
+          <div class="text-primary price text-center text-[40px] leading-[56px] font-bold">
+            {local.data.price}
+          </div>
+        </div>
+        {/* Button */}
+        {(local.style?.showButton ?? true) && (
+          <button
+            type="button"
+            class="btn w-full rounded-[8px]"
+            classList={{
+              "btn-primary text-white": local.isActive,
+              "bg-[#EEF1FC] text-primary": !local.isActive,
+            }}
+          >
+            {local.isActive ? "Gói đã chọn" : "Chọn gói"}
+          </button>
+        )}
+      </div>
       {/* Benefit + child plan */}
       <div class="flex flex-col items-center gap-4">
         {/* Benefit */}
@@ -143,7 +175,7 @@ const Plan: Component<PlanProps> = (props) => {
             </div>
           </div>
         )}
-        {local.children}
+        <div class="w-full text-center">{local.children}</div>
       </div>
     </div>
   );
