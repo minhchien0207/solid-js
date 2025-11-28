@@ -5,7 +5,7 @@ type PlanProps = {
   data: {
     name?: JSX.Element;
     description?: JSX.Element;
-    price?: JSX.Element;
+    price: JSX.Element | number;
     attr?: {
       name?: string;
       id?: string;

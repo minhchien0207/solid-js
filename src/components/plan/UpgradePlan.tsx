@@ -1,10 +1,76 @@
-import { Component, JSX, splitProps } from "solid-js";
+import { Component, JSX, onMount, splitProps } from "solid-js";
+import { createStore } from "solid-js/store";
+import { Plan } from "~/routes/plan";
 import "./upgrade-plan.css";
 
-type UpgradePlanProps = {};
+type UpgradePlanProps = {
+  plans?: Plan[];
+  benefits?: {
+    code: string;
+    text?: JSX.Element;
+    svg?: JSX.Element;
+    plans: Plan[];
+  }[];
+  currentPlan?: Plan;
+  recommendedPlan?: Plan;
+};
 
 const UpgradePlan: Component<UpgradePlanProps> = (props) => {
-  const [local, others] = splitProps(props, []);
+  const [local, others] = splitProps(props, [
+    "plans",
+    "benefits",
+    "currentPlan",
+    "recommendedPlan",
+  ]);
+  const [state, setState] = createStore<UpgradePlanProps>({
+    plans: local.plans,
+    benefits: local.benefits,
+    currentPlan: local.currentPlan,
+    recommendedPlan: local.recommendedPlan,
+  });
+
+  onMount(() => {
+    setState({
+      benefits: state?.benefits?.map((bnf) => {
+        const maxPrice = Math.max(
+          ...bnf.plans.flatMap((plan) => {
+            const benefit = plan.benefits?.find((b) => b.code === bnf.code);
+            if (!benefit) return 0;
+            if (typeof benefit.price === "number") {
+              return benefit.price;
+            }
+            if (typeof benefit.price === "string") {
+              return parseInt(benefit.price.replace(/\D/g, "")) || 0;
+            }
+            return 0;
+          }),
+        );
+
+        return {
+          ...bnf,
+          plans: bnf.plans.map((plan) => ({
+            ...plan,
+            benefits: plan.benefits?.map((benefit) => {
+              if (benefit.code === bnf.code) {
+                let price = 0;
+                if (typeof benefit.price === "number") {
+                  price = benefit.price;
+                } else if (typeof benefit.price === "string") {
+                  price = parseInt(benefit.price.replace(/\D/g, "")) || 0;
+                }
+                return {
+                  ...benefit,
+                  isMax: price === maxPrice && price > 0,
+                };
+              }
+              return benefit;
+            }),
+          })),
+        };
+      }),
+    });
+  });
+
   return (
     <div class="flex flex-col items-center transition-all duration-300 lg:w-[900px]">
       <div class="relative z-1 w-full overflow-hidden rounded-t-[16px] lg:h-[296px]">
@@ -29,7 +95,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
             Du lịch thoải mái, vì luôn biết rằng bạn đã được bảo vệ toàn diện.
           </span>
         </div>
-        <div class="flex flex-row flex-wrap items-center justify-between gap-[18px] text-[16px] leading-[22px] font-normal text-[#18171C] max-sm:justify-center">
+        <div class="flex w-full flex-row flex-wrap items-center justify-between gap-[18px] text-[16px] leading-[22px] font-normal text-[#18171C] max-sm:justify-center">
           <div class="font-semibold text-[#ADACB9] max-sm:order-1 lg:basis-1/3">
             Bạn sẽ nhận được thêm:
           </div>
@@ -45,40 +111,50 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                 <thead>
                   <tr class="bg-[#EEF1FC] text-center">
                     <th class=""></th>
-                    <th class="">Gói hiện tại</th>
-                    <th class="">
-                      Gói{" "}
-                      <span class="text-primary">
-                        Easy <span class="text-[#DD252E]">2</span>
-                      </span>
-                    </th>
+                    {state.plans?.map((plan, index) => (
+                      <th class="text-primary text-[16px] leading-[24px] font-bold">
+                        {plan.active ? "Gói hiện tại" : plan.name}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="border border-[#E4E3E8]">Cy Ganderton</td>
-                    <td class="border border-[#E4E3E8]">
-                      Quality Control Specialist
-                    </td>
-                    <td class="border border-[#E4E3E8]">Blue</td>
-                  </tr>
-                  <tr>
-                    <td class="border border-[#E4E3E8]">Hart Hagerty</td>
-                    <td class="border border-[#E4E3E8]">
-                      Desktop Support Technician
-                    </td>
-                    <td class="border border-[#E4E3E8]">Purple</td>
-                  </tr>
-                  <tr>
-                    <td class="border border-[#E4E3E8]">Brice Swyre</td>
-                    <td class="border border-[#E4E3E8]">Tax Accountant</td>
-                    <td class="border border-[#E4E3E8]">Red</td>
-                  </tr>
-                  <tr>
-                    <td class="border border-[#E4E3E8]">Brice Swyre</td>
-                    <td class="border border-[#E4E3E8]">Tax Accountant</td>
-                    <td class="border border-[#E4E3E8]">Red</td>
-                  </tr>
+                  {state.benefits?.map((benefit, index) => (
+                    <tr>
+                      <td class="w-fit border border-[#E4E3E8] lg:px-3 lg:py-6">
+                        <div class="flex items-center gap-[11px]">
+                          <div class="icon max-sm:hidden">{benefit.svg}</div>
+                          <div class="description text-[16px] leading-[22px]">
+                            {benefit.text}
+                          </div>
+                        </div>
+                      </td>
+                      {benefit.plans.map((plan, index) => {
+                        const { price, isMax } =
+                          plan.benefits?.find(
+                            (bnf) => bnf.code === benefit.code,
+                          ) ?? {};
+                        return (
+                          <td
+                            class="border border-[#E4E3E8] text-center text-[16px] leading-[24px] lg:px-2 lg:py-[22px]"
+                            classList={{
+                              "text-[#9191A1]": !isMax,
+                              "text-primary font-semibold": isMax,
+                            }}
+                          >
+                            {price ? (
+                              new Intl.NumberFormat("vi-VN", {
+                                style: "currency",
+                                currency: "VND",
+                              }).format(Number(price))
+                            ) : (
+                              <>&#9472;</>
+                            )}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -86,13 +162,35 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
         </div>
       </div>
       {/* footer */}
-      <div class="flex w-full justify-between gap-6 rounded-b-[16px] bg-[#EEF1FC] px-[48px] py-[32px] max-sm:flex-col lg:flex-row">
-        <button class="btn rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-[#474653] max-sm:order-2">
-          Tôi sẽ suy nghĩ thêm
+      <div class="flex w-full justify-between gap-6 rounded-b-[16px] bg-[#EEF1FC] px-[48px] py-[32px] max-sm:flex-col lg:flex-row-reverse">
+        <button
+          class="btn rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-[#474653] max-sm:order-2 lg:order-2"
+          on:click={(e) => {
+            e.stopPropagation();
+            console.log("clicked");
+          }}
+        >
+          {state.plans && state.plans?.length > 1
+            ? "Tôi sẽ suy nghĩ thêm"
+            : "Đóng"}
         </button>
-        <button class="btn btn-primary rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-white max-sm:order-1">
-          Nâng cấp gói +300.000 VNĐ &#8594;
-        </button>
+        {state.plans &&
+          state.plans?.length > 1 &&
+          state.recommendedPlan &&
+          state.currentPlan && (
+            <button class="btn btn-primary rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-white max-sm:order-1 lg:order-1">
+              Nâng cấp gói chỉ với{" "}
+              <span class="skeleton skeleton-text">
+                {new Intl.NumberFormat("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                }).format(
+                  Number(state.recommendedPlan.price - state.currentPlan.price),
+                )}{" "}
+              </span>
+              &#8594;
+            </button>
+          )}
       </div>
     </div>
   );

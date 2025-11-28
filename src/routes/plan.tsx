@@ -4,20 +4,26 @@ import Plan from "~/components/plan/Plan";
 import { createStore } from "solid-js/store";
 import { useSearchParams } from "@solidjs/router";
 
-type Plan = {
+export type Plan = {
+  code?: string;
   name?: JSX.Element;
   description?: JSX.Element;
-  price?: JSX.Element;
-  attr: { name: string; id: string };
+  price: number | JSX.Element;
+  attr?: { name?: string; id?: string };
   active?: boolean;
   benefits?: {
+    code?: string;
     svg?: JSX.Element;
+    text?: JSX.Element;
+    price?: JSX.Element;
     description?: JSX.Element;
+    isMax?: boolean;
   }[];
 };
 
 const initialPlan: Plan[] = [
   {
+    code: "easy-1",
     name: (
       <div class="text-primary text-[24px] leading-[40px] font-bold">
         Easy&nbsp;<span class="text-[#DD252E]">1</span>
@@ -67,6 +73,7 @@ const initialPlan: Plan[] = [
     ],
   },
   {
+    code: "easy-2",
     name: (
       <div class="text-primary text-[24px] leading-[40px] font-bold">
         Easy&nbsp;<span class="text-[#DD252E]">2</span>
@@ -116,6 +123,7 @@ const initialPlan: Plan[] = [
     ],
   },
   {
+    code: "easy-3",
     name: (
       <div class="text-primary text-[24px] leading-[40px] font-bold">
         Easy&nbsp;<span class="text-[#DD252E]">3</span>
@@ -165,6 +173,7 @@ const initialPlan: Plan[] = [
     ],
   },
   {
+    code: "easy-visa",
     name: (
       <div class="text-primary text-[24px] leading-[40px] font-bold">
         Easy&nbsp;<span class="text-[#DD252E]">Visa</span>
@@ -236,7 +245,8 @@ export default function PlanPage() {
     layout,
   });
 
-  const selectPlanById = (id: string) => setStatePlan({ planIdActiveId: id });
+  const selectPlanById = (id?: string) =>
+    setStatePlan({ planIdActiveId: id ?? "" });
 
   const cols = layout === "row" ? 1 : Math.min(statePlan.plans.length, 6);
   const cls = {
@@ -259,8 +269,8 @@ export default function PlanPage() {
               style={{ layout, showButton: true, showImgBottom: true }}
               textHighlight={statePlan.textHighlight}
               planIdActiveId={statePlan.planIdActiveId}
-              isActive={statePlan.planIdActiveId === plan.attr.id}
-              onSelect={() => selectPlanById(plan.attr.id)}
+              isActive={statePlan.planIdActiveId === plan?.attr?.id}
+              onSelect={() => selectPlanById(plan?.attr?.id)}
             >
               <a
                 href="#"

@@ -112,7 +112,7 @@ export default function App() {
               </div>
               <a class="btn btn-ghost text-xl">daisyUI</a>
             </div>
-            <div class="navbar-center hidden lg:flex">
+            <div class="navbar-center hidden lg:z-2 lg:flex">
               <ul class="menu menu-horizontal px-1">
                 <For each={menu}>
                   {(item) => (
@@ -125,6 +125,7 @@ export default function App() {
                               {(child) => (
                                 <li on:click={() => setOpen(!open())}>
                                   <A
+                                    class="whitespace-nowrap"
                                     href={child?.href ?? void 0}
                                     end={child.href === "/"}
                                     activeClass="bg-gray-200"
