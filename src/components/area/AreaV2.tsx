@@ -10,11 +10,10 @@ const Area: Component<AreaProps> = (props) => {
   const [stateArea, setStateArea] = createStore<{
     areas: AreaType[];
     value?: string;
-    activeId: string;
+    children?: any;
   }>({
     areas: local.areas,
     value: local.value,
-    activeId: "",
   });
 
   createEffect(() => {
@@ -22,6 +21,7 @@ const Area: Component<AreaProps> = (props) => {
 
     setStateArea({
       value: val,
+      children: local.areas.find((area) => area.value === val)?.children,
     });
   });
 
@@ -50,6 +50,11 @@ const Area: Component<AreaProps> = (props) => {
             </div>
           </div>
         ))}
+        {stateArea.children ? (
+          <div class="w-max gap-2 transition-all duration-300 ease-in-out">
+            {stateArea.children}
+          </div>
+        ) : null}
       </div>
     </>
   );
