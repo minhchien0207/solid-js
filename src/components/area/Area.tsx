@@ -1,43 +1,37 @@
+import { Component, splitProps, createEffect } from "solid-js";
 import { Title } from "@solidjs/meta";
 import Radio from "~/components/menu/Radio";
 import { createStore } from "solid-js/store";
+import { Area as AreaType } from "~/types/models";
+import { AreaProps } from "~/types/props";
 
-type Area = {
-  name: string;
-  attr: { name: string; id: string };
-  active: boolean;
-  children?: any;
-  hint?: any;
-};
+const Area: Component<AreaProps> = (props) => {
+  const [local, others] = splitProps(props, [
+    "areas",
+    "value",
+    "activeHintId",
+    "onSelect",
+    "onSelectHint",
+  ]);
 
-export default function Area({ areas }: { areas: Area[] }) {
   const [stateArea, setStateArea] = createStore<{
-    areas: Area[];
+    areas: AreaType[];
+    value?: string;
     activeId: string;
     activeHintId: string;
   }>({
-    areas: areas,
+    areas: local.areas,
+    value: local.value,
     activeId: "",
     activeHintId: "",
   });
 
-  const selectAreaById = (id: string) =>
+  createEffect(() => {
     setStateArea({
-      activeId: id,
-      activeHintId:
-        stateArea.activeHintId && stateArea.activeHintId !== id
-          ? ""
-          : stateArea.activeHintId,
+      value: local.value,
+      activeHintId: local.activeHintId,
     });
-  const selectAreaHintById = (id: string) =>
-    setStateArea(
-      "activeHintId",
-      stateArea.activeHintId === ""
-        ? id
-        : stateArea.activeHintId === id
-          ? ""
-          : id,
-    );
+  });
 
   return (
     <>
@@ -46,19 +40,18 @@ export default function Area({ areas }: { areas: Area[] }) {
         {stateArea.areas.map((area, i) => (
           <Radio
             area={area}
-            isActive={stateArea.activeId === area.attr.id}
-            // isActiveHint={stateArea.activeHintId === area.attr.id}
-            onSelect={() => selectAreaById(area.attr.id)}
-            onSelectHint={() => selectAreaHintById(area.attr.id)}
+            isActive={stateArea.value === area.value}
+            onSelect={() => local.onSelect?.(area.value)}
+            onSelectHint={() => local.onSelectHint?.(area.attr.id)}
           />
         ))}
       </div>
-      {stateArea.activeId &&
-      stateArea.areas.find((area) => area.attr.id === stateArea.activeId)
+      {stateArea.value &&
+      stateArea.areas.find((area) => area.value === stateArea.value)
         ?.children ? (
         <div class="w-max gap-2 transition-all duration-300 ease-in-out">
           {
-            stateArea.areas.find((area) => area.attr.id === stateArea.activeId)
+            stateArea.areas.find((area) => area.value === stateArea.value)
               ?.children
           }
         </div>
@@ -76,4 +69,6 @@ export default function Area({ areas }: { areas: Area[] }) {
       ) : null}
     </>
   );
-}
+};
+
+export default Area;

@@ -1,19 +1,13 @@
+import { createEffect } from "solid-js";
 import { Title } from "@solidjs/meta";
-import Radio from "~/components/menu/Radio";
 import { createStore } from "solid-js/store";
 import Area from "~/components/area/Area";
+import { Area as AreaType } from "~/types/models";
 
-type Area = {
-  name: string;
-  attr: { name: string; id: string };
-  active: boolean;
-  children?: any;
-  hint?: any;
-};
-
-const initialArea: Area[] = [
+export const initialArea: AreaType[] = [
   {
-    name: "Đông Nam Á",
+    text: "Đông Nam Á",
+    value: "sea",
     attr: { name: "area", id: "sea" },
     hint: (
       <div>
@@ -29,7 +23,8 @@ const initialArea: Area[] = [
     active: false,
   },
   {
-    name: "Châu Á",
+    text: "Châu Á",
+    value: "asia",
     attr: { name: "area", id: "asia" },
     hint: (
       <div>
@@ -45,7 +40,8 @@ const initialArea: Area[] = [
     active: false,
   },
   {
-    name: "Toàn cầu",
+    text: "Toàn cầu",
+    value: "worldwide",
     attr: { name: "area", id: "worldwide" },
     hint: (
       <div>
@@ -84,20 +80,45 @@ const initialArea: Area[] = [
 
 export default function AreaPage() {
   const [stateArea, setStateArea] = createStore<{
-    areas: Area[];
-    activeId: string;
+    areas: AreaType[];
+    value?: string;
     activeHintId: string;
   }>({
     areas: initialArea,
-    activeId: "",
+    value: "",
     activeHintId: "",
   });
+
+  const selectArea = (val: string) =>
+    setStateArea({
+      value: val,
+      activeHintId:
+        stateArea.activeHintId && stateArea.activeHintId !== val
+          ? ""
+          : stateArea.activeHintId,
+    });
+
+  const selectAreaHintById = (id: string) =>
+    setStateArea(
+      "activeHintId",
+      stateArea.activeHintId === ""
+        ? id
+        : stateArea.activeHintId === id
+          ? ""
+          : id,
+    );
 
   return (
     <>
       <Title>Area</Title>
       <div class="flex flex-col gap-2">
-        <Area areas={stateArea.areas} />
+        <Area
+          areas={stateArea.areas}
+          value={stateArea.value}
+          activeHintId={stateArea.activeHintId}
+          onSelect={selectArea}
+          onSelectHint={selectAreaHintById}
+        />
       </div>
     </>
   );

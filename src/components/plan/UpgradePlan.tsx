@@ -180,7 +180,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
           state.currentPlan && (
             <button class="btn btn-primary rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-white max-sm:order-1 lg:order-1">
               Nâng cấp gói chỉ với{" "}
-              <span class="skeleton skeleton-text">
+              <span class="skeleton skeleton-text font-bold">
                 {new Intl.NumberFormat("vi-VN", {
                   style: "currency",
                   currency: "VND",
