@@ -1,6 +1,6 @@
 import { Title } from "@solidjs/meta";
 import { createStore } from "solid-js/store";
-import Area from "~/components/area/Area";
+import Area from "~/components/area/AreaV2";
 import { Area as AreaType } from "~/types/models";
 
 export const initialArea: AreaType[] = [

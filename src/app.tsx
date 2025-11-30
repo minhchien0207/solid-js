@@ -24,6 +24,10 @@ export default function App() {
           href: "/area",
         },
         {
+          name: "Area v2",
+          href: "/area_v2",
+        },
+        {
           name: "Step",
           href: "/step",
         },
