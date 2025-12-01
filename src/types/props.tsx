@@ -1,4 +1,5 @@
-import { Area } from "./models";
+import { JSX } from 'solid-js';
+import { Area, Plan } from './models';
 
 type AreaProps = {
   areas: Area[];
@@ -8,4 +9,20 @@ type AreaProps = {
   onSelectHint?: (value: string) => void;
 };
 
-export type { AreaProps };
+type PlanProps = {
+  data: Plan;
+  textHighlight?: string;
+  isActive: boolean;
+  style?: {
+    layout?: 'col' | 'row';
+    showButton?: boolean;
+    showBenefit?: boolean;
+    showImgBottom?: boolean;
+  };
+  onSelect: () => void;
+  planIdActiveId?: string;
+  children?: any;
+  mustShow?: boolean;
+};
+
+export type { AreaProps, PlanProps };

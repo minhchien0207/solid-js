@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX } from 'solid-js';
 
 type Area = {
   text: string;
@@ -18,4 +18,21 @@ type Benefit = {
   children?: any;
 };
 
-export type { Area, Benefit };
+type Plan = {
+  code?: string;
+  name?: JSX.Element;
+  description?: JSX.Element;
+  price: number | JSX.Element;
+  attr?: { name?: string; id?: string };
+  active?: boolean;
+  benefits?: {
+    code?: string;
+    svg?: JSX.Element;
+    text?: JSX.Element;
+    price?: JSX.Element;
+    description?: JSX.Element;
+    isMax?: boolean;
+  }[];
+};
+
+export type { Area, Benefit, Plan };
