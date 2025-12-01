@@ -266,6 +266,7 @@ export default function PlanPage() {
           {statePlan.plans.map((plan, i) => (
             <Plan
               data={plan}
+              mustShow={false}
               style={{ layout, showButton: true, showImgBottom: true }}
               textHighlight={statePlan.textHighlight}
               planIdActiveId={statePlan.planIdActiveId}
