@@ -115,7 +115,14 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                     <th class=""></th>
                     {state.plans?.map((plan, index) => (
                       <th class="text-primary text-[16px] leading-[24px] font-bold">
-                        {plan.active ? 'Gói hiện tại' : plan.name}
+                        <div class="items-cente flex flex-col">
+                          <div class="text-black">
+                            {plan.code === state.currentPlan?.code
+                              ? 'Gói hiện tại'
+                              : 'Gói nâng cấp'}
+                          </div>
+                          <span>{plan.name}</span>
+                        </div>
                       </th>
                     ))}
                   </tr>
@@ -188,7 +195,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                           plan.code === state.recommendedPlan?.code,
                       }}
                     >
-                      {toPlainText(plan.name)}
+                      {plan.name}
                     </div>
                   </div>
                 ))}

@@ -1,90 +1,82 @@
-import { Title } from "@solidjs/meta";
-import { JSX } from "solid-js";
-import { createStore } from "solid-js/store";
-import UpgradePlan from "../components/plan/UpgradePlan";
-import { Plan } from "../routes/plan";
+import { Title } from '@solidjs/meta';
+import { JSX } from 'solid-js';
+import { createStore } from 'solid-js/store';
+import UpgradePlan from '../components/plan/UpgradePlan';
+import { Plan } from '~/types/models';
 
 const initialPlan: Plan[] = [
   {
-    code: "easy-1",
-    name: (
-      <div class="">
-        Easy&nbsp;<span class="text-[#DD252E]">1</span>
-      </div>
-    ),
+    code: 'easy-1',
+    name: 'Easy 1',
     price: 220000,
     active: true,
     benefits: [
       {
-        code: "DELAY",
+        code: 'DELAY',
         svg: <img src="/images/benefit/small/delay.svg" class="" alt="" />,
-        text: "Bảo hiểm trễ, hủy chuyến bay",
+        text: 'Bảo hiểm trễ, hủy chuyến bay',
         price: 12000000,
       },
       {
-        code: "BAGGAGE",
+        code: 'BAGGAGE',
         svg: <img src="/images/benefit/small/baggage.svg" class="" alt="" />,
-        text: "Bảo hiểm mất, hư hỏng hành lý",
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 24000000,
       },
       {
-        code: "PA",
+        code: 'PA',
         svg: <img src="/images/benefit/small/pa.svg" class="" alt="" />,
-        text: "Bảo hiểm tai nạn cá nhân",
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 1800000000,
       },
       {
-        code: "MEDICAL",
+        code: 'MEDICAL',
         svg: <img src="/images/benefit/small/medical.svg" class="" alt="" />,
-        text: "Bảo hiểm chi phí y tế, điều trị",
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2100000000,
       },
       {
-        code: "MEDICAL2",
+        code: 'MEDICAL2',
         svg: <img src="/images/benefit/small/medical.svg" class="" alt="" />,
-        text: "Bảo hiểm chi phí y tế, điều trị",
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 10000,
       },
     ],
   },
   {
-    code: "easy-2",
-    name: (
-      <div class="">
-        Easy&nbsp;<span class="text-[#DD252E]">2</span>
-      </div>
-    ),
+    code: 'easy-2',
+    name: 'Easy 2',
     price: 360000,
     active: false,
     benefits: [
       {
-        code: "DELAY",
+        code: 'DELAY',
         svg: <img src="/images/benefit/small/delay.svg" class="" alt="" />,
-        text: "Bảo hiểm trễ, hủy chuyến bay",
+        text: 'Bảo hiểm trễ, hủy chuyến bay',
         price: 18000000,
       },
       {
-        code: "BAGGAGE",
+        code: 'BAGGAGE',
         svg: <img src="/images/benefit/small/baggage.svg" class="" alt="" />,
-        text: "Bảo hiểm mất, hư hỏng hành lý",
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 34000000,
       },
       {
-        code: "PA",
+        code: 'PA',
         svg: <img src="/images/benefit/small/pa.svg" class="" alt="" />,
-        text: "Bảo hiểm tai nạn cá nhân",
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 2400000000,
       },
       {
-        code: "PA2",
+        code: 'PA2',
         svg: <img src="/images/benefit/small/pa.svg" class="" alt="" />,
-        text: "Bảo hiểm tai nạn cá nhân",
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 10000,
       },
       {
-        code: "MEDICAL",
+        code: 'MEDICAL',
         svg: <img src="/images/benefit/small/medical.svg" class="" alt="" />,
-        text: "Bảo hiểm chi phí y tế, điều trị",
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2800000000,
       },
     ],
@@ -101,7 +93,23 @@ export default function UpgradePlanPage() {
       plans: Plan[];
     }[];
   }>({
-    plans: initialPlan,
+    plans: initialPlan.map((plan) => ({
+      ...plan,
+      name:
+        typeof plan?.name === 'string' && plan?.name?.startsWith('Easy')
+          ? plan.name.split(' ').map((char, i) => {
+              if (i === 0) {
+                return char;
+              } else {
+                return (
+                  <>
+                    &nbsp;<span class="text-[#DD252E]">{char}</span>
+                  </>
+                );
+              }
+            })
+          : plan.name,
+    })),
     currentPlan: initialPlan.find((plan) => plan.active === true), // fake condition using by active property
     recommendedPlan: initialPlan.find((plan) => plan.active === false), // fake condition using by active property
     benefits: groupByBenefit(initialPlan),
