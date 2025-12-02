@@ -1,6 +1,7 @@
-import { Component, JSX, createEffect, splitProps } from 'solid-js';
+import { Component, JSX, onMount, splitProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { PlanProps } from '~/types/props';
+import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/ulties';
 import './plan.css';
 
 const Plan: Component<PlanProps> = (props) => {
@@ -16,6 +17,7 @@ const Plan: Component<PlanProps> = (props) => {
   ]);
 
   const [statePlan, setStatePlan] = createStore({
+    data: local.data,
     benefits: chunk2Array(local?.data?.benefits ?? []),
   });
 
@@ -43,7 +45,7 @@ const Plan: Component<PlanProps> = (props) => {
           'lg:w-[1140px]':
             local.style?.layout === 'row' && statePlan.benefits.length > 1,
           'lg:w-[796px]':
-            local.style?.layout === 'row' && benefits.length === 1,
+            local.style?.layout === 'row' && statePlan.benefits.length === 1,
           'opacity-100': !local.planIdActiveId, // support for case no plan selected
           'border-transparent opacity-70':
             !local.isActive || !local.planIdActiveId,
@@ -96,14 +98,14 @@ const Plan: Component<PlanProps> = (props) => {
                 'mt-7': local.style?.layout === 'col',
               }}
             >
-              <div class="name">{local.data.name}</div>
+              <div class="name">{statePlan.data.name}</div>
               <div class="text-light description text-[16px] leading-[22px] text-[#76758A] italic">
-                {local.data.description}
+                {statePlan.data.description}
               </div>
             </div>
             {/* Price */}
             <div class="text-primary price text-center text-[40px] leading-[56px] font-bold">
-              {local.data.price}
+              {convertCurrency(statePlan.data.price)}
             </div>
           </div>
           {/* Button */}
@@ -127,7 +129,7 @@ const Plan: Component<PlanProps> = (props) => {
         {/* Benefit + child plan */}
         <div class="flex flex-col items-center gap-4">
           {/* Benefit */}
-          {statePlan.benefits && (
+          {statePlan.data?.benefits && (
             <div
               class="flex flex-col gap-[22px]"
               classList={{
@@ -149,6 +151,8 @@ const Plan: Component<PlanProps> = (props) => {
                   (
                     arrBenefit: {
                       svg?: JSX.Element;
+                      text?: string;
+                      price?: string;
                       description?: JSX.Element;
                     }[],
                   ) => (
@@ -156,12 +160,23 @@ const Plan: Component<PlanProps> = (props) => {
                       {arrBenefit.map(
                         (benefit: {
                           svg?: JSX.Element;
+                          text?: string;
+                          price?: string;
                           description?: JSX.Element;
                         }) => (
                           <div class="flex items-center gap-[11px]">
                             <div class="icon">{benefit.svg}</div>
-                            <div class="description text-[16px] leading-[22px]">
-                              {benefit.description}
+                            <div class="text-[16px] leading-[22px]">
+                              <div>
+                                {benefit.text}{' '}
+                                <span class="text-primary font-semibold">
+                                  {benefit.price &&
+                                    new Intl.NumberFormat('vi-VN', {
+                                      style: 'currency',
+                                      currency: 'VND',
+                                    }).format(Number(benefit.price))}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         ),
@@ -192,13 +207,13 @@ const Plan: Component<PlanProps> = (props) => {
           )}
           <div class="flex flex-col">
             <div class="flex items-center justify-between">
-              <div class="">{local.data.name}</div>
+              <div class="">{statePlan.data.name}</div>
               <div class="text-primary text-2xl leading-7 font-bold">
-                {local.data.price}
+                {convertCurrency(statePlan.data.price)}
               </div>
             </div>
             <div class="flex items-end justify-between">
-              <div class="font-light">{local.data.description}</div>
+              <div class="font-light">{statePlan.data.description}</div>
               <button
                 type="button"
                 class="btn rounded-[8px] px-[20px] py-[8px] text-[17px] font-semibold"
@@ -233,53 +248,42 @@ const Plan: Component<PlanProps> = (props) => {
           <div class="divider"></div>
           {/* benefit */}
           <div class="flex flex-col gap-[11px]">
-            {statePlan.benefits.map(
-              (
-                arrBenefit: {
-                  svg?: JSX.Element;
-                  description?: JSX.Element;
-                }[],
-              ) => (
-                <div class="flex flex-col items-center gap-[11px]">
-                  {arrBenefit.map(
-                    (benefit: {
-                      svg?: JSX.Element;
-                      description?: JSX.Element;
-                    }) => (
-                      <div class="flex items-center gap-[11px]">
-                        <div class="icon">{benefit.svg}</div>
-                        <div class="description text-[16px] leading-[22px]">
-                          {benefit.description}
+            {statePlan.data?.benefits &&
+              statePlan.benefits.map(
+                (
+                  arrBenefit: {
+                    svg?: JSX.Element;
+                    description?: JSX.Element;
+                  }[],
+                ) => (
+                  <div class="flex flex-col gap-[11px]">
+                    {arrBenefit.map(
+                      (benefit: {
+                        svg?: JSX.Element;
+                        text?: string;
+                        price?: string;
+                        description?: JSX.Element;
+                      }) => (
+                        <div class="flex items-center gap-[11px]">
+                          <div class="w-[20px]">{benefit.svg}</div>
+                          <div class="flex w-full justify-between text-[16px] leading-[22px]">
+                            <div class="text-[12px]">{benefit.text}</div>
+                            <div class="text-primary font-semibold">
+                              {benefit.price &&
+                                numb2CurrencyStr(Number(benefit.price), 'vn')}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ),
-                  )}
-                </div>
-              ),
-            )}
+                      ),
+                    )}
+                  </div>
+                ),
+              )}
           </div>
         </div>
       )}
     </>
   );
-};
-
-const chunkArray = (array: any[], size: number) => {
-  const chunkedArray = [];
-  for (let i = 0; i < array.length; i += size) {
-    chunkedArray.push(array.slice(i, i + size));
-  }
-  return chunkedArray;
-};
-
-const chunk2Array = (array: any[]) => {
-  const chunkedArray = [];
-  const end = array.length > 2 ? Math.round(array.length / 2) : array.length;
-  chunkedArray.push(array.slice(0, end));
-  if (array.length > 2) {
-    chunkedArray.push(array.slice(end, end + array.length));
-  }
-  return chunkedArray;
 };
 
 export default Plan;

@@ -22,7 +22,7 @@ type Plan = {
   code?: string;
   name?: JSX.Element;
   description?: JSX.Element;
-  price: number | JSX.Element;
+  price: number;
   attr?: { name?: string; id?: string };
   active?: boolean;
   benefits?: {

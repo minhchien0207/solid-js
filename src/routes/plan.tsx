@@ -13,12 +13,14 @@ const initialPlan: PlanType[] = [
       </div>
     ),
     description: 'Gói quyền lợi cơ bản',
-    price: '220.000 VNĐ',
+    price: 220000,
     attr: { name: 'plan[]', id: 'easy-1' },
     active: false,
     benefits: [
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
+        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        price: 12000000,
         description: (
           <div class="">
             Trễ chuyến, hủy chuyến bay lên đến{' '}
@@ -28,6 +30,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
+        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        price: 24000000,
         description: (
           <div class="">
             Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
@@ -45,12 +49,14 @@ const initialPlan: PlanType[] = [
       </div>
     ),
     description: 'Gói quyền lợi phố biển nhất',
-    price: '360.000 VNĐ',
+    price: 360000,
     attr: { name: 'plan[]', id: 'easy-2' },
     active: false,
     benefits: [
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
+        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        price: 12000000,
         description: (
           <div class="">
             Trễ chuyến, hủy chuyến bay lên đến{' '}
@@ -60,6 +66,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
+        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        price: 24000000,
         description: (
           <div class="">
             Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
@@ -69,6 +77,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
+        text: 'Bảo hiểm tai nạn cá nhân lên đến',
+        price: 1800000000,
         description: (
           <div class="">
             Bảo hiểm tai nạn cá nhân lên đến{' '}
@@ -78,6 +88,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
+        text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
+        price: 2400000000,
         description: (
           <div class="">
             Bảo hiểm chi phí y tế, điều trị lên đến{' '}
@@ -95,12 +107,14 @@ const initialPlan: PlanType[] = [
       </div>
     ),
     description: 'Gói quyền lợi tối đa',
-    price: '480.000 VNĐ',
+    price: 480000,
     attr: { name: 'plan[]', id: 'easy-3' },
     active: false,
     benefits: [
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
+        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        price: 12000000,
         description: (
           <div class="">
             Trễ chuyến, hủy chuyến bay lên đến{' '}
@@ -110,6 +124,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
+        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        price: 24000000,
         description: (
           <div class="">
             Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
@@ -119,6 +135,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
+        text: 'Bảo hiểm tai nạn cá nhân lên đến',
+        price: 1800000000,
         description: (
           <div class="">
             Bảo hiểm tai nạn cá nhân lên đến{' '}
@@ -128,6 +146,8 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
+        text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
+        price: 2400000000,
         description: (
           <div class="">
             Bảo hiểm chi phí y tế, điều trị lên đến{' '}
@@ -145,30 +165,14 @@ const initialPlan: PlanType[] = [
       </div>
     ),
     description: 'Gói quyền lợi phù hợp xin thị thực',
-    price: '172.000 VNĐ',
+    price: 172000,
     attr: { name: 'plan[]', id: 'easy-visa' },
     active: false,
     benefits: [
       {
-        svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        description: (
-          <div class="">
-            Trễ chuyến, hủy chuyến bay{' '}
-            <span class="font-semibold text-[#E34F56]">Không bảo hiểm</span>
-          </div>
-        ),
-      },
-      {
-        svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        description: (
-          <div class="">
-            Bảo hiểm mất, hư hỏng hành lý{' '}
-            <span class="font-semibold text-[#E34F56]">Không bảo hiểm</span>
-          </div>
-        ),
-      },
-      {
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
+        text: 'Bảo hiểm tai nạn cá nhân',
+        price: 180000000,
         description: (
           <div class="">
             Bảo hiểm tai nạn cá nhân lên đến{' '}
@@ -178,12 +182,23 @@ const initialPlan: PlanType[] = [
       },
       {
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
+        text: 'Bảo hiểm chi phí y tế, điều trị',
+        price: 2400000000,
         description: (
           <div class="">
             Bảo hiểm chi phí y tế, điều trị lên đến{' '}
             <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
           </div>
         ),
+      },
+      {
+        svg: (
+          <img
+            class="w-[40px]"
+            src="/images/benefit/small/worldwide-support-247.svg"
+          />
+        ),
+        text: 'Dịch vụ hỗ trợ du lịch 24/7 của MSIG Việt Nam',
       },
     ],
   },
