@@ -3,6 +3,7 @@ import Plan from '~/components/plan/Plan';
 import { createStore } from 'solid-js/store';
 import { useSearchParams } from '@solidjs/router';
 import { Plan as PlanType } from '~/types/models';
+import { toPlainText } from '~/utils';
 
 const initialPlan: PlanType[] = [
   {
@@ -269,11 +270,4 @@ export default function PlanPage() {
       </div>
     </main>
   );
-}
-
-function toPlainText(v: unknown) {
-  if (!v) return '';
-  if (typeof v === 'string') return v;
-  if (v instanceof Node) return (v as HTMLElement).textContent || '';
-  return String(v);
 }

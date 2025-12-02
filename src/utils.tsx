@@ -49,4 +49,17 @@ const numb2CurrencyStr = (number: number, lang: string = 'vn') => {
   return result;
 };
 
-export { chunkArray, chunk2Array, convertCurrency, numb2CurrencyStr };
+const toPlainText = (v: unknown) => {
+  if (!v) return '';
+  if (typeof v === 'string') return v;
+  if (v instanceof Node) return (v as HTMLElement).textContent || '';
+  return String(v);
+};
+
+export {
+  chunkArray,
+  chunk2Array,
+  convertCurrency,
+  numb2CurrencyStr,
+  toPlainText,
+};

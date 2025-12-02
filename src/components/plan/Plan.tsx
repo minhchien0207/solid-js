@@ -1,7 +1,7 @@
 import { Component, JSX, onMount, splitProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { PlanProps } from '~/types/props';
-import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/ulties';
+import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/utils';
 import './plan.css';
 
 const Plan: Component<PlanProps> = (props) => {
@@ -41,7 +41,8 @@ const Plan: Component<PlanProps> = (props) => {
         class={`relative flex cursor-pointer ${layoutGeneral} md:visible]: z-0 gap-6 overflow-hidden rounded-[16px] border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
         classList={{
           'lg:w-[299px] p-5': local.style?.layout === 'col',
-          'items-center justify-evenly p-15': local.style?.layout === 'row',
+          'items-center lg:items-start justify-evenly p-15':
+            local.style?.layout === 'row',
           'lg:w-[1140px]':
             local.style?.layout === 'row' && statePlan.benefits.length > 1,
           'lg:w-[796px]':
@@ -131,7 +132,7 @@ const Plan: Component<PlanProps> = (props) => {
           {/* Benefit */}
           {statePlan.data?.benefits && (
             <div
-              class="flex flex-col gap-[22px]"
+              class="flex flex-col gap-[11px]"
               classList={{
                 'lg:w-[644px]':
                   local.style?.layout === 'row' &&
@@ -145,7 +146,7 @@ const Plan: Component<PlanProps> = (props) => {
                 Gói bảo hiểm bao gồm:
               </div>
               <div
-                class={`grid gap-[22px] max-sm:grid-cols-1 ${layoutBenefit}`}
+                class={`grid gap-[11px] max-sm:grid-cols-1 ${layoutBenefit}`}
               >
                 {statePlan.benefits.map(
                   (
