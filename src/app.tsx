@@ -1,47 +1,51 @@
-import { MetaProvider, Title } from "@solidjs/meta";
-import { A, Router } from "@solidjs/router";
-import { FileRoutes } from "@solidjs/start/router";
-import { Suspense } from "solid-js";
-import { For } from "solid-js";
-import "./app.css";
-import { createSignal } from "solid-js";
+import { MetaProvider, Title } from '@solidjs/meta';
+import { A, Router } from '@solidjs/router';
+import { FileRoutes } from '@solidjs/start/router';
+import { Suspense } from 'solid-js';
+import { For } from 'solid-js';
+import './app.css';
+import { createSignal } from 'solid-js';
 
 export default function App() {
   const menu = [
     {
-      name: "Trang chủ",
-      href: "/",
+      name: 'Trang chủ',
+      href: '/',
     },
     {
-      name: "Về chúng tôi",
-      href: "/about",
+      name: 'Về chúng tôi',
+      href: '/about',
     },
     {
-      name: "Component",
+      name: 'Component',
       child: [
         {
-          name: "Area",
-          href: "/area",
+          name: 'Area',
+          href: '/area',
         },
         {
-          name: "Area v2",
-          href: "/area_v2",
+          name: 'Area v2',
+          href: '/area_v2',
         },
         {
-          name: "Step",
-          href: "/step",
+          name: 'Step',
+          href: '/step',
         },
         {
-          name: "Benefit",
-          href: "/benefit",
+          name: 'Benefit',
+          href: '/benefit',
         },
         {
-          name: "Plan",
-          href: "/plan",
+          name: 'Plan',
+          href: '/plan',
         },
         {
-          name: "Upgrade Plan",
-          href: "/upgrade-plan",
+          name: 'Upgrade Plan',
+          href: '/upgrade-plan',
+        },
+        {
+          name: 'Question',
+          href: '/question',
         },
       ],
     },
@@ -65,13 +69,13 @@ export default function App() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    {" "}
+                    {' '}
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
                       d="M4 6h16M4 12h8m-8 6h16"
-                    />{" "}
+                    />{' '}
                   </svg>
                 </div>
                 <ul
@@ -90,7 +94,7 @@ export default function App() {
                                   <li>
                                     <A
                                       href={child?.href ?? void 0}
-                                      end={child.href === "/"}
+                                      end={child.href === '/'}
                                       activeClass="bg-gray-200"
                                     >
                                       {child.name}
@@ -103,7 +107,7 @@ export default function App() {
                         ) : (
                           <A
                             href={item?.href ?? void 0}
-                            end={item.href === "/"}
+                            end={item.href === '/'}
                             activeClass="bg-gray-200"
                           >
                             {item.name}
@@ -131,7 +135,7 @@ export default function App() {
                                   <A
                                     class="whitespace-nowrap"
                                     href={child?.href ?? void 0}
-                                    end={child.href === "/"}
+                                    end={child.href === '/'}
                                     activeClass="bg-gray-200"
                                     on:click={() => setOpen(!open())}
                                   >
@@ -145,7 +149,7 @@ export default function App() {
                       ) : (
                         <A
                           href={item?.href ?? void 0}
-                          end={item.href === "/"}
+                          end={item.href === '/'}
                           activeClass="bg-gray-200"
                         >
                           {item.name}

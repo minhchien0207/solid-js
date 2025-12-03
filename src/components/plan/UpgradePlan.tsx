@@ -195,7 +195,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                           plan.code === state.recommendedPlan?.code,
                       }}
                     >
-                      {plan.name}
+                      {toPlainText(plan.name)}
                     </div>
                   </div>
                 ))}

@@ -8,11 +8,7 @@ import { toPlainText } from '~/utils';
 const initialPlan: PlanType[] = [
   {
     code: 'easy-1',
-    name: (
-      <div class="text-primary text-[24px] leading-[40px] font-bold">
-        Easy&nbsp;<span class="text-[#DD252E]">1</span>
-      </div>
-    ),
+    name: 'Easy 1',
     description: 'Gói quyền lợi cơ bản',
     price: 220000,
     attr: { name: 'plan[]', id: 'easy-1' },
@@ -44,11 +40,7 @@ const initialPlan: PlanType[] = [
   },
   {
     code: 'easy-2',
-    name: (
-      <div class="text-primary text-[24px] leading-[40px] font-bold">
-        Easy&nbsp;<span class="text-[#DD252E]">2</span>
-      </div>
-    ),
+    name: 'Easy 2',
     description: 'Gói quyền lợi phố biển nhất',
     price: 360000,
     attr: { name: 'plan[]', id: 'easy-2' },
@@ -102,11 +94,7 @@ const initialPlan: PlanType[] = [
   },
   {
     code: 'easy-3',
-    name: (
-      <div class="text-primary text-[24px] leading-[40px] font-bold">
-        Easy&nbsp;<span class="text-[#DD252E]">3</span>
-      </div>
-    ),
+    name: 'Easy 3',
     description: 'Gói quyền lợi tối đa',
     price: 480000,
     attr: { name: 'plan[]', id: 'easy-3' },
@@ -160,11 +148,7 @@ const initialPlan: PlanType[] = [
   },
   {
     code: 'easy-visa',
-    name: (
-      <div class="text-primary text-[24px] leading-[40px] font-bold">
-        Easy&nbsp;<span class="text-[#DD252E]">Visa</span>
-      </div>
-    ),
+    name: 'Easy Visa',
     description: 'Gói quyền lợi phù hợp xin thị thực',
     price: 172000,
     attr: { name: 'plan[]', id: 'easy-visa' },
@@ -220,11 +204,29 @@ export default function PlanPage() {
     textHighlight?: string;
     layout?: 'row' | 'col';
   }>({
-    plans: initialPlan,
+    plans: initialPlan.map((plan) => ({
+      ...plan,
+      name:
+        typeof plan?.name === 'string' && plan?.name?.startsWith('Easy')
+          ? plan.name.split(' ').map((char, i) => {
+              if (i === 0) {
+                return char;
+              } else {
+                return (
+                  <>
+                    &nbsp;<span class="text-[#DD252E]">{char}</span>
+                  </>
+                );
+              }
+            })
+          : plan.name,
+    })),
     planIdActiveId: undefined,
     textHighlight: 'Được đề xuất',
     layout,
   });
+
+  console.log(statePlan.plans);
 
   const selectPlanById = (id?: string) =>
     setStatePlan({ planIdActiveId: id ?? '' });
