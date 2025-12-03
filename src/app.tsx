@@ -5,6 +5,7 @@ import { Suspense } from 'solid-js';
 import { For } from 'solid-js';
 import './app.css';
 import { createSignal } from 'solid-js';
+import Footer from './components/Footer';
 
 export default function App() {
   const menu = [
@@ -168,6 +169,7 @@ export default function App() {
           <div class="mr-auto ml-auto flex w-full grow justify-center gap-6 p-4 max-md:flex-col">
             <Suspense>{props.children}</Suspense>
           </div>
+          <Footer />
         </MetaProvider>
       )}
     >
