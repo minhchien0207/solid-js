@@ -68,7 +68,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {renderBenefitsV2(bnfGroup.benefits, local?.plans, 1)}
+                    {renderBenefitsV2(bnfGroup.benefits, local?.plans, 1, 1)}
                   </tbody>
                 </table>
                 {/* debug */}
@@ -89,38 +89,50 @@ export default function BenefitFull({ data }: BenefitFullProps) {
 const renderBenefitsV2 = (
   bnfGroup: BenefitItem[],
   plans: string[],
-  start: number | string,
+  level?: number,
+  label?: string,
 ): JSX.Element => {
   if (!bnfGroup || bnfGroup.length === 0) return null;
-  return bnfGroup.map((bnf, bnfIndex) => (
-    <>
-      <tr>
-        <td classList={{ 'font-semibold': bnf.benefits?.length > 0 }}>
-          {start}. {bnf.benefit.name}
-        </td>
-        {plans?.map((plan) => (
-          <td class="text-center font-semibold">
-            {bnf?.plan?.[plan]?.siInWords ??
-              (bnf?.plan?.[plan]?.si ? (
-                <>
-                  <div class="max-sm:visible lg:hidden">
-                    {numb2CurrencyStr(Number(bnf?.plan?.[plan]?.si))}
-                  </div>
-                  <div class="max-sm:hidden lg:visible">
-                    {convertCurrency(Number(bnf?.plan?.[plan]?.si))}
-                  </div>
-                </>
-              ) : (
-                ''
-              ))}
+  return bnfGroup.map((bnf, index) => {
+    const lb = level && level > 1 ? `${label}${index + 1}` : `${index + 1}`;
+    return (
+      <>
+        <tr class={`level-${level} index-${index}`}>
+          <td
+            classList={{
+              'font-semibold':
+                level === 1 || (level === 2 && bnf.benefits?.length > 0),
+              'pl-7': level ? level > 1 : false,
+              'pl-10': level ? level > 2 : false,
+            }}
+          >
+            {lb}. {bnf.benefit.name}
           </td>
-        ))}
-      </tr>
-      {renderBenefitsV2(
-        bnf.benefits,
-        plans,
-        `${bnf.benefits?.length > 0 ? start : Number(start) + 1}.${bnf.benefits?.length > 0 ? bnfIndex + 1 : bnfIndex}`,
-      )}
-    </>
-  ));
+          {plans?.map((plan) => (
+            <td class="text-center font-semibold">
+              {bnf?.plan?.[plan]?.siInWords ??
+                (bnf?.plan?.[plan]?.si ? (
+                  <>
+                    <div class="max-sm:visible lg:hidden">
+                      {numb2CurrencyStr(Number(bnf?.plan?.[plan]?.si))}
+                    </div>
+                    <div class="max-sm:hidden lg:visible">
+                      {convertCurrency(Number(bnf?.plan?.[plan]?.si))}
+                    </div>
+                  </>
+                ) : (
+                  ''
+                ))}
+            </td>
+          ))}
+        </tr>
+        {renderBenefitsV2(
+          bnf.benefits,
+          plans,
+          level ? level + 1 : 1,
+          level ? `${lb}.` : `${index + 1}.`,
+        )}
+      </>
+    );
+  });
 };
