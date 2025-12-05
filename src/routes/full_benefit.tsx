@@ -15,7 +15,7 @@ export default function FullBenefitPage() {
       <Suspense fallback="Loading...">
         <BenefitFull
           data={{
-            plans: ['easy-1', 'easy-2', 'easy-3', 'easy-visa'],
+            plans: ['easy_1', 'easy_2', 'easy_3', 'easy_visa'],
             benefits: benefits() ?? [],
           }}
         />

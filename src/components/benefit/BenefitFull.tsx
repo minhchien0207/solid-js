@@ -1,10 +1,12 @@
-import { splitProps } from 'solid-js';
+import { splitProps, JSX } from 'solid-js';
 // import { createStore } from 'solid-js/store';
+import { numb2CurrencyStr, convertCurrency } from '~/utils';
 
 type Plan = {
   [planCode: string]: {
     id: string;
-    siInWords: string;
+    si?: string;
+    siInWords?: string;
     [key: string]: any;
   };
 };
@@ -31,7 +33,7 @@ type BenefitFullProps = {
 };
 
 export default function BenefitFull({ data }: BenefitFullProps) {
-  const [local, rest] = splitProps(data, ['plans', 'benefits']);
+  const [local] = splitProps(data, ['plans', 'benefits']);
   // const [store, setStore] = createStore<{
   //   plans: string[];
   //   benefits: BenefitItem[];
@@ -41,21 +43,39 @@ export default function BenefitFull({ data }: BenefitFullProps) {
   // });
 
   return (
-    <div class="flex w-full">
-      <div class="tabs tabs-border">
+    <div class="mb-8 flex w-full">
+      <div class="tabs tabs-border bg-[#F1F1F3]">
         {local?.benefits?.benefits?.map((bnfGroup, bnfGroupIndex) => (
           <>
             <input
               type="radio"
               name="full_benefit"
-              class="tab"
+              class="tab text-primary h-fit px-4 py-6 first:ml-3"
               aria-label={`${bnfGroup.benefit.name}`}
+              checked={bnfGroupIndex === 1}
             />
-            <div class="tab-content border-base-300 bg-base-100 p-10">
-              <pre class="text-wrap">
-                {JSON.stringify(bnfGroup.benefits, null, 2)}
-              </pre>
-              {/* {bnfGroup.benefit.name} */}
+            <div class="tab-content border-base-300 bg-base-100 rounded-none">
+              <div class="overflow-x-auto">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      {local?.plans?.map((plan) => (
+                        <th class="text-center font-semibold text-[#18171C]">
+                          {plan}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {renderBenefitsV2(bnfGroup.benefits, local?.plans, 1)}
+                  </tbody>
+                </table>
+                {/* debug */}
+                {/* <pre class="text-wrap">
+                  {JSON.stringify(bnfGroup.benefits, null, 2)}
+                </pre> */}
+              </div>
             </div>
           </>
         ))}
@@ -65,3 +85,42 @@ export default function BenefitFull({ data }: BenefitFullProps) {
     </div>
   );
 }
+
+const renderBenefitsV2 = (
+  bnfGroup: BenefitItem[],
+  plans: string[],
+  start: number | string,
+): JSX.Element => {
+  if (!bnfGroup || bnfGroup.length === 0) return null;
+  return bnfGroup.map((bnf, bnfIndex) => (
+    <>
+      <tr>
+        <td classList={{ 'font-semibold': bnf.benefits?.length > 0 }}>
+          {start}. {bnf.benefit.name}
+        </td>
+        {plans?.map((plan) => (
+          <td class="text-center font-semibold">
+            {bnf?.plan?.[plan]?.siInWords ??
+              (bnf?.plan?.[plan]?.si ? (
+                <>
+                  <div class="max-sm:visible lg:hidden">
+                    {numb2CurrencyStr(Number(bnf?.plan?.[plan]?.si))}
+                  </div>
+                  <div class="max-sm:hidden lg:visible">
+                    {convertCurrency(Number(bnf?.plan?.[plan]?.si))}
+                  </div>
+                </>
+              ) : (
+                ''
+              ))}
+          </td>
+        ))}
+      </tr>
+      {renderBenefitsV2(
+        bnf.benefits,
+        plans,
+        `${bnf.benefits?.length > 0 ? start : Number(start) + 1}.${bnf.benefits?.length > 0 ? bnfIndex + 1 : bnfIndex}`,
+      )}
+    </>
+  ));
+};
