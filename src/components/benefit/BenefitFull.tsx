@@ -1,4 +1,5 @@
 import { splitProps, JSX } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 // import { createStore } from 'solid-js/store';
 import { numb2CurrencyStr, convertCurrency } from '~/utils';
 
@@ -15,7 +16,7 @@ type BenefitDetail = {
   id: string;
   code: string;
   name: string;
-  description: string;
+  description?: string;
 };
 
 type BenefitItem = {
@@ -68,7 +69,12 @@ export default function BenefitFull({ data }: BenefitFullProps) {
                     </tr>
                   </thead>
                   <tbody>
-                    {renderBenefitsV2(bnfGroup.benefits, local?.plans, 1, 1)}
+                    {renderBenefitsV2(
+                      bnfGroup.benefits ?? [],
+                      local?.plans,
+                      1,
+                      1,
+                    )}
                   </tbody>
                 </table>
                 {/* debug */}
@@ -90,15 +96,18 @@ const renderBenefitsV2 = (
   bnfGroup: BenefitItem[],
   plans: string[],
   level?: number,
-  label?: string,
+  label?: string | number,
 ): JSX.Element => {
   if (!bnfGroup || bnfGroup.length === 0) return null;
   return bnfGroup.map((bnf, index) => {
     const lb = level && level > 1 ? `${label}${index + 1}` : `${index + 1}`;
+    const tag = () => (bnf.benefit.description ? 'details' : 'div');
+
     return (
       <>
         <tr class={`level-${level} index-${index}`}>
           <td
+            class="lg:max-w-[444px]"
             classList={{
               'font-semibold':
                 level === 1 || (level === 2 && bnf.benefits?.length > 0),
@@ -106,7 +115,46 @@ const renderBenefitsV2 = (
               'pl-10': level ? level > 2 : false,
             }}
           >
-            {lb}. {bnf.benefit.name}
+            <div class="flex justify-between">
+              <Dynamic component={tag()} class="collapse">
+                <summary class="collapse-title w-fit p-0 font-semibold">
+                  <div class="flex items-center gap-2">
+                    <span>
+                      {lb}. {bnf.benefit.name}
+                    </span>
+                    {bnf.benefit.description && (
+                      <div
+                        class="info cursor-pointer"
+                        on:click={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 14 14"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.66667 13.3334C2.98467 13.3334 0 10.3487 0 6.66667C0 2.98467 2.98467 0 6.66667 0C10.3487 0 13.3334 2.98467 13.3334 6.66667C13.3334 10.3487 10.3487 13.3334 6.66667 13.3334ZM6 6V9.99997H7.33333V6H6ZM6 3.33333V4.66667H7.33333V3.33333H6Z"
+                            fill="#E6A441"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                </summary>
+                {bnf.benefit.description && (
+                  <div class="collapse-content w-fit p-4 text-justify text-sm font-normal italic">
+                    {bnf.benefit.description}
+                  </div>
+                )}
+              </Dynamic>
+              {/* {bnf.benefits.length > 0 && (
+                <div class="cursor-pointer">&#9662;</div>
+              )} */}
+            </div>
           </td>
           {plans?.map((plan) => (
             <td class="text-center font-semibold">
