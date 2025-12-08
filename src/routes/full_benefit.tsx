@@ -4,13 +4,13 @@ import { createResource, Suspense } from 'solid-js';
 
 export default function FullBenefitPage() {
   const [benefits] = createResource(() =>
-    fetch('http://localhost:3000/data/full-benefit.json').then((res) =>
+    fetch('http://localhost:3008/data/full-benefit.json').then((res) =>
       res.json(),
     ),
   );
 
   return (
-    <div>
+    <div class="overflow-x-auto">
       <Title>Full Benefit</Title>
       <Suspense fallback="Loading...">
         <BenefitFull
