@@ -1,6 +1,7 @@
 import { Title } from '@solidjs/meta';
-import BenefitFull from '~/components/benefit/BenefitFull';
+import BenefitFull from '~/components/benefit/BenefitFullV2';
 import { createResource, Suspense } from 'solid-js';
+import { createStore } from 'solid-js/store';
 
 export default function FullBenefitPage() {
   const [benefits] = createResource(() =>
@@ -9,12 +10,25 @@ export default function FullBenefitPage() {
     ),
   );
 
+  const [store, setStore] = createStore<{
+    plans: { code?: string; name?: string };
+    headers: { id: string; code: string; name: string }[];
+    benefits: { code: string; name: string }[];
+    activeId?: string;
+  }>({
+    plans: { code: undefined, name: undefined },
+    headers:
+      benefits()?.benefits?.map((item: any) => ({ ...item.benefit })) ?? [],
+    benefits: [],
+  });
+
   return (
     <div class="overflow-x-auto">
-      <Title>Full Benefit</Title>
+      <Title>Full Benefit v2</Title>
       <Suspense fallback="Loading...">
         <BenefitFull
           data={{
+            activeId: store.activeId,
             plans: [
               {
                 code: 'easy_1',
@@ -33,6 +47,7 @@ export default function FullBenefitPage() {
                 name: 'Easy Visa',
               },
             ],
+            headers: store.headers,
             benefits: benefits() ?? [],
           }}
         />

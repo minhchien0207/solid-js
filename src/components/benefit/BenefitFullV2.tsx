@@ -1,6 +1,6 @@
-import { splitProps, JSX } from 'solid-js';
+import { splitProps, JSX, createEffect } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-// import { createStore } from 'solid-js/store';
+import { createStore } from 'solid-js/store';
 import { numb2CurrencyStr, convertCurrency } from '~/utils';
 
 type Plan = {
@@ -28,7 +28,13 @@ type BenefitItem = {
 
 type BenefitFullProps = {
   data: {
+    activeId?: string;
     plans: {
+      code: string;
+      name: string;
+    }[];
+    headers: {
+      id: string;
       code: string;
       name: string;
     }[];
@@ -37,51 +43,55 @@ type BenefitFullProps = {
 };
 
 export default function BenefitFull({ data }: BenefitFullProps) {
-  const [local] = splitProps(data, ['plans', 'benefits']);
-  // const [store, setStore] = createStore<{
-  //   plans: string[];
-  //   benefits: BenefitItem[];
-  // }>({
-  //   plans: local.plans,
-  //   benefits: local.benefits,
-  // });
+  const [local] = splitProps(data, [
+    'activeId',
+    'plans',
+    'headers',
+    'benefits',
+  ]);
+
+  const [store, setStore] = createStore<{
+    activeId?: string;
+    plans: { code: string; name: string }[];
+    headers: { id: string; code: string; name: string }[];
+    benefits: BenefitItem;
+  }>({
+    activeId: local.activeId,
+    plans: local.plans,
+    headers: local.headers,
+    benefits: local.benefits,
+  });
+
+  const handleTabChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    console.log(target.name);
+    setStore('activeId', target.value);
+  };
+
+  createEffect(() => {
+    console.log(store.activeId);
+  });
 
   return (
-    <div class="flex flex-col lg:w-full">
-      <div class="tabs tabs-border bg-[#F1F1F3]">
-        {local?.benefits?.benefits?.map((bnfGroup, bnfGroupIndex) => (
-          <>
-            <input
-              type="radio"
-              name="full_benefit"
-              class="tab text-primary h-fit max-sm:px-2 max-sm:py-4 lg:px-4 lg:py-6 lg:first:ml-3"
-              aria-label={`${bnfGroup.benefit.name}`}
-              checked={bnfGroupIndex === 1}
-            />
-            <div class="tab-content border-base-300 bg-base-100 sticky start-0 rounded-none">
-              <div class="max-sm:w-full">
-                {/* grid version */}
-                <div class="grid max-sm:grid-cols-4 max-sm:gap-2 max-sm:p-3 max-sm:text-[14px] lg:grid-cols-5 lg:gap-4 lg:p-7">
-                  <div class="max-sm:hidden lg:col-span-1"></div>
-                  {local?.plans?.map((plan) => (
-                    <div class="col-span-1">
-                      <div class="flex items-center justify-center">
-                        {plan.name}
-                      </div>
-                    </div>
-                  ))}
-                  {renderBenefitsV2(bnfGroup.benefits, local?.plans, 1, 1)}
-                </div>
-                {/* debug */}
-                {/* <pre class="text-wrap">
-                  {JSON.stringify(bnfGroup.benefits, null, 2)}
-                </pre> */}
-              </div>
-            </div>
-          </>
+    <div class="flex flex-col">
+      <div class="header-tabs flex w-full gap-4 overflow-x-auto bg-[#F1F1F3] p-4 pb-0">
+        {store?.headers?.map((header) => (
+          <input
+            type="radio"
+            name="full_benefit"
+            class="tab h-fit p-0 pb-4 font-semibold text-[#76758A]"
+            classList={{
+              'before:absolute before:w-full before:h-[3px] before:bg-primary before:bottom-0 text-primary':
+                store.activeId === header.id,
+            }}
+            aria-label={`${header.name}`}
+            checked={store.activeId === header.id}
+            value={header.id}
+            onChange={handleTabChange}
+          />
         ))}
       </div>
-      <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
+      {/* <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
         <div class="text-[24px] font-bold text-[#DD252E]">Lưu ý quan trọng</div>
         <ol class="list-decimal text-justify text-[16px] leading-6.5 lg:pl-5">
           <li>
@@ -136,7 +146,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             </li>
           </ol>
         </div>
-      </details>
+      </details> */}
     </div>
   );
 }

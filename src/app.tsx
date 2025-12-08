@@ -41,6 +41,10 @@ export default function App() {
           href: '/full_benefit',
         },
         {
+          name: 'Full Benefit v2',
+          href: '/full_benefit_v2',
+        },
+        {
           name: 'Plan',
           href: '/plan',
         },
