@@ -52,11 +52,12 @@ export default function BenefitFull({ data }: BenefitFullProps) {
 
   const [store, setStore] = createStore<{
     activeId?: string;
+    activeBenefits?: BenefitItem[];
     plans: { code: string; name: string }[];
     headers: { id: string; code: string; name: string }[];
     benefits: BenefitItem;
   }>({
-    activeId: local.activeId,
+    activeId: local.activeId ?? local?.headers?.[0]?.id,
     plans: local.plans,
     headers: local.headers,
     benefits: local.benefits,
@@ -64,13 +65,25 @@ export default function BenefitFull({ data }: BenefitFullProps) {
 
   const handleTabChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
-    console.log(target.name);
     setStore('activeId', target.value);
   };
 
   createEffect(() => {
-    console.log(store.activeId);
+    const activeId = store.activeId;
+    const benefits = local.benefits?.benefits?.find(
+      (benefit) => benefit.benefit.id === activeId,
+    );
+    setStore('activeBenefits', benefits?.benefits);
   });
+
+  const cols = Math.min(local?.plans?.length + 1, 5);
+  const cls = {
+    1: 'lg:grid-cols-1 max-sm:grid-cols-1',
+    2: 'lg:grid-cols-2 max-sm:grid-cols-1',
+    3: 'lg:grid-cols-3 max-sm:grid-cols-2',
+    4: 'lg:grid-cols-4 max-sm:grid-cols-3',
+    5: 'lg:grid-cols-5 max-sm:grid-cols-4',
+  }[cols];
 
   return (
     <div class="flex flex-col">
@@ -90,11 +103,25 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             onChange={handleTabChange}
           />
         ))}
-        <div class="w-full" id="content-tab">
-          abcdefghijklmnopqrstuvwxyz
+      </div>
+      <div class="w-full" id="content-tab">
+        <div class={`grid max-sm:text-[14px] ${cls}`}>
+          {store.activeBenefits && (
+            <>
+              <div class="bg-[#E4E3E8] text-[#18171C] max-sm:hidden lg:col-span-1"></div>
+              {store?.plans?.map((plan) => (
+                <div class="col-span-1 bg-[#E4E3E8] font-semibold text-[#18171C] max-sm:sticky max-sm:py-3 lg:py-5 lg:text-[18px] lg:leading-[28px]">
+                  <div class="flex items-center justify-center">
+                    {plan.name}
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
+          {renderBenefitsV2(store.activeBenefits ?? [], store.plans, 1, 1)}
         </div>
       </div>
-      {/* <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
+      <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
         <div class="text-[24px] font-bold text-[#DD252E]">Lưu ý quan trọng</div>
         <ol class="list-decimal text-justify text-[16px] leading-6.5 lg:pl-5">
           <li>
@@ -149,7 +176,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             </li>
           </ol>
         </div>
-      </details> */}
+      </details>
     </div>
   );
 }
@@ -165,16 +192,37 @@ const renderBenefitsV2 = (
     const lb = level && level > 1 ? `${label}${index + 1}` : `${index + 1}`;
     const tag = () => (bnf.benefit.description ? 'details' : 'div');
 
+    const cols = Math.min(plans?.length + 1, 5);
+    const clsItem = {
+      1: 'max-sm:col-end-1',
+      2: 'max-sm:col-end-2',
+      3: 'max-sm:col-end-3',
+      4: 'max-sm:col-end-4',
+      5: 'max-sm:col-end-5',
+    }[cols];
+
+    const clsDivider = {
+      1: 'lg:col-end-2 max-sm:col-end-1',
+      2: 'lg:col-end-3 max-sm:col-end-2',
+      3: 'lg:col-end-4 max-sm:col-end-3',
+      4: 'lg:col-end-5 max-sm:col-end-4',
+      5: 'lg:col-end-6 max-sm:col-end-5',
+    }[cols];
+
     return (
       <>
-        <div class="divider col-start-1 m-0 p-0 max-sm:col-end-5 lg:col-end-6"></div>
+        {index !== 0 && (
+          <div
+            class={`divider col-start-1 m-0 h-0 p-0 max-sm:px-6 lg:px-8 ${clsDivider}`}
+          ></div>
+        )}
         <div
-          class={`level-${level} index-${index} max-sm:col-start-1 max-sm:col-end-5 max-sm:w-full lg:max-w-[444px]`}
+          class={`level-${level} index-${index} max-sm:col-start-1 max-sm:w-full max-sm:px-6 max-sm:pt-4 lg:max-w-[444px] lg:px-8 lg:py-4 ${clsItem}`}
           classList={{
             'font-semibold':
               level === 1 || (level === 2 && bnf.benefits?.length > 0),
-            'lg:pl-4': level ? level > 1 : false,
-            'lg:pl-6': level ? level > 2 : false,
+            'lg:pl-12': level ? level > 1 : false,
+            'lg:pl-14': level ? level > 2 : false,
           }}
         >
           <div class="flex justify-between">
@@ -228,14 +276,13 @@ const renderBenefitsV2 = (
                 </div>
               )}
             </Dynamic>
-            {/* {bnf.benefits.length > 0 && (
-                <div class="cursor-pointer">&#9662;</div>
-              )} */}
           </div>
         </div>
         {plans?.map((plan) => (
-          <div class="flex items-center justify-center text-center font-semibold">
-            {bnf?.plan?.[plan.code]?.siInWords ??
+          <div class="flex flex-col items-center justify-center text-center font-semibold max-sm:p-2">
+            {bnf?.plan?.[plan.code]?.siInWords
+              ?.split(/\n/g)
+              .map((line) => <div>{line}</div>) ??
               (bnf?.plan?.[plan.code]?.si ? (
                 <>
                   <div class="max-sm:visible lg:hidden">
@@ -250,6 +297,11 @@ const renderBenefitsV2 = (
               ))}
           </div>
         ))}
+        {bnf.benefits?.length > 0 && (
+          <div
+            class={`divider col-start-1 m-0 h-0 p-0 max-sm:px-6 lg:px-8 ${clsDivider}`}
+          ></div>
+        )}
         {renderBenefitsV2(
           bnf.benefits,
           plans,
