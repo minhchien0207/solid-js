@@ -2,29 +2,40 @@ export default function Modal({
   title,
   attr,
   children,
+  body,
 }: {
   title?: string;
-  attr?: any;
+  attr?: {
+    id?: string;
+    class?: string;
+  };
   children?: any;
+  body?: any;
 }) {
   return (
     <div>
-      <button onClick={() => attr?.id?.showModal()}>Open</button>
-      <dialog id={attr?.id} class="modal">
+      <label for={attr?.id} class={attr?.class}>
+        {children}
+      </label>
+
+      <input type="checkbox" id={attr?.id} class="modal-toggle" />
+      <div class="modal" role="dialog">
         <div class="modal-box p-0 lg:w-11/12 lg:max-w-5xl">
           {/* header */}
           <div class="text-primary flex items-center justify-between p-4 pb-2">
             <div class="text-2xl leading-9 font-bold">{title}</div>
-            <form method="dialog">
-              <button class="btn btn-sm btn-circle btn-ghost">✕</button>
-            </form>
+            <div class="">
+              <label for={attr?.id} class="btn btn-sm btn-circle btn-ghost">
+                ✕
+              </label>
+            </div>
           </div>
           {/* divider */}
           <div class="divider m-0"></div>
           {/* body */}
-          <div class="flex flex-col gap-4 p-4 pt-3">{children}</div>
+          <div class="flex flex-col gap-4 p-4 pt-3">{body}</div>
         </div>
-      </dialog>
+      </div>
     </div>
   );
 }
