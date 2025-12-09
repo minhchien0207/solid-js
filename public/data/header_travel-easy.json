@@ -1,0 +1,229 @@
+{
+  "benefits": [
+    {
+      "benefit": {
+        "id": "2d99a261-d4d3-11f0-918f-00155d012232",
+        "code": "asst",
+        "name": "Hỗ trợ du lịch"
+      },
+      "index": 4,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab14bb0f-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b0d6b46f-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf0066c1-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c3dbe43c-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2d9eb095-d4d3-11f0-918f-00155d012232",
+        "code": "trip",
+        "name": "Hành trình"
+      },
+      "index": 12,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab19f79c-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b0dba000-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf041755-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c3ded9f0-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2db254f2-d4d3-11f0-918f-00155d012232",
+        "code": "persblg",
+        "name": "Tài sản cá nhân"
+      },
+      "index": 84,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab2e240d-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b0ef16f5-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf1abd28-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c3f16c52-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2dc17e6d-d4d3-11f0-918f-00155d012232",
+        "code": "med",
+        "name": "Hỗ trợ y tế"
+      },
+      "index": 144,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab3d6eb2-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b1015149-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf2b3d4b-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c400f1d5-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2dd63ce4-d4d3-11f0-918f-00155d012232",
+        "code": "compavisit",
+        "name": "Thăm thân"
+      },
+      "index": 232,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab53f05e-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b11e2f46-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf43f991-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c418b930-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2dd8f06c-d4d3-11f0-918f-00155d012232",
+        "code": "pa",
+        "name": "Tai nạn cá nhân"
+      },
+      "index": 244,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab56ddf5-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b1211bd9-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf47c271-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c41be84b-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2de5c5bf-d4d3-11f0-918f-00155d012232",
+        "code": "childcare",
+        "name": "Chăm sóc trẻ em"
+      },
+      "index": 280,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab60767c-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b129e0b0-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf511fdd-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c4268ee5-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2de77afa-d4d3-11f0-918f-00155d012232",
+        "code": "ent",
+        "name": "Giải trí"
+      },
+      "index": 288,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab641011-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b12bfdb7-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf52fd5f-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c428aafe-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2dec1627-d4d3-11f0-918f-00155d012232",
+        "code": "ext",
+        "name": "Quyền lợi mở rộng"
+      },
+      "index": 308,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab6bf56c-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_2": {
+            "id": "b1325281-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_3": {
+            "id": "bf5802cb-d4d7-11f0-918f-00155d012232"
+          },
+          "easy_visa": {
+            "id": "c42de2b5-d4d7-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": []
+    }
+  ]
+}

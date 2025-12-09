@@ -56,6 +56,10 @@ export default function App() {
           name: 'Question',
           href: '/question',
         },
+        {
+          name: 'Question v2',
+          href: '/question_v2',
+        },
       ],
     },
   ];

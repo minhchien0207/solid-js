@@ -1,0 +1,235 @@
+{
+  "benefits": [
+    {
+      "benefit": {
+        "id": "2d99a261-d4d3-11f0-918f-00155d012232",
+        "code": "asst",
+        "name": "Hỗ trợ du lịch"
+      },
+      "index": 4,
+      "plan": {
+        "tvl_msig_02": {
+          "flight_delay": {
+            "id": "e7a38bcd-d4de-11f0-918f-00155d012232"
+          },
+          "baggage_delay": {
+            "id": "ed847985-d4de-11f0-918f-00155d012232"
+          },
+          "baggage_loss": {
+            "id": "eaa5e030-d4de-11f0-918f-00155d012232"
+          },
+          "document_loss": {
+            "id": "f010c33b-d4de-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "2d9b31d6-d4d3-11f0-918f-00155d012232",
+            "code": "asst_247",
+            "name": "Dịch vụ hỗ trợ du lịch toàn cầu 24/7",
+            "description": "Dịch vụ hỗ trợ du lịch toàn cầu 24/7 của MSIG Việt Nam\nĐường dây nóng: +66 2039 5728"
+          },
+          "index": 4,
+          "plan": {
+            "tvl_msig_02": {
+              "flight_delay": {
+                "id": "e7a5baf1-d4de-11f0-918f-00155d012232",
+                "siInWords": "Có"
+              },
+              "baggage_delay": {
+                "id": "ed870e79-d4de-11f0-918f-00155d012232",
+                "siInWords": "Có"
+              },
+              "baggage_loss": {
+                "id": "eaa7ebb8-d4de-11f0-918f-00155d012232",
+                "siInWords": "Có"
+              },
+              "document_loss": {
+                "id": "f0149b16-d4de-11f0-918f-00155d012232",
+                "siInWords": "Có"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    },
+    {
+      "benefit": {
+        "id": "2d9eb095-d4d3-11f0-918f-00155d012232",
+        "code": "trip",
+        "name": "Hành trình"
+      },
+      "index": 8,
+      "plan": {
+        "tvl_msig_02": {
+          "flight_delay": {
+            "id": "e7a76999-d4de-11f0-918f-00155d012232"
+          },
+          "baggage_delay": {
+            "id": "ed8998e0-d4de-11f0-918f-00155d012232"
+          },
+          "baggage_loss": {
+            "id": "eaaa4871-d4de-11f0-918f-00155d012232"
+          },
+          "document_loss": {
+            "id": "f016eb59-d4de-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "07a4dcab-d4dd-11f0-918f-00155d012232",
+            "code": "trip_flightdelay2h",
+            "name": "Trễ chuyến bay, chi trả theo hạn mức tối đa cho các chuyến bay trễ từ 2 tiếng trở lên",
+            "description": "CHỈ ÁP DỤNG TRONG TRƯỜNG HỢP: Điều kiện thời tiết xấu; Các vấn đề cơ học của máy bay; Đình công hoặc các hoạt động khác của nhân viên hãng hàng không khai thác thương mại hoặc nhân viên sân bay làm cản trở việc khởi hành."
+          },
+          "index": 8,
+          "plan": {
+            "tvl_msig_02": {
+              "flight_delay": {
+                "id": "e7a90f86-d4de-11f0-918f-00155d012232",
+                "si": 1000000,
+                "siUnit": "VND"
+              },
+              "baggage_delay": {
+                "id": "ed8c2a8f-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "baggage_loss": {
+                "id": "eaac5f1e-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "document_loss": {
+                "id": "f018e4b9-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    },
+    {
+      "benefit": {
+        "id": "2db254f2-d4d3-11f0-918f-00155d012232",
+        "code": "persblg",
+        "name": "Tài sản cá nhân"
+      },
+      "index": 12,
+      "plan": {
+        "tvl_msig_02": {
+          "flight_delay": {
+            "id": "e7aaca31-d4de-11f0-918f-00155d012232"
+          },
+          "baggage_delay": {
+            "id": "ed8e0e27-d4de-11f0-918f-00155d012232"
+          },
+          "baggage_loss": {
+            "id": "eaae32ca-d4de-11f0-918f-00155d012232"
+          },
+          "document_loss": {
+            "id": "f01ae359-d4de-11f0-918f-00155d012232"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "07a5eefe-d4dd-11f0-918f-00155d012232",
+            "code": "persblg_bagdelay2h",
+            "name": "Hành lý đến chậm, chi trả theo hạn mức tối đa cho hành lý bị chậm từ 2 tiếng trở lên"
+          },
+          "index": 12,
+          "plan": {
+            "tvl_msig_02": {
+              "flight_delay": {
+                "id": "e7acbaa3-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "baggage_delay": {
+                "id": "ed8fc1d4-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "baggage_loss": {
+                "id": "eab02633-d4de-11f0-918f-00155d012232",
+                "si": 1000000,
+                "siUnit": "VND"
+              },
+              "document_loss": {
+                "id": "f01cfda5-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              }
+            }
+          },
+          "benefits": []
+        },
+        {
+          "benefit": {
+            "id": "2db3674d-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_bagloss",
+            "name": "Mất hoặc hư hỏng hành lý và/hoặc đồ dùng cá nhân trong hành lý, trả theo chi phí thực tế, không quá mức chi trả tối đa",
+            "description": "Bảo hiểm cho việc mất hoặc hư hỏng hành lý và/hoặc đồ dùng cá nhân của Người được bảo hiểm có trong hành lý do lỗi của nhân viên khách sạn hoặc người vận chuyển hoặc trộm cắp với bằng chứng phòng khách sạn bị đột nhập hoặc Người được bảo hiểm bị bắt hoặc tấn công bằng bạo lực\n\nXem chi tiết các loại trừ trong phần Lưu ý quan trọng (mục số 1)"
+          },
+          "index": 16,
+          "plan": {
+            "tvl_msig_02": {
+              "flight_delay": {
+                "id": "e7ae9561-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "baggage_delay": {
+                "id": "ed930899-d4de-11f0-918f-00155d012232",
+                "si": 2000000,
+                "siUnit": "VND"
+              },
+              "baggage_loss": {
+                "id": "eab284b4-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "document_loss": {
+                "id": "f01ed844-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              }
+            }
+          },
+          "benefits": []
+        },
+        {
+          "benefit": {
+            "id": "2dbd3a01-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_docloss",
+            "name": "Mất hoặc hư hỏng Giấy tờ du lịch, trả theo chi phí thực tế, không quá mức chi trả tối đa",
+            "description": "Giấy tờ du lịch bao gồm hộ chiếu, thị thực, vé máy bay hoặc vé vận chuyển du lịch."
+          },
+          "index": 20,
+          "plan": {
+            "tvl_msig_02": {
+              "flight_delay": {
+                "id": "e7b10967-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "baggage_delay": {
+                "id": "ed95489d-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "baggage_loss": {
+                "id": "eab5123f-d4de-11f0-918f-00155d012232",
+                "siInWords": "Không bảo hiểm"
+              },
+              "document_loss": {
+                "id": "f020fbc0-d4de-11f0-918f-00155d012232",
+                "si": 2000000,
+                "siUnit": "VND"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    }
+  ]
+}

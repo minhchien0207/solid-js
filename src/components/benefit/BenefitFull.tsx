@@ -8,6 +8,7 @@ type Plan = {
     id: string;
     si?: string;
     siInWords?: string;
+    siInSymbols?: 'check' | 'close';
     [key: string]: any;
   };
 };

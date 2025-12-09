@@ -1,0 +1,499 @@
+{
+  "benefits": [
+    {
+      "benefit": {
+        "id": "2db3674d-d4d3-11f0-918f-00155d012232",
+        "code": "persblg_bagloss",
+        "name": "Mất hoặc hư hỏng hành lý và/hoặc đồ dùng cá nhân trong hành lý, trả theo chi phí thực tế, không quá mức chi trả tối đa",
+        "description": "Bảo hiểm cho việc mất hoặc hư hỏng hành lý và/hoặc đồ dùng cá nhân của Người được bảo hiểm có trong hành lý do lỗi của nhân viên khách sạn hoặc người vận chuyển hoặc trộm cắp với bằng chứng phòng khách sạn bị đột nhập hoặc Người được bảo hiểm bị bắt hoặc tấn công bằng bạo lực\n\nXem chi tiết các loại trừ trong phần Lưu ý quan trọng (mục số 1)"
+      },
+      "index": 88,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab2f2f4a-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_2": {
+            "id": "b0f01e59-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_3": {
+            "id": "bf1bce2d-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_visa": {
+            "id": "c3f268c2-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Không bảo hiểm",
+            "siInSymbols": "close"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "2db49f71-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_bagloss_item",
+            "name": "Mỗi hạng mục, bộ hoặc cặp vật dụng"
+          },
+          "index": 92,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab3026ba-d4d7-11f0-918f-00155d012232",
+                "si": 4000000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0f11f0c-d4d7-11f0-918f-00155d012232",
+                "si": 5200000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf1cc7da-d4d7-11f0-918f-00155d012232",
+                "si": 6500000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3f35a7d-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        },
+        {
+          "benefit": {
+            "id": "2db59d0e-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_bagloss_max",
+            "name": "Mức chi trả tối đa"
+          },
+          "index": 96,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab313898-d4d7-11f0-918f-00155d012232",
+                "si": 24000000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0f2133e-d4d7-11f0-918f-00155d012232",
+                "si": 34000000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf1dbee5-d4d7-11f0-918f-00155d012232",
+                "si": 48000000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3f49c75-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    },
+    {
+      "benefit": {
+        "id": "2db6b117-d4d3-11f0-918f-00155d012232",
+        "code": "persblg_laptoploss",
+        "name": "Mất hoặc hư hỏng máy tính xách tay (laptop), trả theo chi phí thực tế, không quá mức chi trả tối đa",
+        "description": "Bao gồm các chi phí sửa chữa hoặc thay thế máy tính xách tay (laptop) trong trường hợp máy tính xách tay của Người được bảo hiểm bị mất hoặc bị hư hỏng do lỗi của nhân viên khách sạn hoặc hãng vận chuyển hoặc kẻ trộm với bằng chứng đột nhập vào phòng khách sạn hoặc Người được bảo hiểm bị bắt hoặc bị tấn công bằng bạo lực"
+      },
+      "index": 100,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab321ca9-d4d7-11f0-918f-00155d012232",
+            "si": 20000000,
+            "siUnit": "VND",
+            "deductible": 1000000,
+            "deductibleUnit": "VND"
+          },
+          "easy_2": {
+            "id": "b0f37ede-d4d7-11f0-918f-00155d012232",
+            "si": 24000000,
+            "siUnit": "VND",
+            "deductible": 2000000,
+            "deductibleUnit": "VND"
+          },
+          "easy_3": {
+            "id": "bf1ebac4-d4d7-11f0-918f-00155d012232",
+            "si": 28000000,
+            "siUnit": "VND",
+            "deductible": 2000000,
+            "deductibleUnit": "VND"
+          },
+          "easy_visa": {
+            "id": "c3f5692f-d4d7-11f0-918f-00155d012232",
+            "siUnit": "VND",
+            "siInWords": "Không bảo hiểm",
+            "siInSymbols": "close"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2db79ab1-d4d3-11f0-918f-00155d012232",
+        "code": "persblg_emerg",
+        "name": "Mua hàng khẩn cấp",
+        "description": "Thanh toán chi phí mua các đồ dùng cá nhân thiết yếu nếu hành lý của Người được bảo hiểm bị mất cắp hoặc thất lạc vĩnh viễn"
+      },
+      "index": 104,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab337325-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_2": {
+            "id": "b0f4a362-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_3": {
+            "id": "bf1fa533-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_visa": {
+            "id": "c3f65a8d-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Không bảo hiểm",
+            "siInSymbols": "close"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "2db87598-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_emerg_indiv",
+            "name": "Cá nhân"
+          },
+          "index": 108,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab34807c-d4d7-11f0-918f-00155d012232",
+                "si": 1900000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0f580f5-d4d7-11f0-918f-00155d012232",
+                "si": 2500000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf20bcfc-d4d7-11f0-918f-00155d012232",
+                "si": 3100000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3f75ca1-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        },
+        {
+          "benefit": {
+            "id": "2db97852-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_emerg_fam",
+            "name": "Gia đình",
+            "description": "CHỈ áp dụng cho đơn Gia đình"
+          },
+          "index": 112,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab357d40-d4d7-11f0-918f-00155d012232",
+                "si": 5400000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0f871ab-d4d7-11f0-918f-00155d012232",
+                "si": 7200000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf21f030-d4d7-11f0-918f-00155d012232",
+                "si": 9000000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3f881ea-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    },
+    {
+      "benefit": {
+        "id": "2dba5a92-d4d3-11f0-918f-00155d012232",
+        "code": "persblg_bagdelay",
+        "name": "Hành lý đến chậm"
+      },
+      "index": 116,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab36841e-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_2": {
+            "id": "b0faff5a-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_3": {
+            "id": "bf22ce4b-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check"
+          },
+          "easy_visa": {
+            "id": "c3f97ea3-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Không bảo hiểm",
+            "siInSymbols": "close"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "2dbb1844-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_bagdelay_6h",
+            "name": "Cho mỗi sáu (6) giờ liên tục bị trễ"
+          },
+          "index": 120,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab376df6-d4d7-11f0-918f-00155d012232",
+                "si": 2900000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0fbe97c-d4d7-11f0-918f-00155d012232",
+                "si": 3600000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf241dfe-d4d7-11f0-918f-00155d012232",
+                "si": 4600000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3fa6ef0-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        },
+        {
+          "benefit": {
+            "id": "2dbc3fda-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_bagdelay_max",
+            "name": "Mức chi trả tối đa"
+          },
+          "index": 124,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab388fa5-d4d7-11f0-918f-00155d012232",
+                "si": 12000000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0fcbb97-d4d7-11f0-918f-00155d012232",
+                "si": 14500000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf252072-d4d7-11f0-918f-00155d012232",
+                "si": 18000000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3fb52dd-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    },
+    {
+      "benefit": {
+        "id": "2dbd3a01-d4d3-11f0-918f-00155d012232",
+        "code": "persblg_docloss",
+        "name": "Mất hoặc hư hỏng Giấy tờ du lịch, trả theo chi phí thực tế, không quá mức chi trả tối đa",
+        "description": "Giấy tờ du lịch bao gồm hộ chiếu, thị thực, vé máy bay hoặc vé vận chuyển du lịch."
+      },
+      "index": 128,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab398686-d4d7-11f0-918f-00155d012232",
+            "si": 22000000,
+            "siUnit": "VND"
+          },
+          "easy_2": {
+            "id": "b0fd8ce0-d4d7-11f0-918f-00155d012232",
+            "si": 28000000,
+            "siUnit": "VND"
+          },
+          "easy_3": {
+            "id": "bf2634c1-d4d7-11f0-918f-00155d012232",
+            "si": 36000000,
+            "siUnit": "VND"
+          },
+          "easy_visa": {
+            "id": "c3fc73d6-d4d7-11f0-918f-00155d012232",
+            "siUnit": "VND",
+            "siInWords": "Không bảo hiểm",
+            "siInSymbols": "close"
+          }
+        }
+      },
+      "benefits": []
+    },
+    {
+      "benefit": {
+        "id": "2dbe8a38-d4d3-11f0-918f-00155d012232",
+        "code": "persblg_moneyloss",
+        "name": "Mất hoặc hư hỏng tiền cá nhân, trả theo chi phí thực tế, không quá mức chi trả tối đa",
+        "description": "Bảo hiểm cho việc mất hoặc thiệt hại đối với Tiền cá nhân của Người được bảo hiểm khi đi du lịch do bị đánh cắp bằng cách đột nhập vũ lực vào két an toàn trong phòng khách sạn hoặc cướp sau khi Người được bảo hiểm bị bắt giữ hoặc bị tấn công"
+      },
+      "index": 132,
+      "plan": {
+        "travel-easy": {
+          "easy_1": {
+            "id": "ab3a7d97-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check",
+            "deductible": 1000000,
+            "deductibleUnit": "VND"
+          },
+          "easy_2": {
+            "id": "b0fe761d-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check",
+            "deductible": 1000000,
+            "deductibleUnit": "VND"
+          },
+          "easy_3": {
+            "id": "bf272f7a-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Có",
+            "siInSymbols": "check",
+            "deductible": 1000000,
+            "deductibleUnit": "VND"
+          },
+          "easy_visa": {
+            "id": "c3fdf6b8-d4d7-11f0-918f-00155d012232",
+            "siInWords": "Không bảo hiểm",
+            "siInSymbols": "close"
+          }
+        }
+      },
+      "benefits": [
+        {
+          "benefit": {
+            "id": "2dbf913b-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_moneyloss_indiv",
+            "name": "Cá nhân"
+          },
+          "index": 136,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab3b77be-d4d7-11f0-918f-00155d012232",
+                "si": 2700000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b0ff71d1-d4d7-11f0-918f-00155d012232",
+                "si": 3600000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf285f8f-d4d7-11f0-918f-00155d012232",
+                "si": 6000000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c3fef7e7-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        },
+        {
+          "benefit": {
+            "id": "2dc08030-d4d3-11f0-918f-00155d012232",
+            "code": "persblg_moneyloss_fam",
+            "name": "Gia đình",
+            "description": "CHỈ áp dụng cho đơn Gia đình"
+          },
+          "index": 140,
+          "plan": {
+            "travel-easy": {
+              "easy_1": {
+                "id": "ab3c7602-d4d7-11f0-918f-00155d012232",
+                "si": 5400000,
+                "siUnit": "VND"
+              },
+              "easy_2": {
+                "id": "b10056c5-d4d7-11f0-918f-00155d012232",
+                "si": 7200000,
+                "siUnit": "VND"
+              },
+              "easy_3": {
+                "id": "bf29f0c3-d4d7-11f0-918f-00155d012232",
+                "si": 12000000,
+                "siUnit": "VND"
+              },
+              "easy_visa": {
+                "id": "c4000597-d4d7-11f0-918f-00155d012232",
+                "siUnit": "VND",
+                "siInWords": "Không bảo hiểm",
+                "siInSymbols": "close"
+              }
+            }
+          },
+          "benefits": []
+        }
+      ]
+    }
+  ]
+}
