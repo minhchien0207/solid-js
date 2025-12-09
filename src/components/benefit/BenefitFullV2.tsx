@@ -90,6 +90,9 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             onChange={handleTabChange}
           />
         ))}
+        <div class="w-full" id="content-tab">
+          abcdefghijklmnopqrstuvwxyz
+        </div>
       </div>
       {/* <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
         <div class="text-[24px] font-bold text-[#DD252E]">Lưu ý quan trọng</div>

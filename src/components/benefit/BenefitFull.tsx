@@ -58,13 +58,12 @@ export default function BenefitFull({ data }: BenefitFullProps) {
               aria-label={`${bnfGroup.benefit.name}`}
               checked={bnfGroupIndex === 1}
             />
-            <div class="tab-content border-base-300 bg-base-100 sticky start-0 rounded-none">
+            <div class="tab-content border-base-300 bg-base-100 start-0 rounded-none">
               <div class="max-sm:w-full">
-                {/* grid version */}
-                <div class="grid max-sm:grid-cols-4 max-sm:gap-2 max-sm:p-3 max-sm:text-[14px] lg:grid-cols-5 lg:gap-4 lg:p-7">
-                  <div class="max-sm:hidden lg:col-span-1"></div>
+                <div class="grid max-sm:grid-cols-4 max-sm:text-[14px] lg:grid-cols-5">
+                  <div class="bg-[#E4E3E8] text-[#18171C] max-sm:hidden lg:col-span-1"></div>
                   {local?.plans?.map((plan) => (
-                    <div class="col-span-1">
+                    <div class="col-span-1 bg-[#E4E3E8] font-semibold text-[#18171C] max-sm:sticky max-sm:py-3 lg:py-5 lg:text-[18px] lg:leading-[28px]">
                       <div class="flex items-center justify-center">
                         {plan.name}
                       </div>
@@ -154,14 +153,16 @@ const renderBenefitsV2 = (
 
     return (
       <>
-        <div class="divider col-start-1 m-0 p-0 max-sm:col-end-5 lg:col-end-6"></div>
+        {index !== 0 && (
+          <div class="divider col-start-1 m-0 h-0 p-0 max-sm:col-end-5 max-sm:px-6 lg:col-end-6 lg:px-8"></div>
+        )}
         <div
-          class={`level-${level} index-${index} max-sm:col-start-1 max-sm:col-end-5 max-sm:w-full lg:max-w-[444px]`}
+          class={`level-${level} index-${index} max-sm:col-start-1 max-sm:col-end-5 max-sm:w-full max-sm:px-6 max-sm:pt-4 lg:max-w-[444px] lg:px-8 lg:py-4`}
           classList={{
             'font-semibold':
               level === 1 || (level === 2 && bnf.benefits?.length > 0),
-            'lg:pl-4': level ? level > 1 : false,
-            'lg:pl-6': level ? level > 2 : false,
+            'lg:pl-12': level ? level > 1 : false,
+            'lg:pl-14': level ? level > 2 : false,
           }}
         >
           <div class="flex justify-between">
@@ -215,14 +216,13 @@ const renderBenefitsV2 = (
                 </div>
               )}
             </Dynamic>
-            {/* {bnf.benefits.length > 0 && (
-                <div class="cursor-pointer">&#9662;</div>
-              )} */}
           </div>
         </div>
         {plans?.map((plan) => (
-          <div class="flex items-center justify-center text-center font-semibold">
-            {bnf?.plan?.[plan.code]?.siInWords ??
+          <div class="flex flex-col items-center justify-center text-center font-semibold">
+            {bnf?.plan?.[plan.code]?.siInWords
+              ?.split(/\n/g)
+              .map((line) => <div>{line}</div>) ??
               (bnf?.plan?.[plan.code]?.si ? (
                 <>
                   <div class="max-sm:visible lg:hidden">
@@ -237,6 +237,9 @@ const renderBenefitsV2 = (
               ))}
           </div>
         ))}
+        {bnf.benefits?.length > 0 && (
+          <div class="divider col-start-1 m-0 h-0 p-0 max-sm:col-end-5 max-sm:px-6 lg:col-end-6 lg:px-8"></div>
+        )}
         {renderBenefitsV2(
           bnf.benefits,
           plans,
