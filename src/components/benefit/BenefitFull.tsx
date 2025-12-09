@@ -46,6 +46,15 @@ export default function BenefitFull({ data }: BenefitFullProps) {
   //   benefits: local.benefits,
   // });
 
+  const cols = Math.min(local?.plans?.length + 1, 5);
+  const cls = {
+    1: 'lg:grid-cols-1 max-sm:grid-cols-1',
+    2: 'lg:grid-cols-2 max-sm:grid-cols-1',
+    3: 'lg:grid-cols-3 max-sm:grid-cols-2',
+    4: 'lg:grid-cols-4 max-sm:grid-cols-3',
+    5: 'lg:grid-cols-5 max-sm:grid-cols-4',
+  }[cols];
+
   return (
     <div class="flex flex-col lg:w-full">
       <div class="tabs tabs-border bg-[#F1F1F3]">
@@ -60,7 +69,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             />
             <div class="tab-content border-base-300 bg-base-100 start-0 rounded-none">
               <div class="max-sm:w-full">
-                <div class="grid max-sm:grid-cols-4 max-sm:text-[14px] lg:grid-cols-5">
+                <div class={`grid max-sm:text-[14px] ${cls}`}>
                   <div class="bg-[#E4E3E8] text-[#18171C] max-sm:hidden lg:col-span-1"></div>
                   {local?.plans?.map((plan) => (
                     <div class="col-span-1 bg-[#E4E3E8] font-semibold text-[#18171C] max-sm:sticky max-sm:py-3 lg:py-5 lg:text-[18px] lg:leading-[28px]">
@@ -151,13 +160,32 @@ const renderBenefitsV2 = (
     const lb = level && level > 1 ? `${label}${index + 1}` : `${index + 1}`;
     const tag = () => (bnf.benefit.description ? 'details' : 'div');
 
+    const cols = Math.min(plans?.length + 1, 5);
+    const clsItem = {
+      1: 'max-sm:col-end-1',
+      2: 'max-sm:col-end-2',
+      3: 'max-sm:col-end-3',
+      4: 'max-sm:col-end-4',
+      5: 'max-sm:col-end-5',
+    }[cols];
+
+    const clsDivider = {
+      1: 'lg:col-end-2 max-sm:col-end-1',
+      2: 'lg:col-end-3 max-sm:col-end-2',
+      3: 'lg:col-end-4 max-sm:col-end-3',
+      4: 'lg:col-end-5 max-sm:col-end-4',
+      5: 'lg:col-end-6 max-sm:col-end-5',
+    }[cols];
+
     return (
       <>
         {index !== 0 && (
-          <div class="divider col-start-1 m-0 h-0 p-0 max-sm:col-end-5 max-sm:px-6 lg:col-end-6 lg:px-8"></div>
+          <div
+            class={`divider col-start-1 m-0 h-0 p-0 max-sm:px-6 lg:px-8 ${clsDivider}`}
+          ></div>
         )}
         <div
-          class={`level-${level} index-${index} max-sm:col-start-1 max-sm:col-end-5 max-sm:w-full max-sm:px-6 max-sm:pt-4 lg:max-w-[444px] lg:px-8 lg:py-4`}
+          class={`level-${level} index-${index} max-sm:col-start-1 max-sm:w-full max-sm:px-6 max-sm:pt-4 lg:max-w-[444px] lg:px-8 lg:py-4 ${clsItem}`}
           classList={{
             'font-semibold':
               level === 1 || (level === 2 && bnf.benefits?.length > 0),
@@ -219,7 +247,7 @@ const renderBenefitsV2 = (
           </div>
         </div>
         {plans?.map((plan) => (
-          <div class="flex flex-col items-center justify-center text-center font-semibold">
+          <div class="flex flex-col items-center justify-center text-center font-semibold max-sm:p-2">
             {bnf?.plan?.[plan.code]?.siInWords
               ?.split(/\n/g)
               .map((line) => <div>{line}</div>) ??
@@ -238,7 +266,9 @@ const renderBenefitsV2 = (
           </div>
         ))}
         {bnf.benefits?.length > 0 && (
-          <div class="divider col-start-1 m-0 h-0 p-0 max-sm:col-end-5 max-sm:px-6 lg:col-end-6 lg:px-8"></div>
+          <div
+            class={`divider col-start-1 m-0 h-0 p-0 max-sm:px-6 lg:px-8 ${clsDivider}`}
+          ></div>
         )}
         {renderBenefitsV2(
           bnf.benefits,
