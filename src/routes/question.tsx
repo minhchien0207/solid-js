@@ -62,8 +62,11 @@ export default function QuestionPage() {
           <Modal
             attr={{
               id: 'faq_modal',
-              class:
-                'btn flex items-center gap-2 rounded-[20px] bg-[#D8DEEE] font-bold text-[#474653]',
+              class: {
+                label:
+                  'btn flex items-center gap-2 rounded-[20px] bg-[#D8DEEE] font-bold text-[#474653]',
+                modal: 'lg:max-w-5xl',
+              },
             }}
             title="Các câu hỏi thường gặp"
             body={state.data.map((item, index) => (

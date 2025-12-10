@@ -1,58 +1,182 @@
+import { Show } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
+// import { A } from '@solidjs/router';
 import { Title } from '@solidjs/meta';
 import { createStore } from 'solid-js/store';
-import { initial as data } from '~/routes/question';
+import { initial as faq } from '~/routes/question';
+import Modal from '~/components/modal/Modal';
 
 export default function QuestionPage() {
   const [state, setState] = createStore<{
-    data: any[];
+    modalActive?: {
+      id?: string;
+      title?: string;
+      body?: any;
+      style?: string;
+    };
+    data?: any;
   }>({
-    data: data,
+    data: {
+      faq_modal: {
+        content: faq,
+        style: 'lg:max-w-5xl',
+      },
+      list_document_modal: {
+        content: [
+          {
+            title: 'Quy tắc bảo hiểm (Toàn diện)',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Policy_Wording_TravelEasy_Comprehensive_VN.pdf',
+          },
+          {
+            title: 'Quy tắc bảo hiểm (Một quyền lợi)',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Policy_Wording_TravelEasy_Single_Benefit.pdf',
+          },
+          {
+            title: 'Hướng dẫn thủ tục khiếu nại bồi thường',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Travel_Claim_Guidelines_VN.pdf',
+          },
+          {
+            title: 'Đơn yêu cầu bồi thường',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Travel_Claim_Form.pdf',
+          },
+          {
+            title: 'Mẫu biên bản tường tình',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/claim_report.doc',
+          },
+        ],
+      },
+    },
   });
+
+  const handleModalChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const modalId = target.dataset.modalId || '';
+    setState({
+      modalActive: {
+        id: modalId,
+        title: target.dataset.modalTitle || '',
+        body: state?.data?.[modalId]?.content,
+        style: state?.data?.[modalId]?.style,
+      },
+    });
+  };
 
   return (
     <>
-      <Title>Question</Title>
+      <Title>Question v2</Title>
       <div class="relative w-full">
         <div class="h-[1000px]"></div>
         <div class="fab sticky right-5 bottom-5">
-          {/* <label for={attr?.id} class={attr?.class}>
-            <div class="h-[15px] w-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
-            <span class="">Hỏi đáp</span>
-          </label> */}
-
-          {/* <Modal
-            attr={{
-              id: 'faq_modal',
-              class:
-                'btn flex items-center gap-2 rounded-[20px] bg-[#D8DEEE] font-bold text-[#474653]',
-            }}
-            title="Các câu hỏi thường gặp"
-            body={state.data.map((item, index) => (
-              <details
-                class="collapse-arrow bg-base-100 border-base-300 text-primary collapse border"
-                name="faq"
-              >
-                <summary class="collapse-title text-[16px] leading-[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap">
-                  {item.question}
-                </summary>
-                <div class="collapse-content text-regular text-[14px] leading-[25px]">
-                  <ul
-                    role="list"
-                    class="list-disc text-pretty marker:text-[#474653]"
-                  >
-                    {item.answers.map((answer: string) => (
-                      <li class="ml-5 text-justify">{answer}</li>
-                    ))}
-                  </ul>
-                </div>
-              </details>
-            ))}
+          <div
+            tabindex="0"
+            role="button"
+            class="btn flex items-center gap-2 rounded-full"
           >
             <div class="h-[15px] w-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
             <span class="">Hỏi đáp</span>
-          </Modal> */}
+          </div>
+
+          <div class="fab-close">
+            Đóng&nbsp;<span class="btn btn-circle btn-error">✕</span>
+          </div>
+
+          <div>
+            Câu hỏi thường gặp&nbsp;
+            <label
+              class="btn btn-lg btn-circle"
+              data-modal-id="faq_modal"
+              data-modal-title="Câu hỏi thường gặp"
+              onclick={handleModalChange}
+              for="faq_modal"
+            >
+              <div
+                class="bg-primary h-[15px] w-[15px] mask-[url('/images/faq.svg')] mask-center mask-no-repeat"
+                data-modal-id="faq_modal"
+                data-modal-title="Câu hỏi thường gặp"
+                onclick={(e) => {
+                  e.stopPropagation();
+                  handleModalChange(e);
+                }}
+              ></div>
+            </label>
+          </div>
+          <div>
+            Tài liệu sản phẩm&nbsp;
+            <label
+              class="btn btn-lg btn-circle"
+              data-modal-id="list_document_modal"
+              data-modal-title="Tài liệu sản phẩm"
+              onclick={handleModalChange}
+              for="list_document_modal"
+            >
+              <div
+                class="bg-primary h-[15px] w-[15px] mask-[url('/images/list_document.svg')] mask-center mask-no-repeat"
+                data-modal-id="list_document_modal"
+                data-modal-title="Tài liệu sản phẩm"
+                onclick={(e) => {
+                  e.stopPropagation();
+                  handleModalChange(e);
+                }}
+              ></div>
+            </label>
+          </div>
         </div>
       </div>
+
+      <Show when={state?.modalActive?.id} keyed>
+        <Modal
+          attr={{
+            id: state?.modalActive?.id,
+            class: {
+              label:
+                'btn flex items-center gap-2 rounded-[20px] bg-[#D8DEEE] font-bold text-[#474653]',
+              ...(state?.modalActive?.style && {
+                modal: state?.modalActive?.style,
+              }),
+            },
+          }}
+          title={state?.modalActive?.title}
+          body={state?.modalActive?.body?.map((item, index) => {
+            const tag = () => (item?.answers?.length > 0 ? 'details' : 'div');
+            const titleTag = () => (item?.link ? 'a' : 'summary');
+
+            return (
+              <Dynamic
+                component={tag()}
+                class="bg-base-100 border-base-300 text-primary collapse border"
+                classList={{
+                  'collapse-arrow': item?.answers?.length > 0,
+                }}
+                name="content_modal"
+              >
+                <Dynamic
+                  component={titleTag()}
+                  href={item?.link}
+                  class="collapse-title text-[16px] leading-[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap"
+                  classList={{
+                    "after:ml-2 after:inline-block after:w-4 after:h-4 after:content-[url('/images/file-pdf.svg')] after:transition-all":
+                      item?.link,
+                  }}
+                >
+                  {item?.title ?? item?.question}
+                </Dynamic>
+                <Show when={item?.answers?.length > 0}>
+                  <div class="collapse-content text-regular text-[14px] leading-[25px]">
+                    <ul
+                      role="list"
+                      class="list-disc text-pretty marker:text-[#474653]"
+                    >
+                      {item?.answers?.map((answer: string) => (
+                        <li class="ml-5 text-justify">{answer}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </Show>
+              </Dynamic>
+            );
+          })}
+        ></Modal>
+      </Show>
     </>
   );
 }

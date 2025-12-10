@@ -7,20 +7,25 @@ export default function Modal({
   title?: string;
   attr?: {
     id?: string;
-    class?: string;
+    class?: {
+      label?: string;
+      modal?: string;
+    };
   };
   children?: any;
   body?: any;
 }) {
   return (
     <div>
-      <label for={attr?.id} class={attr?.class}>
-        {children}
-      </label>
+      {children && (
+        <label for={attr?.id} class={attr?.class?.label}>
+          {children}
+        </label>
+      )}
 
       <input type="checkbox" id={attr?.id} class="modal-toggle" />
       <div class="modal" role="dialog">
-        <div class="modal-box p-0 lg:w-11/12 lg:max-w-5xl">
+        <div class={`modal-box p-0 ${attr?.class?.modal}`}>
           {/* header */}
           <div class="text-primary flex items-center justify-between p-4 pb-2">
             <div class="text-2xl leading-9 font-bold">{title}</div>
