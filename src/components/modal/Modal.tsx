@@ -1,3 +1,5 @@
+import { Show } from 'solid-js';
+
 export default function Modal({
   title,
   attr,
@@ -19,11 +21,11 @@ export default function Modal({
 }) {
   return (
     <div>
-      {children && (
+      <Show when={children} keyed>
         <label for={attr?.id} class={attr?.class?.label}>
           {children}
         </label>
-      )}
+      </Show>
 
       <input type="checkbox" id={attr?.id} class="modal-toggle" />
       <div class="modal" role="dialog">

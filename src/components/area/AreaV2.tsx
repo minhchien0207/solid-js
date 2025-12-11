@@ -1,4 +1,4 @@
-import { Component, splitProps, createEffect } from 'solid-js';
+import { Component, splitProps, createEffect, Show } from 'solid-js';
 import { Title } from '@solidjs/meta';
 import { createStore } from 'solid-js/store';
 import { Area as AreaType } from '~/types/models';
@@ -50,11 +50,11 @@ const Area: Component<AreaProps> = (props) => {
             </div>
           </div>
         ))}
-        {stateArea.children ? (
+        <Show when={stateArea.children} keyed>
           <div class="w-max gap-2 transition-all duration-300 ease-in-out">
             {stateArea.children}
           </div>
-        ) : null}
+        </Show>
       </div>
     </>
   );

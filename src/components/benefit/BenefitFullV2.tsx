@@ -1,4 +1,4 @@
-import { splitProps, JSX, createEffect } from 'solid-js';
+import { splitProps, JSX, createEffect, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
 import { numb2CurrencyStr, convertCurrency } from '~/utils';
@@ -264,7 +264,7 @@ const renderBenefitsV2 = (
                   )}
                 </div>
               </summary>
-              {bnf.benefit.description && (
+              <Show when={bnf.benefit.description} keyed>
                 <div
                   class="collapse-content mt-2.5 w-fit border-l-2 border-[#E6A441] pr-0 pb-0 text-justify text-sm font-normal italic"
                   classList={{
@@ -274,7 +274,7 @@ const renderBenefitsV2 = (
                 >
                   {bnf.benefit.description}
                 </div>
-              )}
+              </Show>
             </Dynamic>
           </div>
         </div>
@@ -297,11 +297,11 @@ const renderBenefitsV2 = (
               ))}
           </div>
         ))}
-        {bnf.benefits?.length > 0 && (
+        <Show when={bnf.benefits?.length > 0} keyed>
           <div
             class={`divider col-start-1 m-0 h-0 p-0 max-sm:px-6 lg:px-8 ${clsDivider}`}
           ></div>
-        )}
+        </Show>
         {renderBenefitsV2(
           bnf.benefits,
           plans,

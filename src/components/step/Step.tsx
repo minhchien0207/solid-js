@@ -1,9 +1,10 @@
-import { Component, JSX, mergeProps, splitProps } from 'solid-js';
+import { Component, JSX, mergeProps, splitProps, Show } from 'solid-js';
 import { A, useMatch } from '@solidjs/router';
 import { Dynamic } from 'solid-js/web';
 import './step.css';
 
-export interface StepPropsCore extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface StepPropsCore
+  extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   order: number;
   name: string;
   progress?: Progress;
@@ -21,7 +22,8 @@ interface Progress {
 
 interface StepProps extends Partial<StepPropsCore> {}
 
-const mergeClass = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ');
+const mergeClass = (...classes: Array<string | undefined>) =>
+  classes.filter(Boolean).join(' ');
 
 const Step: Component<StepProps> = (initialProps) => {
   const props = mergeProps(
@@ -29,7 +31,7 @@ const Step: Component<StepProps> = (initialProps) => {
       // default props value
       active: false,
     },
-    initialProps
+    initialProps,
   );
 
   const [local, rest] = splitProps(props, ['children', 'class', 'href', 'as']);
@@ -39,7 +41,7 @@ const Step: Component<StepProps> = (initialProps) => {
   // useMatch trả về match object nếu href khớp; null/undefined nếu không khớp
   const match = () => (isLink() ? useMatch(() => local.href!)() : null);
 
-  const tag = () => (isLink() ? A : local.as ?? 'div');
+  const tag = () => (isLink() ? A : (local.as ?? 'div'));
 
   // Khi component là A, truyền href; khi là div không truyền href
   const hrefProps = isLink() ? { href: local.href } : {};
@@ -57,10 +59,13 @@ const Step: Component<StepProps> = (initialProps) => {
       {/* for tablet or higher */}
       <div class="flex flex-col items-center gap-2 max-md:hidden">
         <div class="flex items-center gap-2 text-[#18171C]">
-          <div class="flex justify-evenly items-center w-[20px] h-[20px] rounded-[50%] bg-[#EAEEFA] text-[10px] order">
+          <div class="order flex h-[20px] w-[20px] items-center justify-evenly rounded-[50%] bg-[#EAEEFA] text-[10px]">
             {props.order}
           </div>
-          <div class="name text-[18px]" classList={{ 'font-semibold': props.active }}>
+          <div
+            class="name text-[18px]"
+            classList={{ 'font-semibold': props.active }}
+          >
             {props.name}
           </div>
         </div>
@@ -73,31 +78,34 @@ const Step: Component<StepProps> = (initialProps) => {
         )}
       </div>
       {/* for mobile */}
-      <div class="flex-row items-center flex-nowrap gap-2 hidden max-md:flex">
+      <div class="hidden flex-row flex-nowrap items-center gap-2 max-md:flex">
         <div class="flex flex-col items-end">
-          <div class="text-[#ADACB9] font-light sub-step">{`Bước ${props.order}`}</div>
-          <div class="text-[#18171C] text-[18px] name" classList={{ 'font-semibold': props.active }}>
+          <div class="sub-step font-light text-[#ADACB9]">{`Bước ${props.order}`}</div>
+          <div
+            class="name text-[18px] text-[#18171C]"
+            classList={{ 'font-semibold': props.active }}
+          >
             {props.name}
           </div>
         </div>
-        {props.progress && (
+        <Show when={props?.progress} keyed>
           <div class="relative">
             <div
               class="radial-progress text-primary relative z-1"
-              style={`--value:${props.progress.current};--size:2.5rem;--thickness:5px;`}
-              aria-valuenow={props.progress.current}
+              style={`--value:${props?.progress?.current};--size:2.5rem;--thickness:5px;`}
+              aria-valuenow={props?.progress?.current}
               role="progressbar"
             >
               {props.order}
             </div>
             <div
-              class="radial-progress text-[#E4E3E8] absolute left-0 top-0"
+              class="radial-progress absolute top-0 left-0 text-[#E4E3E8]"
               style={`--value:100;--size:2.5rem;--thickness:5px;`}
               aria-valuenow={100}
               role="progressbar"
             ></div>
           </div>
-        )}
+        </Show>
       </div>
       {local.children}
     </Dynamic>

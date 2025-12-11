@@ -1,16 +1,16 @@
-import { Component, splitProps, createEffect } from "solid-js";
-import { Title } from "@solidjs/meta";
-import { createStore } from "solid-js/store";
-import { Area as AreaType } from "~/types/models";
-import { AreaProps } from "~/types/props";
+import { Component, splitProps, createEffect, Show } from 'solid-js';
+import { Title } from '@solidjs/meta';
+import { createStore } from 'solid-js/store';
+import { Area as AreaType } from '~/types/models';
+import { AreaProps } from '~/types/props';
 
 const Area: Component<AreaProps> = (props) => {
   const [local, others] = splitProps(props, [
-    "areas",
-    "value",
-    "activeHintId",
-    "onSelect",
-    "onSelectHint",
+    'areas',
+    'value',
+    'activeHintId',
+    'onSelect',
+    'onSelectHint',
   ]);
 
   const [stateArea, setStateArea] = createStore<{
@@ -21,8 +21,8 @@ const Area: Component<AreaProps> = (props) => {
   }>({
     areas: local.areas,
     value: local.value,
-    activeId: "",
-    activeHintId: "",
+    activeId: '',
+    activeHintId: '',
   });
 
   createEffect(() => {
@@ -64,7 +64,7 @@ const Area: Component<AreaProps> = (props) => {
             >
               {area.text}
             </label>
-            {area.hint && (
+            <Show when={area.hint}>
               <div
                 class="info cursor-pointer"
                 on:click={(e) => {
@@ -85,23 +85,34 @@ const Area: Component<AreaProps> = (props) => {
                   />
                 </svg>
               </div>
-            )}
+            </Show>
           </div>
         ))}
       </div>
-      {stateArea.value &&
-      stateArea.areas.find((area) => area.value === stateArea.value)
-        ?.children ? (
+      <Show
+        when={
+          stateArea.value &&
+          stateArea.areas.find((area) => area.value === stateArea.value)
+            ?.children
+        }
+        keyed
+      >
         <div class="w-max gap-2 transition-all duration-300 ease-in-out">
           {
             stateArea.areas.find((area) => area.value === stateArea.value)
               ?.children
           }
         </div>
-      ) : null}
-      {stateArea.activeHintId &&
-      stateArea.areas.find((area) => area.attr.id === stateArea.activeHintId)
-        ?.hint ? (
+      </Show>
+      <Show
+        when={
+          stateArea.activeHintId &&
+          stateArea.areas.find(
+            (area) => area.attr.id === stateArea.activeHintId,
+          )?.hint
+        }
+        keyed
+      >
         <div class="gap-2 rounded-[8px] bg-[#E8191C] p-2 font-light text-white opacity-50 transition-all duration-300 ease-in-out">
           {
             stateArea.areas.find(
@@ -109,7 +120,7 @@ const Area: Component<AreaProps> = (props) => {
             )?.hint
           }
         </div>
-      ) : null}
+      </Show>
     </>
   );
 };
