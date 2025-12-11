@@ -1,6 +1,7 @@
 export default function Modal({
   title,
   attr,
+  fncHandleClose,
   children,
   body,
 }: {
@@ -12,6 +13,7 @@ export default function Modal({
       modal?: string;
     };
   };
+  fncHandleClose?: () => void;
   children?: any;
   body?: any;
 }) {
@@ -30,7 +32,11 @@ export default function Modal({
           <div class="text-primary flex items-center justify-between p-4 pb-2">
             <div class="text-2xl leading-9 font-bold">{title}</div>
             <div class="">
-              <label for={attr?.id} class="btn btn-sm btn-circle btn-ghost">
+              <label
+                for={attr?.id}
+                class="btn btn-sm btn-circle btn-ghost"
+                onclick={fncHandleClose}
+              >
                 ✕
               </label>
             </div>

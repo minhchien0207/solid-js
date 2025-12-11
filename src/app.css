@@ -61,3 +61,19 @@
     }
   }
 }
+
+[href^='http://']::after,
+[href^='https://']::after
+{
+  mask-image: url(images/link.svg);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+[href$='.pdf']::after {
+  mask-image: url(images/file-pdf.svg);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}

@@ -61,6 +61,17 @@ export default function QuestionPage() {
     });
   };
 
+  const handleModalClose = () => {
+    setState({
+      modalActive: {
+        id: undefined,
+        title: '',
+        body: undefined,
+        style: undefined,
+      },
+    });
+  };
+
   return (
     <>
       <Title>Question v2</Title>
@@ -135,6 +146,7 @@ export default function QuestionPage() {
               }),
             },
           }}
+          fncHandleClose={handleModalClose}
           title={state?.modalActive?.title}
           body={state?.modalActive?.body?.map((item, index) => {
             const tag = () => (item?.answers?.length > 0 ? 'details' : 'div');
@@ -154,7 +166,7 @@ export default function QuestionPage() {
                   href={item?.link}
                   class="collapse-title text-[16px] leading-[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap"
                   classList={{
-                    "after:ml-2 after:inline-block after:w-4 after:h-4 after:content-[url('/images/file-pdf.svg')] after:transition-all":
+                    'flex items-center p-4 justify-between after:bg-primary w-[15px] h-[15px]':
                       item?.link,
                   }}
                 >
