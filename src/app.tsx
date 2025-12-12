@@ -1,11 +1,18 @@
 import { MetaProvider, Title } from '@solidjs/meta';
-import { A, Router } from '@solidjs/router';
+import { A, Router, useLocation } from '@solidjs/router';
 import { FileRoutes } from '@solidjs/start/router';
 import { Suspense } from 'solid-js';
 import { For } from 'solid-js';
 import './app.css';
 import { createSignal } from 'solid-js';
 import Footer from './components/Footer';
+
+type Menu = {
+  name: string;
+  href?: string;
+  child?: Menu[];
+  highLight?: boolean;
+};
 
 export default function App() {
   const menu = [
@@ -22,11 +29,17 @@ export default function App() {
       child: [
         {
           name: 'Area',
-          href: '/area',
-        },
-        {
-          name: 'Area v2',
-          href: '/area_v2',
+          child: [
+            {
+              name: 'v1',
+              href: '/area',
+            },
+            {
+              name: 'v2',
+              href: '/area-v2',
+              highLight: true,
+            },
+          ],
         },
         {
           name: 'Step',
@@ -38,11 +51,16 @@ export default function App() {
         },
         {
           name: 'Full Benefit',
-          href: '/full_benefit',
-        },
-        {
-          name: 'Full Benefit v2',
-          href: '/full_benefit_v2',
+          child: [
+            {
+              name: 'v1',
+              href: '/full-benefit',
+            },
+            {
+              name: 'v2',
+              href: '/full-benefit-v2',
+            },
+          ],
         },
         {
           name: 'Plan',
@@ -54,11 +72,17 @@ export default function App() {
         },
         {
           name: 'Question',
-          href: '/question',
-        },
-        {
-          name: 'Question v2',
-          href: '/question_v2',
+          child: [
+            {
+              name: 'v1',
+              href: '/question',
+            },
+            {
+              name: 'v2',
+              href: '/question-v2',
+              highLight: true,
+            },
+          ],
         },
       ],
     },
@@ -95,82 +119,14 @@ export default function App() {
                   tabindex="-1"
                   class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
                 >
-                  <For each={menu}>
-                    {(item) => (
-                      <li>
-                        {item.child ? (
-                          <>
-                            <a>{item.name}</a>
-                            <ul class="p-2">
-                              <For each={item.child}>
-                                {(child) => (
-                                  <li>
-                                    <A
-                                      href={child?.href ?? void 0}
-                                      end={child.href === '/'}
-                                      activeClass="bg-gray-200"
-                                    >
-                                      {child.name}
-                                    </A>
-                                  </li>
-                                )}
-                              </For>
-                            </ul>
-                          </>
-                        ) : (
-                          <A
-                            href={item?.href ?? void 0}
-                            end={item.href === '/'}
-                            activeClass="bg-gray-200"
-                          >
-                            {item.name}
-                          </A>
-                        )}
-                      </li>
-                    )}
-                  </For>
+                  {menuDesktop(menu)}
                 </ul>
               </div>
               <a class="btn btn-ghost text-xl">daisyUI</a>
             </div>
             <div class="navbar-center hidden lg:z-2 lg:flex">
               <ul class="menu menu-horizontal px-1">
-                <For each={menu}>
-                  {(item) => (
-                    <li>
-                      {item.child ? (
-                        <details open={open()}>
-                          <summary>{item.name}</summary>
-                          <ul class="z-1 p-2">
-                            <For each={item.child}>
-                              {(child) => (
-                                <li on:click={() => setOpen(!open())}>
-                                  <A
-                                    class="whitespace-nowrap"
-                                    href={child?.href ?? void 0}
-                                    end={child.href === '/'}
-                                    activeClass="bg-gray-200"
-                                    on:click={() => setOpen(!open())}
-                                  >
-                                    {child.name}
-                                  </A>
-                                </li>
-                              )}
-                            </For>
-                          </ul>
-                        </details>
-                      ) : (
-                        <A
-                          href={item?.href ?? void 0}
-                          end={item.href === '/'}
-                          activeClass="bg-gray-200"
-                        >
-                          {item.name}
-                        </A>
-                      )}
-                    </li>
-                  )}
-                </For>
+                {menuMobile(menu, open(), setOpen)}
               </ul>
             </div>
             {/* in future is step */}
@@ -189,3 +145,69 @@ export default function App() {
     </Router>
   );
 }
+
+const menuDesktop = (menu: Menu[]) => {
+  if (menu.length === 0) return null;
+
+  return (
+    <For each={menu}>
+      {(item: Menu) => (
+        <li>
+          {item.child ? (
+            <>
+              <a>{item.name}</a>
+              <ul class="p-2">{menuDesktop(item.child)}</ul>
+            </>
+          ) : (
+            <A
+              href={item?.href ?? ''}
+              end={item.href === '/'}
+              activeClass="bg-gray-200"
+              class="whitespace-nowrap"
+            >
+              {item.name}
+            </A>
+          )}
+        </li>
+      )}
+    </For>
+  );
+};
+
+const menuMobile = (
+  menu: Menu[],
+  statusOpen: boolean,
+  setOpen: (open: boolean) => void,
+) => {
+  return (
+    <For each={menu}>
+      {(item) => (
+        <li onClick={() => setOpen(!statusOpen)}>
+          {item.child ? (
+            <details open={statusOpen}>
+              <summary>{item.name}</summary>
+              <ul class="z-1 p-2">
+                {menuMobile(item.child, statusOpen, setOpen)}
+              </ul>
+            </details>
+          ) : (
+            <A
+              href={item?.href ?? ''}
+              end={item.href === '/'}
+              activeClass="bg-gray-200"
+              class="whitespace-nowrap"
+            >
+              {item.name}
+              {item.highLight && (
+                <div class="inline-grid *:[grid-area:1/1]">
+                  <div class="status status-success animate-ping"></div>
+                  <div class="status status-success"></div>
+                </div>
+              )}
+            </A>
+          )}
+        </li>
+      )}
+    </For>
+  );
+};
