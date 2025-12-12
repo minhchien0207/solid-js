@@ -166,7 +166,7 @@ export default function QuestionPage() {
                   href={item?.link}
                   class="collapse-title text-[16px] leading-[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap"
                   classList={{
-                    'flex items-center p-4 justify-between after:bg-primary w-[15px] h-[15px]':
+                    'flex items-center p-4 justify-between after:bg-primary':
                       item?.link,
                   }}
                 >
