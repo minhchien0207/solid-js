@@ -56,7 +56,7 @@ const Area: Component<AreaProps> = (props) => {
               }}
             />
             <label
-              class="cursor-pointer"
+              class="cursor-pointer font-semibold"
               for={area.attr?.id}
               on:click={(e) => {
                 e.stopPropagation();

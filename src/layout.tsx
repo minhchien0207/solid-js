@@ -119,10 +119,12 @@ const menuMobile = (
   return (
     <For each={menu}>
       {(item) => (
-        <li onClick={() => setOpen(!statusOpen)}>
+        <li on:click={() => setOpen(!statusOpen)}>
           {item.child ? (
             <details open={statusOpen}>
-              <summary>{item.name}</summary>
+              <summary on:click={(e) => e.stopPropagation()}>
+                {item.name}
+              </summary>
               <ul class="z-1 p-2">
                 {menuMobile(item.child, statusOpen, setOpen)}
               </ul>
@@ -133,6 +135,10 @@ const menuMobile = (
               end={item.href === '/'}
               activeClass="bg-gray-200"
               class="whitespace-nowrap"
+              on:click={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
             >
               {item.name}
               {item.highLight && (
@@ -150,7 +156,7 @@ const menuMobile = (
 };
 
 export default function Layout(props: { children: any }) {
-  // const location = useLocation(); // ← giờ hợp lệ 100%
+  const location = useLocation();
   const [open, setOpen] = createSignal(false);
 
   return (
