@@ -35,4 +35,33 @@ type Plan = {
   }[];
 };
 
-export type { Area, Benefit, Plan };
+type BasePerson = {
+  name: string;
+  dob: string;
+  gender: string;
+  nationality: string;
+  relationship: string;
+  idType: string;
+  idNumber: string;
+};
+
+type InsuredPerson = BasePerson & {
+  mobileNumber: string;
+};
+
+type Individual = BasePerson & {
+  type: 'individual';
+  mobileNumber: string;
+};
+
+type Corporate = Omit<
+  BasePerson,
+  'dob' | 'gender' | 'nationality' | 'relationship' | 'idType' | 'idNumber'
+> & {
+  type: 'corporate';
+  taxNumber: string;
+};
+
+type PolicyHolder = Individual | Corporate;
+
+export type { Area, Benefit, Plan, InsuredPerson, PolicyHolder };

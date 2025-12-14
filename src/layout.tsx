@@ -79,6 +79,10 @@ const menu = [
           },
         ],
       },
+      {
+        name: 'Form',
+        href: '/form',
+      },
     ],
   },
 ];

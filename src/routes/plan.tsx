@@ -226,8 +226,6 @@ export default function PlanPage() {
     layout,
   });
 
-  console.log(statePlan.plans);
-
   const selectPlanById = (id?: string) =>
     setStatePlan({ planIdActiveId: id ?? '' });
 
