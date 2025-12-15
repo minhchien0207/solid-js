@@ -62,6 +62,13 @@ type Corporate = Omit<
   taxNumber: string;
 };
 
+type Delivery = {
+  email?: string;
+  mobileNumber?: string;
+  address?: string;
+  province?: string;
+};
+
 type PolicyHolder = Individual | Corporate;
 
-export type { Area, Benefit, Plan, InsuredPerson, PolicyHolder };
+export type { Area, Benefit, Plan, InsuredPerson, PolicyHolder, Delivery };

@@ -1,11 +1,35 @@
 import { Title } from '@solidjs/meta';
-import { InsuredPerson, PolicyHolder } from '~/types/models';
+import { InsuredPerson, PolicyHolder, Delivery } from '~/types/models';
+import Input from '~/components/input/Input';
+import Date from '~/components/input/Date';
 
 export default function Form() {
   return (
     <main>
       <Title>Form</Title>
-      <h1>Form</h1>
+      <Input
+        label="Họ và tên"
+        // optional={{ hint: 'Tên chủ hợp đồng' }}
+        attr={{
+          name: 'name',
+          id: 'name',
+          placeholder: 'Tên chủ hợp đồng',
+          // required: true,
+        }}
+        onChange={(e) => console.log(e)}
+      />
+      <Date
+        label="Ngày sinh"
+        // optional={{ hint: 'dd/MM/yyyy' }}
+        attr={{
+          name: 'dob',
+          id: 'dob',
+          placeholder: 'Ngày sinh',
+          // required: true,
+        }}
+        // onChange={(e) => console.log((e.target as HTMLInputElement).value)}
+        onChange={(e) => console.log(e)}
+      />
     </main>
   );
 }
