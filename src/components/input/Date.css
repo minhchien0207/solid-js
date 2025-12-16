@@ -1,0 +1,55 @@
+calendar-range {
+  path {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &::part(months) {
+    display: flex;
+    gap: 1.5em;
+    justify-content: center;
+  }
+
+  &::part(button):focus-visible {
+    outline: 2px solid var(--color-primary);
+  }
+}
+
+calendar-month {
+  --color-accent: #0265dc;
+  --color-text-on-accent: #ffffff;
+
+  &::part(button) {
+    border-radius: 3px;
+  }
+
+  &::part(range-inner) {
+    border-radius: 0;
+    background-color: var(--color-accent);
+    opacity: 0.8;
+  }
+
+  &::part(range-start) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  &::part(range-end) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  &::part(range-start range-end) {
+    border-radius: 3px;
+  }
+}
+
+.cally.cally-custom {
+  ::part(button day today) {
+    /* for today */
+    background-color: var(--color-primary);
+  }
+  ::part(selected) {
+    background-color: var(--color-accent);
+  }
+}

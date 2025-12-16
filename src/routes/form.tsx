@@ -9,7 +9,7 @@ export default function Form() {
       <Title>Form</Title>
       <Input
         label="Họ và tên"
-        // optional={{ hint: 'Tên chủ hợp đồng' }}
+        // helper={{ hint: 'Tên chủ hợp đồng' }}
         attr={{
           name: 'name',
           id: 'name',
@@ -20,7 +20,7 @@ export default function Form() {
       />
       <Date
         label="Ngày sinh"
-        // optional={{ hint: 'dd/MM/yyyy' }}
+        // helper={{ hint: 'dd/mm/yyyy' }}
         attr={{
           name: 'dob',
           id: 'dob',

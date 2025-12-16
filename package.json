@@ -10,21 +10,21 @@
   "dependencies": {
     "@solid-primitives/input-mask": "^0.3.1",
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.15.0",
-    "@solidjs/start": "^1.1.0",
-    "@tailwindcss/vite": "^4.1.17",
-    "cally": "^0.8.0",
-    "daisyui": "^5.5.5",
-    "solid-js": "^1.9.5",
-    "tailwindcss": "^4.1.17",
-    "vinxi": "^0.5.7"
+    "@solidjs/router": "^0.15.4",
+    "@solidjs/start": "^1.2.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "cally": "^0.9.0",
+    "daisyui": "^5.5.14",
+    "solid-js": "^1.9.10",
+    "tailwindcss": "^4.1.18",
+    "vinxi": "^0.5.9"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
-    "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.7.1",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "solid-devtools": "^0.34.4"
   }
 }

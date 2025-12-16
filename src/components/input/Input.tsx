@@ -4,13 +4,13 @@ export default function Input(props: {
   label: string;
   value?: string;
   attr?: { name: string; id: string; placeholder?: string; required?: boolean };
-  optional?: { hint?: string };
+  helper?: { hint?: string };
   onChange: (e: Event) => void;
 }) {
   const [local, rest] = splitProps(props, [
     'value',
     'label',
-    'optional',
+    'helper',
     'attr',
     'onChange',
   ]);
@@ -37,9 +37,9 @@ export default function Input(props: {
           required={local.attr?.required ?? false}
           onChange={local.onChange}
         />
-        <Show when={local.optional?.hint}>
+        <Show when={local.helper?.hint}>
           <p class="label text-[#76758A] lg:text-[14px] lg:leading-[22px]">
-            {local.optional?.hint}
+            {local.helper?.hint}
           </p>
         </Show>
       </fieldset>
