@@ -20,6 +20,7 @@ export default function Form() {
       />
       <Date
         label="Ngày sinh"
+        // type="range"
         // helper={{ hint: 'dd/mm/yyyy' }}
         attr={{
           name: 'dob',

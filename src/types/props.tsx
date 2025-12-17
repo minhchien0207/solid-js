@@ -25,4 +25,31 @@ type PlanProps = {
   mustShow?: boolean;
 };
 
-export type { AreaProps, PlanProps };
+type BaseDateProps = {
+  label: string;
+  value?: string;
+  attr?: {
+    name: string;
+    id: string;
+    placeholder?: string;
+    required?: boolean;
+  };
+  helper?: {
+    hint?: string;
+  };
+  onChange: (e: Event) => void;
+};
+
+type SingleDateProps = BaseDateProps & {
+  type?: 'date'; // default
+};
+
+type RangeDateProps = BaseDateProps & {
+  type: 'range';
+  // from: string;
+  // to: string;
+};
+
+type DateProps = SingleDateProps | RangeDateProps;
+
+export type { AreaProps, PlanProps, DateProps };

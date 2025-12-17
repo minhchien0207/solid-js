@@ -1,11 +1,10 @@
-import { splitProps, Show, createSignal } from 'solid-js';
-import { clientOnly } from '@solidjs/start';
+import { splitProps, Show, createSignal, onMount } from 'solid-js';
 import {
   createInputMask,
   createMaskPattern,
 } from '@solid-primitives/input-mask';
 import './Date.css';
-// clientOnly(() => import('cally'));
+import type { DateProps } from '~/types/props';
 
 const getDateMask = (locale: string) => {
   const dtf = new Intl.DateTimeFormat(locale);
@@ -106,14 +105,9 @@ const createDateMaskFunction = (mask: ReturnType<typeof getDateMask>) => {
   };
 };
 
-export default function DateInput(props: {
-  label: string;
-  value?: string;
-  attr?: { name: string; id: string; placeholder?: string; required?: boolean };
-  helper?: { hint?: string };
-  onChange: (e: Event) => void;
-}) {
+export default function DateInput(props: DateProps) {
   const [local, rest] = splitProps(props, [
+    'type',
     'value',
     'label',
     'helper',
@@ -121,13 +115,17 @@ export default function DateInput(props: {
     'onChange',
   ]);
 
-  const [value, setValue] = createSignal(local.value);
-  const mask = getDateMask(navigator.language);
+  const mode = () => local.type ?? 'date';
+  const [value, setValue] = createSignal([local.value]);
+  const mask = getDateMask(
+    navigator.languages.find((l) => l.includes('-')) ?? navigator.language,
+  );
   const customMaskFn = createDateMaskFunction(mask);
+
+  onMount(() => import('cally'));
 
   return (
     <>
-      <script type="module" src="https://unpkg.com/cally"></script>
       <fieldset class="fieldset lg:text-[16px] lg:leading-6">
         <legend
           class="fieldset-legend font-semibold text-[#18171C]"
@@ -148,7 +146,7 @@ export default function DateInput(props: {
             type="text"
             tabindex="0"
             class="input rounded-[8px] placeholder:text-[#9191A1] focus:outline-0 lg:px-[16px] lg:py-[12px]"
-            value={value() ?? ''}
+            value={value()?.[0] ?? ''}
             placeholder={mask.inputMask}
             required={local.attr?.required ?? false}
             name={local.attr?.name}
@@ -164,62 +162,66 @@ export default function DateInput(props: {
             tabindex="-1"
             class="dropdown-content menu bg-base-100 rounded-box card z-1 mt-1 p-2 shadow-sm"
           >
-            {/* <calendar-range
-              months="2"
-              class="cally cally-custom"
-              onchange={(e) => {
-                setValue(e.target.value);
-                local.onChange(e);
-              }}
-            >
-              <svg
-                aria-label="Previous"
-                class="size-4 fill-current"
-                slot="previous"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+            {mode() === 'range' && (
+              <calendar-range
+                months="2"
+                class="cally cally-custom"
+                onchange={(e) => {
+                  setValue([e.target.value]);
+                  local.onChange(e);
+                }}
               >
-                <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-              </svg>
-              <svg
-                aria-label="Next"
-                class="size-4 fill-current"
-                slot="next"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+                <svg
+                  aria-label="Previous"
+                  class="size-4 fill-current"
+                  slot="previous"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+                </svg>
+                <svg
+                  aria-label="Next"
+                  class="size-4 fill-current"
+                  slot="next"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+                </svg>
+                <calendar-month></calendar-month>
+                <calendar-month offset="1"></calendar-month>
+              </calendar-range>
+            )}
+            {mode() === 'date' && (
+              <calendar-date
+                class="cally cally-custom"
+                onchange={(e) => {
+                  setValue([e.target.value]);
+                  local.onChange(e);
+                }}
               >
-                <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-              </svg>
-              <calendar-month></calendar-month>
-              <calendar-month offset="1"></calendar-month>
-            </calendar-range> */}
-            <calendar-date
-              class="cally cally-custom"
-              onchange={(e) => {
-                setValue(e.target.value);
-                local.onChange(e);
-              }}
-            >
-              <svg
-                aria-label="Previous"
-                class="size-4 fill-current"
-                slot="previous"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-              </svg>
-              <svg
-                aria-label="Next"
-                class="size-4 fill-current"
-                slot="next"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-              </svg>
-              <calendar-month></calendar-month>
-            </calendar-date>
+                <svg
+                  aria-label="Previous"
+                  class="size-4 fill-current"
+                  slot="previous"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+                </svg>
+                <svg
+                  aria-label="Next"
+                  class="size-4 fill-current"
+                  slot="next"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+                </svg>
+                <calendar-month></calendar-month>
+              </calendar-date>
+            )}
           </div>
         </div>
 
