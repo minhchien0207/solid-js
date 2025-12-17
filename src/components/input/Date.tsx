@@ -1,4 +1,5 @@
 import { splitProps, Show, createSignal, onMount } from 'solid-js';
+import { createStore } from 'solid-js/store';
 import {
   createInputMask,
   createMaskPattern,
@@ -6,19 +7,36 @@ import {
 import './Date.css';
 import type { DateProps } from '~/types/props';
 
-const getDateMask = (locale: string) => {
+const getDateMask = (locale: string, type: 'date' | 'range') => {
   const dtf = new Intl.DateTimeFormat(locale);
   const parts = dtf.formatToParts(new Date());
 
   return {
-    inputMask: parts
-      .map((p) => {
-        if (p.type === 'day') return 'dd';
-        if (p.type === 'month') return 'mm';
-        if (p.type === 'year') return 'yyyy';
-        return p.value;
-      })
-      .join(''),
+    inputMask:
+      type === 'date'
+        ? parts
+            .map((p) => {
+              if (p.type === 'day') return 'dd';
+              if (p.type === 'month') return 'mm';
+              if (p.type === 'year') return 'yyyy';
+              return p.value;
+            })
+            .join('')
+        : `${parts
+            .map((p) => {
+              if (p.type === 'day') return 'dd';
+              if (p.type === 'month') return 'mm';
+              if (p.type === 'year') return 'yyyy';
+              return p.value;
+            })
+            .join('')} - ${parts
+            .map((p) => {
+              if (p.type === 'day') return 'dd';
+              if (p.type === 'month') return 'mm';
+              if (p.type === 'year') return 'yyyy';
+              return p.value;
+            })
+            .join('')}`,
     literals: parts.find((p) => p.type === 'literal')?.value ?? '-',
     partsOrder: parts
       .filter((p) => ['day', 'month', 'year'].includes(p.type))
@@ -116,13 +134,44 @@ export default function DateInput(props: DateProps) {
   ]);
 
   const mode = () => local.type ?? 'date';
-  const [value, setValue] = createSignal([local.value]);
-  const mask = getDateMask(
-    navigator.languages.find((l) => l.includes('-')) ?? navigator.language,
+  const [state, setState] = createStore({
+    value: local.value ?? '',
+    inputMask: '',
+    separator: '',
+  });
+  const customMaskFn = createDateMaskFunction(
+    getDateMask(navigator.language, mode()),
   );
-  const customMaskFn = createDateMaskFunction(mask);
 
-  onMount(() => import('cally'));
+  onMount(() => {
+    import('cally');
+    const mask = getDateMask(navigator.language, mode());
+    setState({
+      inputMask: mask.inputMask,
+      separator: mask.literals,
+    });
+  });
+
+  const handleDateChange = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+    const date = new Date(target.value);
+    const dtf = new Intl.DateTimeFormat(navigator.language);
+    const parts = dtf.formatToParts(date);
+    setState({
+      value:
+        mode() === 'date'
+          ? parts
+              .map((p) => {
+                if (p.type === 'day') return `0${p.value}`.slice(-2);
+                if (p.type === 'month') return `0${p.value}`.slice(-2);
+                if (p.type === 'year') return p.value;
+                return p.value;
+              })
+              .join('')
+          : '',
+    });
+    local.onChange(e);
+  };
 
   return (
     <>
@@ -146,8 +195,11 @@ export default function DateInput(props: DateProps) {
             type="text"
             tabindex="0"
             class="input rounded-[8px] placeholder:text-[#9191A1] focus:outline-0 lg:px-[16px] lg:py-[12px]"
-            value={value()?.[0] ?? ''}
-            placeholder={mask.inputMask}
+            classList={{
+              'placeholder:text-[90%]': mode() === 'range',
+            }}
+            value={state.value}
+            placeholder={state.inputMask}
             required={local.attr?.required ?? false}
             name={local.attr?.name}
             id={local.attr?.id}
@@ -155,7 +207,7 @@ export default function DateInput(props: DateProps) {
             autocomplete="off"
             onInput={createMaskPattern(
               createInputMask(customMaskFn),
-              () => mask.inputMask,
+              () => state.inputMask,
             )}
           />
           <div
@@ -167,8 +219,8 @@ export default function DateInput(props: DateProps) {
                 months="2"
                 class="cally cally-custom"
                 onchange={(e) => {
-                  setValue([e.target.value]);
-                  local.onChange(e);
+                  e.stopPropagation();
+                  handleDateChange(e);
                 }}
               >
                 <svg
@@ -197,8 +249,8 @@ export default function DateInput(props: DateProps) {
               <calendar-date
                 class="cally cally-custom"
                 onchange={(e) => {
-                  setValue([e.target.value]);
-                  local.onChange(e);
+                  e.stopPropagation();
+                  handleDateChange(e);
                 }}
               >
                 <svg
