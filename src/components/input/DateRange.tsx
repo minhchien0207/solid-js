@@ -117,7 +117,7 @@ export default function DateRangeInput(props: DateProps) {
             for={local.attr?.id}
             id={`${local.attr?.id}-pattern-view`}
           ></label>
-          <label class="input rounded-[8px] placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px] lg:py-[12px]">
+          <label class="input rounded-[8px] outline-0 placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px] lg:py-[12px]">
             <input
               type="text"
               tabindex="0"

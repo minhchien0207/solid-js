@@ -170,7 +170,7 @@ export default function DateInput(props: DateProps) {
             for={local.attr?.id}
             id={`${local.attr?.id}-pattern-view`}
           ></label>
-          <label class="input rounded-[8px] placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px] lg:py-[12px]">
+          <label class="input rounded-[8px] outline-0 placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px] lg:py-[12px]">
             <input
               type="text"
               tabindex="0"
@@ -220,6 +220,8 @@ export default function DateInput(props: DateProps) {
                 >
                   <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
                 </svg>
+                <calendar-select-year class="flex w-fit items-center justify-center"></calendar-select-year>
+                <calendar-select-month class="flex w-fit items-center justify-center"></calendar-select-month>
                 <calendar-month></calendar-month>
               </calendar-date>
             </div>
