@@ -26,7 +26,7 @@ type PlanProps = {
 };
 
 type BaseDateProps = {
-  label: string;
+  label?: string;
   value?: string;
   attr?: {
     name: string;
