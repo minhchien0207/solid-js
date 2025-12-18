@@ -49,10 +49,12 @@ export default function DateRangeInput(props: DateProps) {
     'onChange',
   ]);
 
+  const [open, setOpen] = createSignal(false);
   const [state, setState] = createStore({
     value: local.value ?? '',
     inputMask: '',
     separator: '',
+    numDate: 0,
   });
 
   onMount(() => {
@@ -89,8 +91,12 @@ export default function DateRangeInput(props: DateProps) {
           return p.value;
         })
         .join('')}`,
+      numDate: Math.round(
+        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1,
+      ),
     });
     local.onChange(e);
+    setOpen(false);
   };
 
   return (
@@ -111,57 +117,72 @@ export default function DateRangeInput(props: DateProps) {
             for={local.attr?.id}
             id={`${local.attr?.id}-pattern-view`}
           ></label>
-          <input
-            type="text"
-            tabindex="0"
-            class="input rounded-[8px] placeholder:text-[90%] placeholder:text-[#9191A1] focus:outline-0 lg:px-[16px] lg:py-[12px]"
-            value={state.value}
-            placeholder={local?.attr?.placeholder ?? state.inputMask}
-            required={local.attr?.required ?? false}
-            name={local.attr?.name}
-            id={local.attr?.id}
-            onChange={local.onChange}
-            autocomplete="off"
-          />
-          <div
-            tabindex="-1"
-            class="dropdown-content menu bg-base-100 rounded-box card z-1 mt-1 p-2 shadow-sm"
-          >
-            <calendar-range
-              months="2"
-              class="cally cally-custom"
-              onchange={(e) => {
-                e.stopPropagation();
-                handleDateChange(e);
-              }}
+          <label class="input rounded-[8px] placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px] lg:py-[12px]">
+            <input
+              type="text"
+              tabindex="0"
+              class="grow focus:outline-0"
+              value={state.value}
+              placeholder={local?.attr?.placeholder ?? state.inputMask}
+              required={local.attr?.required ?? false}
+              name={local.attr?.name}
+              id={local.attr?.id}
+              onChange={local.onChange}
+              autocomplete="off"
+              readOnly
+              onfocus={() => setOpen(true)}
+            />
+            <div class="h-[15px] w-[15px] bg-[#9191A1] mask-[url('/images/calendar.svg')] mask-center mask-no-repeat"></div>
+          </label>
+          <Show when={open()}>
+            <div
+              tabindex="-1"
+              class="dropdown-content menu bg-base-100 rounded-box card z-1 mt-1 p-2 shadow-sm"
             >
-              <svg
-                aria-label="Previous"
-                class="size-4 fill-current"
-                slot="previous"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+              <calendar-range
+                months="2"
+                class="cally cally-custom"
+                onchange={(e) => {
+                  e.stopPropagation();
+                  handleDateChange(e);
+                }}
               >
-                <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
-              </svg>
-              <svg
-                aria-label="Next"
-                class="size-4 fill-current"
-                slot="next"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
-              </svg>
-              <calendar-month></calendar-month>
-              <calendar-month offset="1"></calendar-month>
-            </calendar-range>
-          </div>
+                <svg
+                  aria-label="Previous"
+                  class="size-4 fill-current"
+                  slot="previous"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+                </svg>
+                <svg
+                  aria-label="Next"
+                  class="size-4 fill-current"
+                  slot="next"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+                </svg>
+                <calendar-month></calendar-month>
+                <calendar-month offset="1"></calendar-month>
+              </calendar-range>
+            </div>
+          </Show>
         </div>
 
-        <Show when={local.helper?.hint}>
+        <Show when={local.helper?.hint || state.numDate}>
           <p class="label text-[#76758A] lg:text-[14px] lg:leading-[22px]">
-            {local.helper?.hint}
+            {local.helper?.hint ||
+              (state.numDate ? (
+                <div>
+                  Hành trình của bạn sẽ kéo dài trong{' '}
+                  <span class="font-semibold">{state.numDate} ngày</span>.
+                </div>
+              ) : (
+                ''
+              ))}
           </p>
         </Show>
       </fieldset>
