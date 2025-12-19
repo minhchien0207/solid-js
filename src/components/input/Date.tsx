@@ -11,15 +11,17 @@ const getDateMask = (locale: string) => {
   const dtf = new Intl.DateTimeFormat(locale);
   const parts = dtf.formatToParts(new Date());
 
+  const inputMask = parts
+    .map((p) => {
+      if (p.type === 'day') return 'dd';
+      if (p.type === 'month') return 'mm';
+      if (p.type === 'year') return 'yyyy';
+      return p.value;
+    })
+    .join('');
+
   return {
-    inputMask: parts
-      .map((p) => {
-        if (p.type === 'day') return 'dd';
-        if (p.type === 'month') return 'mm';
-        if (p.type === 'year') return 'yyyy';
-        return p.value;
-      })
-      .join(''),
+    inputMask,
     literals: parts.find((p) => p.type === 'literal')?.value ?? '-',
     partsOrder: parts
       .filter((p) => ['day', 'month', 'year'].includes(p.type))
@@ -32,7 +34,7 @@ const getDateMask = (locale: string) => {
     minValues: {
       day: 1,
       month: 1,
-      year: 1900,
+      year: 1000, // Giả sử min year, điều chỉnh nếu cần
     },
   };
 };
@@ -170,11 +172,11 @@ export default function DateInput(props: DateProps) {
             for={local.attr?.id}
             id={`${local.attr?.id}-pattern-view`}
           ></label>
-          <label class="input rounded-[8px] outline-0 placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px] lg:py-[12px]">
+          <label class="input rounded-[8px] outline-0 placeholder:text-[#9191A1] lg:px-[16px]">
             <input
               type="text"
               tabindex="0"
-              class="focus:outline-0"
+              class="placeholder:text-[13px] focus:outline-0"
               value={state.value}
               placeholder={state.inputMask}
               required={local.attr?.required ?? false}
