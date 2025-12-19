@@ -1,11 +1,8 @@
-import { splitProps, Show, createSignal, onMount } from 'solid-js';
+import { splitProps, Show, createSignal, onMount, onCleanup } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import {
-  createInputMask,
-  createMaskPattern,
-} from '@solid-primitives/input-mask';
 import './Date.css';
 import type { DateProps } from '~/types/props';
+import IMask from 'imask';
 
 const getDateMask = (locale: string) => {
   const dtf = new Intl.DateTimeFormat(locale);
@@ -39,76 +36,60 @@ const getDateMask = (locale: string) => {
   };
 };
 
-// Custom mask function cho createInputMask
-const createDateMaskFunction = (mask: ReturnType<typeof getDateMask>) => {
-  const { inputMask, literals, partsOrder, maxValues, minValues } = mask;
-  const partLengths = { day: 2, month: 2, year: 4 };
-  const separator = literals;
+const buildIMaskDateConfig = (locale: string) => {
+  const { partsOrder, literals, maxValues, minValues } = getDateMask(locale);
 
-  return (
-    value: string,
-    selection: [number, number],
-  ): [string, [number, number]] => {
-    const cleanValue = value.replace(new RegExp(`\\${separator}`, 'g'), ''); // Bỏ separators để parse digits
-    if (!/^\d*$/.test(cleanValue)) {
-      // Chỉ cho digits, reject non-digit
-      return [value.slice(0, -1), selection];
-    }
+  const tokenMap = {
+    day: 'DD',
+    month: 'MM',
+    year: 'YYYY',
+  } as const;
 
-    // Xây dựng newValue với separators
-    let newValue = '';
-    let digitIndex = 0;
-    for (const char of inputMask) {
-      if (char === 'd' || char === 'm' || char === 'y') {
-        newValue += cleanValue[digitIndex] || '_'; // Placeholder nếu chưa đủ
-        digitIndex++;
-      } else {
-        newValue += separator;
-      }
-    }
+  const pattern = partsOrder.map((p) => tokenMap[p]).join(literals);
 
-    // Parse các phần hoàn chỉnh
-    const parts: { [key: string]: number | null } = {};
-    let offset = 0;
-    for (const partType of partsOrder) {
-      const length = partLengths[partType];
-      const partStr = cleanValue.slice(offset, offset + length);
-      if (partStr.length === length) {
-        // Chỉ validate khi phần hoàn chỉnh
-        const partNum = parseInt(partStr, 10);
-        const min = minValues[partType];
-        const max = maxValues[partType];
-        if (isNaN(partNum) || partNum < min || partNum > max) {
-          // Invalid: reject bằng cách return value cũ (bỏ digit cuối)
-          return [value.slice(0, -1), [selection[0] - 1, selection[1] - 1]];
-        }
-        parts[partType] = partNum;
-      }
-      offset += length;
-    }
+  return {
+    mask: Date,
+    pattern,
+    lazy: false,
+    autofix: true,
 
-    // Nếu valid, format với separators thực tế
-    newValue = '';
-    digitIndex = 0;
-    for (let i = 0; i < inputMask.length; i++) {
-      const char = inputMask[i];
-      if (char === 'd' || char === 'm' || char === 'y') {
-        newValue += cleanValue[digitIndex] || '';
-        digitIndex++;
-      } else if (digitIndex < cleanValue.length) {
-        newValue += separator;
-      }
-    }
+    blocks: {
+      DD: {
+        mask: IMask.MaskedRange,
+        from: minValues.day,
+        to: maxValues.day,
+      },
+      MM: {
+        mask: IMask.MaskedRange,
+        from: minValues.month,
+        to: maxValues.month,
+      },
+      YYYY: {
+        mask: IMask.MaskedRange,
+        from: minValues.year,
+        to: maxValues.year,
+      },
+    },
 
-    // Adjust selection (cursor) để giữ vị trí
-    const newStart = selection[0] + (newValue.length - value.length);
-    const newEnd = selection[1] + (newValue.length - value.length);
+    format: (date: Date) => new Intl.DateTimeFormat(locale).format(date),
 
-    return [newValue, [newStart, newEnd]];
+    parse: (str: string) => {
+      const parts = str.split(literals);
+      const map: Record<string, number> = {};
+
+      partsOrder.forEach((p, i) => {
+        map[p] = Number(parts[i]);
+      });
+
+      return new Date(map.year, map.month - 1, map.day);
+    },
   };
 };
 
 export default function DateInput(props: DateProps) {
+  let inputRef!: HTMLInputElement;
+  let maskRef: IMask.InputMask<any> | null = null;
+
   const [local, rest] = splitProps(props, [
     'value',
     'label',
@@ -124,15 +105,23 @@ export default function DateInput(props: DateProps) {
     separator: '',
   });
 
-  const customMaskFn = createDateMaskFunction(getDateMask(navigator.language));
-
   onMount(() => {
     import('cally');
+
+    maskRef = IMask(inputRef, buildIMaskDateConfig(navigator.language));
+    maskRef.on('accept', () => {
+      props.onChange?.(maskRef!.typedValue ?? null);
+    });
+
     const mask = getDateMask(navigator.language);
     setState({
       inputMask: mask.inputMask,
       separator: mask.literals,
     });
+  });
+
+  onCleanup(() => {
+    maskRef?.destroy();
   });
 
   const handleDateChange = (e: Event) => {
@@ -174,6 +163,8 @@ export default function DateInput(props: DateProps) {
           ></label>
           <label class="input rounded-[8px] outline-0 placeholder:text-[#9191A1] lg:px-[16px]">
             <input
+              ref={inputRef}
+              inputmode="numeric"
               type="text"
               tabindex="0"
               class="placeholder:text-[13px] focus:outline-0"
@@ -184,10 +175,6 @@ export default function DateInput(props: DateProps) {
               id={local.attr?.id}
               onChange={local.onChange}
               autocomplete="off"
-              onInput={createMaskPattern(
-                createInputMask(customMaskFn),
-                () => state.inputMask,
-              )}
               onfocus={() => setOpen(true)}
             />
             <div class="h-[15px] w-[15px] bg-[#9191A1] mask-[url('/images/calendar.svg')] mask-center mask-no-repeat"></div>
