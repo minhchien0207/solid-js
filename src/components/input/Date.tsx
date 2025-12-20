@@ -22,7 +22,7 @@ const getDateMask = (locale: string) => {
     literals: parts.find((p) => p.type === 'literal')?.value ?? '-',
     partsOrder: parts
       .filter((p) => ['day', 'month', 'year'].includes(p.type))
-      .map((p) => p.type), // Thứ tự: ['month', 'day', 'year'] hoặc tương tự
+      .map((p) => p.type as 'day' | 'month' | 'year'),
     maxValues: {
       day: 31,
       month: 12,
@@ -31,7 +31,7 @@ const getDateMask = (locale: string) => {
     minValues: {
       day: 1,
       month: 1,
-      year: 1000, // Giả sử min year, điều chỉnh nếu cần
+      year: 1000,
     },
   };
 };
@@ -39,49 +39,56 @@ const getDateMask = (locale: string) => {
 const buildIMaskDateConfig = (locale: string) => {
   const { partsOrder, literals, maxValues, minValues } = getDateMask(locale);
 
-  const tokenMap = {
+  const tokenMap: {
+    day: string;
+    month: string;
+    year: string;
+  } = {
     day: 'DD',
     month: 'MM',
     year: 'YYYY',
-  } as const;
+  };
 
   const pattern = partsOrder.map((p) => tokenMap[p]).join(literals);
 
+  // TẠO MAP ĐỂ PARSE ĐÚNG THỨ TỰ
+  const parseMap: Record<string, number> = {};
+  partsOrder.forEach((type, index) => {
+    parseMap[type] = index;
+  });
+
   return {
-    mask: Date,
-    pattern,
+    // QUAN TRỌNG: Không dùng mask: Date mà dùng mask: pattern
+    mask: pattern,
     lazy: false,
-    autofix: true,
+    // BỎ autofix hoặc set false để tránh auto-correct quá mức
+    autofix: false,
 
     blocks: {
       DD: {
         mask: IMask.MaskedRange,
         from: minValues.day,
         to: maxValues.day,
+        maxLength: 2,
       },
       MM: {
         mask: IMask.MaskedRange,
         from: minValues.month,
         to: maxValues.month,
+        maxLength: 2,
       },
       YYYY: {
         mask: IMask.MaskedRange,
         from: minValues.year,
         to: maxValues.year,
+        maxLength: 4,
       },
     },
 
-    format: (date: Date) => new Intl.DateTimeFormat(locale).format(date),
-
-    parse: (str: string) => {
-      const parts = str.split(literals);
-      const map: Record<string, number> = {};
-
-      partsOrder.forEach((p, i) => {
-        map[p] = Number(parts[i]);
-      });
-
-      return new Date(map.year, map.month - 1, map.day);
+    // THÊM OPTION ĐỂ TỰ ĐỘNG THÊM 0 CHO SỐ ĐƠN
+    // Ví dụ: gõ "5" sẽ thành "05"
+    prepare: (value: string) => {
+      return value;
     },
   };
 };
@@ -101,23 +108,57 @@ export default function DateInput(props: DateProps) {
   const [open, setOpen] = createSignal(false);
   const [state, setState] = createStore({
     value: local.value ?? '',
+    valueMasked: '',
     inputMask: '',
     separator: '',
   });
 
   onMount(() => {
-    import('cally');
+    const mask = getDateMask(navigator.language);
 
     maskRef = IMask(inputRef, buildIMaskDateConfig(navigator.language));
+
+    // Lắng nghe sự kiện khi giá trị thay đổi
     maskRef.on('accept', () => {
-      props.onChange?.(maskRef!.typedValue ?? null);
+      const unmaskedValue = maskRef!.unmaskedValue;
+
+      // Chỉ gọi onChange khi đã nhập đủ
+      if (unmaskedValue.length === 8) {
+        // ddmmyyyy = 8 ký tự
+        const parts = maskRef!.value.split(mask.literals);
+        console.log(maskRef, parts);
+
+        if (parts.length === 3) {
+          // Parse theo thứ tự của locale
+          const dateMap: Record<string, number> = {};
+          mask.partsOrder.forEach((type, index) => {
+            dateMap[type] = parseInt(parts[index]) || 0;
+          });
+
+          // Tạo Date object
+          const date = new Date(dateMap.year, dateMap.month - 1, dateMap.day);
+
+          // Kiểm tra date hợp lệ
+          if (!isNaN(date.getTime())) {
+            setState({
+              value: `${dateMap.year}-${`0${dateMap.month}`.slice(-2)}-${`0${dateMap.day}`.slice(-2)}`,
+            });
+
+            props.onChange?.(date);
+          }
+        }
+      }
     });
 
-    const mask = getDateMask(navigator.language);
     setState({
       inputMask: mask.inputMask,
       separator: mask.literals,
     });
+
+    // Set giá trị ban đầu nếu có
+    if (local.value) {
+      maskRef.value = local.value;
+    }
   });
 
   onCleanup(() => {
@@ -127,20 +168,24 @@ export default function DateInput(props: DateProps) {
   const handleDateChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
     const date = new Date(target.value);
-    const dtf = new Intl.DateTimeFormat(navigator.language);
-    const parts = dtf.formatToParts(date);
-    setState({
-      value: parts
-        .map((p) => {
-          if (p.type === 'day') return `0${p.value}`.slice(-2);
-          if (p.type === 'month') return `0${p.value}`.slice(-2);
-          if (p.type === 'year') return p.value;
-          return p.value;
-        })
-        .join(''),
-    });
-    local.onChange(e);
-    setOpen(false);
+
+    if (!isNaN(date.getTime())) {
+      const dtf = new Intl.DateTimeFormat(navigator.language);
+      const formatted = dtf.format(date);
+
+      setState({
+        value: target.value,
+        valueMasked: formatted,
+      });
+
+      // Cập nhật mask input
+      if (maskRef) {
+        maskRef.value = formatted;
+      }
+
+      local.onChange?.(e);
+      setOpen(false);
+    }
   };
 
   return (
@@ -168,12 +213,10 @@ export default function DateInput(props: DateProps) {
               type="text"
               tabindex="0"
               class="placeholder:text-[13px] focus:outline-0"
-              value={state.value}
               placeholder={state.inputMask}
               required={local.attr?.required ?? false}
               name={local.attr?.name}
               id={local.attr?.id}
-              onChange={local.onChange}
               autocomplete="off"
               onfocus={() => setOpen(true)}
             />
@@ -186,6 +229,7 @@ export default function DateInput(props: DateProps) {
             >
               <calendar-date
                 class="cally cally-custom"
+                value={state.value}
                 onchange={(e) => {
                   e.stopPropagation();
                   handleDateChange(e);
