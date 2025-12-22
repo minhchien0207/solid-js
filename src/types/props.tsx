@@ -37,7 +37,7 @@ type BaseDateProps = {
   helper?: {
     hint?: string;
   };
-  onChange: (e: Event) => void;
+  onChange: (e: any) => void;
 };
 
 type SingleDateProps = BaseDateProps & {

@@ -95,7 +95,10 @@ export default function DateRangeInput(props: DateProps) {
         (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1,
       ),
     });
-    local.onChange(e);
+    local.onChange({
+      startDate,
+      endDate,
+    });
     setOpen(false);
   };
 
