@@ -58,10 +58,8 @@ const buildIMaskDateConfig = (locale: string) => {
   });
 
   return {
-    // QUAN TRỌNG: Không dùng mask: Date mà dùng mask: pattern
     mask: pattern,
     lazy: false,
-    // BỎ autofix hoặc set false để tránh auto-correct quá mức
     autofix: false,
 
     blocks: {
@@ -85,8 +83,7 @@ const buildIMaskDateConfig = (locale: string) => {
       },
     },
 
-    // THÊM OPTION ĐỂ TỰ ĐỘNG THÊM 0 CHO SỐ ĐƠN
-    // Ví dụ: gõ "5" sẽ thành "05"
+    // Transforms value before mask processing
     prepare: (value: string) => {
       return value;
     },
@@ -108,25 +105,25 @@ export default function DateInput(props: DateProps) {
   const [open, setOpen] = createSignal(false);
   const [state, setState] = createStore({
     value: local.value ?? '',
-    valueMasked: '',
+    locale: navigator.language,
     inputMask: '',
     separator: '',
   });
 
   onMount(() => {
-    const mask = getDateMask(navigator.language);
+    const mask = getDateMask(state.locale);
 
-    maskRef = IMask(inputRef, buildIMaskDateConfig(navigator.language));
+    maskRef = IMask(inputRef, buildIMaskDateConfig(state.locale));
 
     // Lắng nghe sự kiện khi giá trị thay đổi
     maskRef.on('accept', () => {
       const unmaskedValue = maskRef!.unmaskedValue;
+      console.log(maskRef);
 
       // Chỉ gọi onChange khi đã nhập đủ
       if (unmaskedValue.length === 8) {
         // ddmmyyyy = 8 ký tự
         const parts = maskRef!.value.split(mask.literals);
-        console.log(maskRef, parts);
 
         if (parts.length === 3) {
           // Parse theo thứ tự của locale
@@ -170,17 +167,24 @@ export default function DateInput(props: DateProps) {
     const date = new Date(target.value);
 
     if (!isNaN(date.getTime())) {
-      const dtf = new Intl.DateTimeFormat(navigator.language);
-      const formatted = dtf.format(date);
+      const dtf = new Intl.DateTimeFormat(state.locale);
+      const parts = dtf.formatToParts(date);
+      const dateFormat = parts
+        .map((p) => {
+          if (p.type === 'day') return `0${p.value}`.slice(-2);
+          if (p.type === 'month') return `0${p.value}`.slice(-2);
+          if (p.type === 'year') return p.value;
+          return p.value;
+        })
+        .join('');
 
       setState({
         value: target.value,
-        valueMasked: formatted,
       });
 
       // Cập nhật mask input
       if (maskRef) {
-        maskRef.value = formatted;
+        maskRef.value = dateFormat;
       }
 
       local.onChange?.(e);
