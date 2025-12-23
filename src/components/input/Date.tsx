@@ -111,6 +111,7 @@ export default function DateInput(props: DateProps) {
   });
 
   onMount(() => {
+    import('cally');
     const mask = getDateMask(state.locale);
 
     maskRef = IMask(inputRef, buildIMaskDateConfig(state.locale));
