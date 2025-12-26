@@ -1,4 +1,5 @@
 import { Title } from '@solidjs/meta';
+import { onMount } from 'solid-js';
 import Plan from '~/components/plan/Plan';
 import { createStore } from 'solid-js/store';
 import { useSearchParams } from '@solidjs/router';
@@ -15,6 +16,7 @@ const initialPlan: PlanType[] = [
     active: false,
     benefits: [
       {
+        code: 'delay',
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
         text: 'Trễ chuyến, hủy chuyến bay lên đến',
         price: 12000000,
@@ -26,6 +28,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'baggage',
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
         text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
         price: 24000000,
@@ -47,6 +50,7 @@ const initialPlan: PlanType[] = [
     active: false,
     benefits: [
       {
+        code: 'delay',
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
         text: 'Trễ chuyến, hủy chuyến bay lên đến',
         price: 12000000,
@@ -58,6 +62,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'baggage',
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
         text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
         price: 24000000,
@@ -69,6 +74,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'pa',
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
         text: 'Bảo hiểm tai nạn cá nhân lên đến',
         price: 1800000000,
@@ -80,6 +86,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'medical',
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
         text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
         price: 2400000000,
@@ -101,6 +108,7 @@ const initialPlan: PlanType[] = [
     active: false,
     benefits: [
       {
+        code: 'delay',
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
         text: 'Trễ chuyến, hủy chuyến bay lên đến',
         price: 12000000,
@@ -112,6 +120,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'baggage',
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
         text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
         price: 24000000,
@@ -123,6 +132,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'pa',
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
         text: 'Bảo hiểm tai nạn cá nhân lên đến',
         price: 1800000000,
@@ -134,6 +144,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'medical',
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
         text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
         price: 2400000000,
@@ -155,6 +166,7 @@ const initialPlan: PlanType[] = [
     active: false,
     benefits: [
       {
+        code: 'pa',
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
         text: 'Bảo hiểm tai nạn cá nhân',
         price: 180000000,
@@ -166,6 +178,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'medical',
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
         text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2400000000,
@@ -177,6 +190,7 @@ const initialPlan: PlanType[] = [
         ),
       },
       {
+        code: 'worldwide-support-247',
         svg: (
           <img
             class="w-[40px]"
@@ -204,23 +218,7 @@ export default function PlanPage() {
     textHighlight?: string;
     layout?: 'row' | 'col';
   }>({
-    plans: initialPlan.map((plan) => ({
-      ...plan,
-      name:
-        typeof plan?.name === 'string' && plan?.name?.startsWith('Easy')
-          ? plan.name.split(' ').map((char, i) => {
-              if (i === 0) {
-                return char;
-              } else {
-                return (
-                  <>
-                    &nbsp;<span class="text-[#DD252E]">{char}</span>
-                  </>
-                );
-              }
-            })
-          : plan.name,
-    })),
+    plans: initialPlan,
     planIdActiveId: undefined,
     textHighlight: 'Được đề xuất',
     layout,

@@ -1,5 +1,5 @@
 import { JSX } from 'solid-js';
-import { Area, Plan } from './models';
+import { Area, Plan, BenefitItem } from './models';
 
 type AreaProps = {
   areas: Area[];
@@ -50,6 +50,22 @@ type RangeDateProps = BaseDateProps & {
   // to: string;
 };
 
+type BenefitFullProps = {
+  data: {
+    activeId?: string;
+    plans: {
+      code: string;
+      name: string;
+    }[];
+    headers: {
+      id: string;
+      code: string;
+      name: string;
+    }[];
+    benefits: BenefitItem;
+  };
+};
+
 type DateProps = SingleDateProps | RangeDateProps;
 
-export type { AreaProps, PlanProps, DateProps };
+export type { AreaProps, PlanProps, DateProps, BenefitFullProps };

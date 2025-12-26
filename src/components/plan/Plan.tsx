@@ -4,6 +4,23 @@ import { PlanProps } from '~/types/props';
 import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/utils';
 import './plan.css';
 
+const formatPlanName = (name: string | any) => {
+  if (typeof name === 'string' && name.startsWith('Easy')) {
+    const parts = name.split(' ');
+    return (
+      <>
+        {parts[0]}
+        {parts.slice(1).map((char) => (
+          <>
+            &nbsp;<span class="text-[#DD252E]">{char}</span>
+          </>
+        ))}
+      </>
+    );
+  }
+  return name;
+};
+
 const Plan: Component<PlanProps> = (props) => {
   const [local, rest] = splitProps(props, [
     'data',
@@ -102,7 +119,7 @@ const Plan: Component<PlanProps> = (props) => {
               }}
             >
               <div class="name text-primary text-2xl/10 font-bold">
-                {statePlan.data.name}
+                {formatPlanName(statePlan.data.name)}
               </div>
               <div class="text-light description text-base/[22px] text-[#76758A] italic">
                 {statePlan.data.description}
@@ -155,7 +172,7 @@ const Plan: Component<PlanProps> = (props) => {
                 {statePlan.benefits.map(
                   (
                     arrBenefit: {
-                      svg?: JSX.Element;
+                      code: string;
                       text?: string;
                       price?: string;
                       description?: JSX.Element;
@@ -164,13 +181,18 @@ const Plan: Component<PlanProps> = (props) => {
                     <div class="flex flex-col items-center gap-[11px]">
                       {arrBenefit.map(
                         (benefit: {
-                          svg?: JSX.Element;
+                          code: string;
                           text?: string;
                           price?: string;
                           description?: JSX.Element;
                         }) => (
                           <div class="flex items-center gap-[11px]">
-                            <div class="icon">{benefit.svg}</div>
+                            <div class="icon">
+                              <img
+                                class="w-[40px]"
+                                src={`/images/benefit/small/${benefit.code}.svg`}
+                              />
+                            </div>
                             <div class="text-base/[22px]">
                               <div>
                                 {benefit.text}{' '}
@@ -213,7 +235,7 @@ const Plan: Component<PlanProps> = (props) => {
           <div class="flex flex-col">
             <div class="flex items-center justify-between">
               <div class="text-primary text-2xl/10 font-bold">
-                {statePlan.data.name}
+                {formatPlanName(statePlan.data.name)}
               </div>
               <div class="text-primary text-2xl leading-7 font-bold">
                 {convertCurrency(statePlan.data.price)}
@@ -248,20 +270,25 @@ const Plan: Component<PlanProps> = (props) => {
               statePlan.benefits.map(
                 (
                   arrBenefit: {
-                    svg?: JSX.Element;
+                    code: string;
                     description?: JSX.Element;
                   }[],
                 ) => (
                   <div class="flex flex-col gap-[11px]">
                     {arrBenefit.map(
                       (benefit: {
-                        svg?: JSX.Element;
+                        code: string;
                         text?: string;
                         price?: string;
                         description?: JSX.Element;
                       }) => (
                         <div class="flex items-center gap-[11px]">
-                          <div class="w-[20px]">{benefit.svg}</div>
+                          <div class="w-[20px]">
+                            <img
+                              class="w-[40px]"
+                              src={`/images/benefit/small/${benefit.code}.svg`}
+                            />
+                          </div>
                           <div class="flex w-full justify-between text-base/[22px]">
                             <div class="text-xs">{benefit.text}</div>
                             <div class="text-primary font-semibold">

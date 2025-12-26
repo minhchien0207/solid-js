@@ -9,7 +9,30 @@ type Area = {
   hint?: any;
 };
 
+type BenefitDetail = {
+  id: string;
+  code: string;
+  name: string;
+  description?: string;
+};
+
+type BenefitItem = {
+  benefit: BenefitDetail;
+  index: number;
+  plan: {
+    [planCode: string]: {
+      id: string;
+      si?: string;
+      siInWords?: string;
+      siInSymbols?: 'check' | 'close';
+      [key: string]: any;
+    };
+  };
+  benefits: BenefitItem[];
+};
+
 type Benefit = {
+  code?: string;
   svg?: JSX.Element;
   svgActive?: JSX.Element;
   name: string;
@@ -71,4 +94,13 @@ type Delivery = {
 
 type PolicyHolder = Individual | Corporate;
 
-export type { Area, Benefit, Plan, InsuredPerson, PolicyHolder, Delivery };
+export type {
+  Area,
+  Benefit,
+  Plan,
+  InsuredPerson,
+  PolicyHolder,
+  Delivery,
+  BenefitDetail,
+  BenefitItem,
+};

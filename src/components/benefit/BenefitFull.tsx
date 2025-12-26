@@ -1,51 +1,11 @@
 import { splitProps, JSX } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-// import { createStore } from 'solid-js/store';
 import { numb2CurrencyStr, convertCurrency } from '~/utils';
-
-type Plan = {
-  [planCode: string]: {
-    id: string;
-    si?: string;
-    siInWords?: string;
-    siInSymbols?: 'check' | 'close';
-    [key: string]: any;
-  };
-};
-
-type BenefitDetail = {
-  id: string;
-  code: string;
-  name: string;
-  description?: string;
-};
-
-type BenefitItem = {
-  benefit: BenefitDetail;
-  index: number;
-  plan: Plan;
-  benefits: BenefitItem[];
-};
-
-type BenefitFullProps = {
-  data: {
-    plans: {
-      code: string;
-      name: string;
-    }[];
-    benefits: BenefitItem;
-  };
-};
+import type { BenefitFullProps } from '~/types/props';
+import type { BenefitItem } from '~/types/models';
 
 export default function BenefitFull({ data }: BenefitFullProps) {
   const [local] = splitProps(data, ['plans', 'benefits']);
-  // const [store, setStore] = createStore<{
-  //   plans: string[];
-  //   benefits: BenefitItem[];
-  // }>({
-  //   plans: local.plans,
-  //   benefits: local.benefits,
-  // });
 
   const cols = Math.min(local?.plans?.length + 1, 5);
   const cls = {

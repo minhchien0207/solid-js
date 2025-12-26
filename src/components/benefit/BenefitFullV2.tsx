@@ -2,45 +2,8 @@ import { splitProps, JSX, createEffect, Show } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { createStore } from 'solid-js/store';
 import { numb2CurrencyStr, convertCurrency } from '~/utils';
-
-type Plan = {
-  [planCode: string]: {
-    id: string;
-    si?: string;
-    siInWords?: string;
-    [key: string]: any;
-  };
-};
-
-type BenefitDetail = {
-  id: string;
-  code: string;
-  name: string;
-  description?: string;
-};
-
-type BenefitItem = {
-  benefit: BenefitDetail;
-  index: number;
-  plan: Plan;
-  benefits: BenefitItem[];
-};
-
-type BenefitFullProps = {
-  data: {
-    activeId?: string;
-    plans: {
-      code: string;
-      name: string;
-    }[];
-    headers: {
-      id: string;
-      code: string;
-      name: string;
-    }[];
-    benefits: BenefitItem;
-  };
-};
+import type { BenefitFullProps } from '~/types/props';
+import type { BenefitItem } from '~/types/models';
 
 export default function BenefitFull({ data }: BenefitFullProps) {
   const [local] = splitProps(data, [
@@ -264,7 +227,7 @@ const renderBenefitsV2 = (
                   )}
                 </div>
               </summary>
-              <Show when={bnf.benefit.description} keyed>
+              {bnf.benefit.description && (
                 <div
                   class="collapse-content mt-2.5 w-fit border-l-2 border-[#E6A441] pr-0 pb-0 text-justify text-sm font-normal italic"
                   classList={{
@@ -274,7 +237,7 @@ const renderBenefitsV2 = (
                 >
                   {bnf.benefit.description}
                 </div>
-              </Show>
+              )}
             </Dynamic>
           </div>
         </div>
@@ -297,11 +260,11 @@ const renderBenefitsV2 = (
               ))}
           </div>
         ))}
-        <Show when={bnf.benefits?.length > 0} keyed>
+        {bnf.benefits?.length > 0 && (
           <div
             class={`divider col-start-1 m-0 h-0 p-0 max-sm:px-6 lg:px-8 ${clsDivider}`}
           ></div>
-        </Show>
+        )}
         {renderBenefitsV2(
           bnf.benefits,
           plans,
