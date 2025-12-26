@@ -256,7 +256,7 @@ export default function PlanPage() {
             >
               <a
                 href="#"
-                class="text-primary text-[16px] leading-[24px] font-semibold"
+                class="text-primary text-base/6 font-semibold"
                 onClick={(e) => {
                   e.stopPropagation();
                   alert(`Xem chi tiết quyền lợi ${toPlainText(plan.name)}`);

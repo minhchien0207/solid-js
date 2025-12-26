@@ -3,8 +3,7 @@ import { A, useMatch } from '@solidjs/router';
 import { Dynamic } from 'solid-js/web';
 import './step.css';
 
-export interface StepPropsCore
-  extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface StepPropsCore extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   order: number;
   name: string;
   progress?: Progress;
@@ -63,7 +62,7 @@ const Step: Component<StepProps> = (initialProps) => {
             {props.order}
           </div>
           <div
-            class="name text-[18px]"
+            class="name text-lg"
             classList={{ 'font-semibold': props.active }}
           >
             {props.name}
@@ -82,7 +81,7 @@ const Step: Component<StepProps> = (initialProps) => {
         <div class="flex flex-col items-end">
           <div class="sub-step font-light text-[#ADACB9]">{`Bước ${props.order}`}</div>
           <div
-            class="name text-[18px] text-[#18171C]"
+            class="name text-lg text-[#18171C]"
             classList={{ 'font-semibold': props.active }}
           >
             {props.name}

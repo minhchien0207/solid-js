@@ -84,10 +84,10 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
       </div>
       {/* body */}
       <div class="flex w-full flex-col items-center gap-6 bg-white max-sm:p-6 lg:p-[48px]">
-        <div class="text-primary text-center text-[40px] leading-[56px] font-bold">
+        <div class="text-primary text-center text-[40px]/14 font-bold">
           Nâng cấp gói quyền lợi
         </div>
-        <div class="text-justify text-[16px] leading-[22px] font-normal text-[#18171C]">
+        <div class="text-justify text-base/[22px] font-normal text-[#18171C]">
           Nâng cấp quyền lợi bảo hiểm để an tâm trải nghiệm trọn vẹn chuyến đi
           của bạn. Được bảo vệ nhiều hơn cho các trường hợp khẩn cấp y tế, hủy
           chuyến, tai nạn cá nhân và mất hành lý. Một bước nhỏ giúp bạn tránh
@@ -96,7 +96,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
             Du lịch thoải mái, vì luôn biết rằng bạn đã được bảo vệ toàn diện.
           </span>
         </div>
-        <div class="flex w-full flex-row flex-wrap items-center justify-between gap-[18px] text-[16px] leading-[22px] font-normal text-[#18171C] max-sm:justify-center">
+        <div class="flex w-full flex-row flex-wrap items-center justify-between gap-[18px] text-base/[22px] font-normal text-[#18171C] max-sm:justify-center">
           <div class="font-semibold text-[#ADACB9] max-sm:order-1 lg:basis-1/3">
             Bạn sẽ nhận được thêm:
           </div>
@@ -114,7 +114,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                   <tr class="bg-[#EEF1FC] text-center">
                     <th class=""></th>
                     {state.plans?.map((plan, index) => (
-                      <th class="text-primary text-[16px] leading-[24px] font-bold">
+                      <th class="text-primary text-base/6 font-bold">
                         <div class="items-cente flex flex-col">
                           <div class="text-black">
                             {plan.code === state.currentPlan?.code
@@ -133,7 +133,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                       <td class="w-fit border border-[#E4E3E8] lg:px-3 lg:py-6">
                         <div class="flex items-center gap-[11px]">
                           <div class="icon max-sm:hidden">{benefit.svg}</div>
-                          <div class="description text-[16px] leading-[22px]">
+                          <div class="description text-base/[22px]">
                             {benefit.text}
                           </div>
                         </div>
@@ -145,7 +145,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                           ) ?? {};
                         return (
                           <td
-                            class="border border-[#E4E3E8] text-center text-[16px] leading-[24px] lg:px-2 lg:py-[22px]"
+                            class="border border-[#E4E3E8] text-center text-base/6 lg:px-2 lg:py-[22px]"
                             classList={{
                               'text-[#9191A1]': !isMax,
                               'text-primary font-semibold': isMax,
@@ -170,7 +170,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                 </div>
                 {state.plans?.map((plan, index) => (
                   <div
-                    class="text-primary flex flex-col items-center justify-center rounded-[8px] px-1 py-2 text-[14px] leading-[20px] font-bold"
+                    class="text-primary flex flex-col items-center justify-center rounded-lg px-1 py-2 text-sm/5 font-bold"
                     classList={{
                       'bg-[#F3F4F6]': plan.code === state.currentPlan?.code,
                       'bg-primary': plan.code === state.recommendedPlan?.code,
@@ -202,7 +202,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                 {state.benefits?.map((benefit, index) => (
                   <>
                     <div
-                      class="text-[14px] leading-[22px]"
+                      class="text-sm/[22px]"
                       classList={{
                         'm-1': index === 0,
                       }}
@@ -216,7 +216,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                         ) ?? {};
                       return (
                         <div
-                          class="flex items-center justify-center text-[16px] leading-[24px]"
+                          class="flex items-center justify-center text-base/6"
                           classList={{
                             'text-[#9191A1]': !isMax,
                             'text-primary font-bold': isMax,
@@ -243,7 +243,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
       {/* footer */}
       <div class="flex w-full justify-between gap-6 rounded-b-[16px] bg-[#EEF1FC] px-[48px] py-[32px] max-sm:flex-col lg:flex-row-reverse">
         <button
-          class="btn rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-[#474653] max-sm:order-2 lg:order-2"
+          class="btn rounded-lg px-5 py-3 text-base leading-6 font-semibold text-[#474653] max-sm:order-2 lg:order-2"
           on:click={(e) => {
             e.stopPropagation();
             console.log('clicked');
@@ -257,7 +257,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
           state.plans?.length > 1 &&
           state.recommendedPlan &&
           state.currentPlan && (
-            <button class="btn btn-primary rounded-[8px] px-[20px] py-[12px] text-[16px] leading-6 font-semibold text-white max-sm:order-1 lg:order-1">
+            <button class="btn btn-primary rounded-lg px-5 py-3 text-base leading-6 font-semibold text-white max-sm:order-1 lg:order-1">
               Nâng cấp gói chỉ với&nbsp;
               <span class="skeleton skeleton-text font-bold">
                 {convertCurrency(

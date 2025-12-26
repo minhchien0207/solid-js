@@ -74,10 +74,10 @@ export default function QuestionPage() {
                 class="collapse-arrow bg-base-100 border-base-300 text-primary collapse border"
                 name="faq"
               >
-                <summary class="collapse-title text-[16px] leading-[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap">
+                <summary class="collapse-title text-base/[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap">
                   {item.question}
                 </summary>
-                <div class="collapse-content text-regular text-[14px] leading-[25px]">
+                <div class="collapse-content text-regular text-sm/[25px]">
                   <ul
                     role="list"
                     class="list-disc text-pretty marker:text-[#474653]"
@@ -90,7 +90,7 @@ export default function QuestionPage() {
               </details>
             ))}
           >
-            <div class="h-[15px] w-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
+            <div class="size-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
             <span class="">Hỏi đáp</span>
           </Modal>
         </div>

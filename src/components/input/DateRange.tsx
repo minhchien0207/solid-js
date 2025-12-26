@@ -104,7 +104,7 @@ export default function DateRangeInput(props: DateProps) {
 
   return (
     <>
-      <fieldset class="fieldset lg:text-[16px] lg:leading-6">
+      <fieldset class="fieldset lg:text-base lg:leading-6">
         <legend
           class="fieldset-legend font-semibold text-[#18171C]"
           classList={{
@@ -120,7 +120,7 @@ export default function DateRangeInput(props: DateProps) {
             for={local.attr?.id}
             id={`${local.attr?.id}-pattern-view`}
           ></label>
-          <label class="input cursor-pointer rounded-[8px] outline-0 placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-[16px]">
+          <label class="input cursor-pointer rounded-lg outline-0 placeholder:text-[90%] placeholder:text-[#9191A1] lg:px-4">
             <input
               type="text"
               tabindex="0"
@@ -135,7 +135,7 @@ export default function DateRangeInput(props: DateProps) {
               readOnly
               onfocus={() => setOpen(true)}
             />
-            <div class="h-[15px] w-[15px] bg-[#9191A1] mask-[url('/images/calendar.svg')] mask-center mask-no-repeat"></div>
+            <div class="size-[15px] bg-[#9191A1] mask-[url('/images/calendar.svg')] mask-center mask-no-repeat"></div>
           </label>
           <Show when={open()}>
             <div
@@ -176,7 +176,7 @@ export default function DateRangeInput(props: DateProps) {
         </div>
 
         <Show when={local.helper?.hint || state.numDate}>
-          <p class="label text-[#76758A] lg:text-[14px] lg:leading-[22px]">
+          <p class="label text-[#76758A] lg:text-sm/[22px]">
             {local.helper?.hint ||
               (state.numDate ? (
                 <div>

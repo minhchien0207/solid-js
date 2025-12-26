@@ -1,13 +1,13 @@
-import { Title } from "@solidjs/meta";
-import { createStore } from "solid-js/store";
-import Area from "~/components/area/Area";
-import { Area as AreaType } from "~/types/models";
+import { Title } from '@solidjs/meta';
+import { createStore } from 'solid-js/store';
+import Area from '~/components/area/Area';
+import { Area as AreaType } from '~/types/models';
 
 export const initialArea: AreaType[] = [
   {
-    text: "Đông Nam Á",
-    value: "sea",
-    attr: { name: "area", id: "sea" },
+    text: 'Đông Nam Á',
+    value: 'sea',
+    attr: { name: 'area', id: 'sea' },
     hint: (
       <div>
         <div class="font-[15px] font-semibold">
@@ -22,9 +22,9 @@ export const initialArea: AreaType[] = [
     active: false,
   },
   {
-    text: "Châu Á",
-    value: "asia",
-    attr: { name: "area", id: "asia" },
+    text: 'Châu Á',
+    value: 'asia',
+    attr: { name: 'area', id: 'asia' },
     hint: (
       <div>
         <div class="font-[15px] font-semibold">
@@ -39,9 +39,9 @@ export const initialArea: AreaType[] = [
     active: false,
   },
   {
-    text: "Toàn cầu",
-    value: "worldwide",
-    attr: { name: "area", id: "worldwide" },
+    text: 'Toàn cầu',
+    value: 'worldwide',
+    attr: { name: 'area', id: 'worldwide' },
     hint: (
       <div>
         <div class="font-[15px] font-semibold">Toàn cầu</div>
@@ -54,7 +54,7 @@ export const initialArea: AreaType[] = [
     ),
     active: false,
     children: (
-      <div class="flex flex-row items-center gap-2 rounded-[8px] bg-white p-5">
+      <div class="flex flex-row items-center gap-2 rounded-lg bg-white p-5">
         <svg
           width="14"
           height="14"
@@ -68,7 +68,7 @@ export const initialArea: AreaType[] = [
           />
         </svg>
         <label>
-          Điểm đến của bạn có yêu cầu{" "}
+          Điểm đến của bạn có yêu cầu{' '}
           <span class="text-primary font-semibold">Visa Schengen</span>?
         </label>
         <input type="checkbox" checked={true} class="checkbox checkbox-xs" />
@@ -84,8 +84,8 @@ export default function AreaPage() {
     activeHintId: string;
   }>({
     areas: initialArea,
-    value: "",
-    activeHintId: "",
+    value: '',
+    activeHintId: '',
   });
 
   const selectArea = (val: string) =>
@@ -93,17 +93,17 @@ export default function AreaPage() {
       value: val,
       activeHintId:
         stateArea.activeHintId && stateArea.activeHintId !== val
-          ? ""
+          ? ''
           : stateArea.activeHintId,
     });
 
   const selectAreaHintById = (id: string) =>
     setStateArea(
-      "activeHintId",
-      stateArea.activeHintId === ""
+      'activeHintId',
+      stateArea.activeHintId === ''
         ? id
         : stateArea.activeHintId === id
-          ? ""
+          ? ''
           : id,
     );
 

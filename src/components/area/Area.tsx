@@ -41,7 +41,7 @@ const Area: Component<AreaProps> = (props) => {
       <div class="flex w-max flex-col gap-2">
         {stateArea.areas.map((area, i) => (
           <div
-            class="flex cursor-pointer flex-row items-center gap-2 rounded-[8px] bg-white p-5"
+            class="flex cursor-pointer flex-row items-center gap-2 rounded-lg bg-white p-5"
             on:click={() => local.onSelect?.(area.value)}
           >
             <input
@@ -113,7 +113,7 @@ const Area: Component<AreaProps> = (props) => {
         }
         keyed
       >
-        <div class="gap-2 rounded-[8px] bg-[#E8191C] p-2 font-light text-white opacity-50 transition-all duration-300 ease-in-out">
+        <div class="gap-2 rounded-lg bg-[#E8191C] p-2 font-light text-white opacity-50 transition-all duration-300 ease-in-out">
           {
             stateArea.areas.find(
               (area) => area.attr.id === stateArea.activeHintId,

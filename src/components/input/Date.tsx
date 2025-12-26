@@ -195,7 +195,7 @@ export default function DateInput(props: DateProps) {
 
   return (
     <>
-      <fieldset class="fieldset lg:text-[16px] lg:leading-6">
+      <fieldset class="fieldset lg:text-base lg:leading-6">
         <legend
           class="fieldset-legend font-semibold text-[#18171C]"
           classList={{
@@ -211,7 +211,7 @@ export default function DateInput(props: DateProps) {
             for={local.attr?.id}
             id={`${local.attr?.id}-pattern-view`}
           ></label>
-          <label class="input rounded-[8px] outline-0 placeholder:text-[#9191A1] lg:px-[16px]">
+          <label class="input rounded-lg outline-0 placeholder:text-[#9191A1] lg:px-4">
             <input
               ref={inputRef}
               inputmode="numeric"
@@ -225,7 +225,7 @@ export default function DateInput(props: DateProps) {
               autocomplete="off"
               onfocus={() => setOpen(true)}
             />
-            <div class="h-[15px] w-[15px] bg-[#9191A1] mask-[url('/images/calendar.svg')] mask-center mask-no-repeat"></div>
+            <div class="size-[15px] bg-[#9191A1] mask-[url('/images/calendar.svg')] mask-center mask-no-repeat"></div>
           </label>
           <Show when={open()}>
             <div
@@ -267,7 +267,7 @@ export default function DateInput(props: DateProps) {
         </div>
 
         <Show when={local.helper?.hint}>
-          <p class="label text-[#76758A] lg:text-[14px] lg:leading-[22px]">
+          <p class="label text-[#76758A] lg:text-sm/[22px]">
             {local.helper?.hint}
           </p>
         </Show>

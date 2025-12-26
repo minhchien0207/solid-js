@@ -43,7 +43,7 @@ const Area: Component<AreaProps> = (props) => {
             />
             <div class="collapse-title flex items-center gap-3 font-semibold">
               <input type="radio" checked={stateArea.value === area.value} />{' '}
-              <span class="lg:text-[18px] lg:leading-[26px]">{area.text}</span>
+              <span class="lg:text-lg/[26px]">{area.text}</span>
             </div>
             <div class="collapse-content text-sm text-[#E8191C] opacity-75">
               {area.hint}

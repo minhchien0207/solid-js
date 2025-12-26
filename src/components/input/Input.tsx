@@ -109,7 +109,7 @@ export default function Input(props: InputProps) {
   };
 
   return (
-    <fieldset class="fieldset lg:text-[16px] lg:leading-6">
+    <fieldset class="fieldset lg:text-base lg:leading-6">
       <legend
         class="fieldset-legend font-semibold text-[#18171C]"
         classList={{
@@ -122,7 +122,7 @@ export default function Input(props: InputProps) {
       <div class="relative">
         <input
           type="text"
-          class="input rounded-[8px] placeholder:text-[#9191A1] focus:outline-0 lg:px-[16px] lg:py-[12px]"
+          class="input rounded-lg placeholder:text-[#9191A1] focus:outline-0 lg:px-4 lg:py-3"
           classList={{
             'border-red-500': error() !== null,
             'border-gray-300': error() === null,
@@ -136,14 +136,14 @@ export default function Input(props: InputProps) {
           onInput={handleInput}
         />
         <Show when={isValidating()}>
-          <div class="absolute top-1/2 right-3 h-[15px] w-[15px] -translate-y-1/2 animate-spin bg-[#9191A1] mask-[url('/images/checking.svg')] mask-center mask-no-repeat"></div>
+          <div class="absolute top-1/2 right-3 size-[15px] -translate-y-1/2 animate-spin bg-[#9191A1] mask-[url('/images/checking.svg')] mask-center mask-no-repeat"></div>
         </Show>
       </div>
       <Show when={error()}>
-        <p class="text-[12px] text-red-500">{error()}</p>
+        <p class="text-xs text-red-500">{error()}</p>
       </Show>
       <Show when={local.helper?.hint && !error()}>
-        <p class="label text-[#76758A] lg:text-[14px] lg:leading-[22px]">
+        <p class="label text-[#76758A] lg:text-sm/[22px]">
           {local.helper?.hint}
         </p>
       </Show>

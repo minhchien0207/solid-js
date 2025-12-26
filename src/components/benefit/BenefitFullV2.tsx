@@ -105,12 +105,12 @@ export default function BenefitFull({ data }: BenefitFullProps) {
         ))}
       </div>
       <div class="w-full" id="content-tab">
-        <div class={`grid max-sm:text-[14px] ${cls}`}>
+        <div class={`grid max-sm:text-sm ${cls}`}>
           {store.activeBenefits && (
             <>
               <div class="bg-[#E4E3E8] text-[#18171C] max-sm:hidden lg:col-span-1"></div>
               {store?.plans?.map((plan) => (
-                <div class="col-span-1 bg-[#E4E3E8] font-semibold text-[#18171C] max-sm:sticky max-sm:py-3 lg:py-5 lg:text-[18px] lg:leading-[28px]">
+                <div class="col-span-1 bg-[#E4E3E8] font-semibold text-[#18171C] max-sm:sticky max-sm:py-3 lg:py-5 lg:text-lg/7">
                   <div class="flex items-center justify-center">
                     {plan.name}
                   </div>
@@ -122,8 +122,8 @@ export default function BenefitFull({ data }: BenefitFullProps) {
         </div>
       </div>
       <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
-        <div class="text-[24px] font-bold text-[#DD252E]">Lưu ý quan trọng</div>
-        <ol class="list-decimal text-justify text-[16px] leading-6.5 lg:pl-5">
+        <div class="text-2xl font-bold text-[#DD252E]">Lưu ý quan trọng</div>
+        <ol class="list-decimal text-justify text-base leading-6.5 lg:pl-5">
           <li>
             Quyền lợi "Mất hoặc hư hỏng hành lý": KHÔNG ÁP DỤNG đối với Hành lý
             không phải là Hành lý du lịch, động vật, xe cơ giới (bao gồm phụ
@@ -148,12 +148,12 @@ export default function BenefitFull({ data }: BenefitFullProps) {
       </div>
       <details class="collapse-arrow collapse rounded-b-[16px] bg-[#F1F1F3] max-sm:visible lg:hidden">
         <summary class="collapse-title p-6">
-          <span class="text-[20px] leading-8 font-bold text-[#DD252E]">
+          <span class="text-xl leading-8 font-bold text-[#DD252E]">
             Lưu ý quan trọng
           </span>
         </summary>
         <div class="collapse-content p-6 pt-0 text-sm">
-          <ol class="list-decimal pl-4 text-justify text-[16px] leading-5">
+          <ol class="list-decimal pl-4 text-justify text-base leading-5">
             <li>
               Quyền lợi "Mất hoặc hư hỏng hành lý": KHÔNG ÁP DỤNG đối với Hành
               lý không phải là Hành lý du lịch, động vật, xe cơ giới (bao gồm

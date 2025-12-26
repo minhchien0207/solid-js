@@ -83,7 +83,7 @@ export default function QuestionPage() {
             role="button"
             class="btn flex items-center gap-2 rounded-full"
           >
-            <div class="h-[15px] w-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
+            <div class="size-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
             <span class="">Hỏi đáp</span>
           </div>
 
@@ -101,7 +101,7 @@ export default function QuestionPage() {
               for="faq_modal"
             >
               <div
-                class="bg-primary h-[15px] w-[15px] mask-[url('/images/faq.svg')] mask-center mask-no-repeat"
+                class="bg-primary size-[15px] mask-[url('/images/faq.svg')] mask-center mask-no-repeat"
                 data-modal-id="faq_modal"
                 data-modal-title="Câu hỏi thường gặp"
                 onclick={(e) => {
@@ -121,7 +121,7 @@ export default function QuestionPage() {
               for="list_document_modal"
             >
               <div
-                class="bg-primary h-[15px] w-[15px] mask-[url('/images/list_document.svg')] mask-center mask-no-repeat"
+                class="bg-primary size-[15px] mask-[url('/images/list_document.svg')] mask-center mask-no-repeat"
                 data-modal-id="list_document_modal"
                 data-modal-title="Tài liệu sản phẩm"
                 onclick={(e) => {
@@ -164,7 +164,7 @@ export default function QuestionPage() {
                 <Dynamic
                   component={titleTag()}
                   href={item?.link}
-                  class="collapse-title text-[16px] leading-[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap"
+                  class="collapse-title text-base/[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap"
                   classList={{
                     'flex items-center p-4 justify-between after:bg-primary':
                       item?.link,
@@ -173,7 +173,7 @@ export default function QuestionPage() {
                   {item?.title ?? item?.question}
                 </Dynamic>
                 <Show when={item?.answers?.length > 0}>
-                  <div class="collapse-content text-regular text-[14px] leading-[25px]">
+                  <div class="collapse-content text-regular text-sm/[25px]">
                     <ul
                       role="list"
                       class="list-disc text-pretty marker:text-[#474653]"

@@ -38,7 +38,7 @@ const Plan: Component<PlanProps> = (props) => {
   return (
     <>
       <div
-        class={`relative flex cursor-pointer ${layoutGeneral} md:visible]: z-0 gap-6 overflow-hidden rounded-[16px] border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
+        class={`relative flex cursor-pointer ${layoutGeneral} md:visible]: z-0 gap-6 overflow-hidden rounded-2xl border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
         classList={{
           'lg:w-[299px] p-5': local.style?.layout === 'col',
           'items-center lg:items-start justify-evenly p-15':
@@ -58,7 +58,7 @@ const Plan: Component<PlanProps> = (props) => {
         onClick={local.onSelect}
       >
         <Show when={local.isActive} keyed>
-          <div class="absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-[6px] text-center text-[18px] leading-[26px] font-semibold text-[#DD252E]">
+          <div class="absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-1.5 text-center text-lg/[26px] font-semibold text-[#DD252E]">
             {local.textHighlight ?? 'Lựa chọn của bạn'}
           </div>
         </Show>
@@ -101,15 +101,15 @@ const Plan: Component<PlanProps> = (props) => {
                 'mt-7': local.style?.layout === 'col',
               }}
             >
-              <div class="name text-primary text-[24px] leading-[40px] font-bold">
+              <div class="name text-primary text-2xl/10 font-bold">
                 {statePlan.data.name}
               </div>
-              <div class="text-light description text-[16px] leading-[22px] text-[#76758A] italic">
+              <div class="text-light description text-base/[22px] text-[#76758A] italic">
                 {statePlan.data.description}
               </div>
             </div>
             {/* Price */}
-            <div class="text-primary price text-center text-[40px] leading-[56px] font-bold">
+            <div class="text-primary price text-center text-[40px]/14 font-bold">
               {convertCurrency(statePlan.data.price)}
             </div>
           </div>
@@ -117,7 +117,7 @@ const Plan: Component<PlanProps> = (props) => {
           <Show when={local.style?.showButton ?? true} keyed>
             <button
               type="button"
-              class="btn w-full rounded-[8px]"
+              class="btn w-full rounded-lg"
               classList={{
                 'btn-primary text-white': local.isActive,
                 'bg-[#EEF1FC] text-primary': !local.isActive,
@@ -146,7 +146,7 @@ const Plan: Component<PlanProps> = (props) => {
                   statePlan.benefits.length === 1,
               }}
             >
-              <div class="text-[18px] leading-[26px] font-semibold text-[#18171C]">
+              <div class="text-lg/[26px] font-semibold text-[#18171C]">
                 Gói bảo hiểm bao gồm:
               </div>
               <div
@@ -171,7 +171,7 @@ const Plan: Component<PlanProps> = (props) => {
                         }) => (
                           <div class="flex items-center gap-[11px]">
                             <div class="icon">{benefit.svg}</div>
-                            <div class="text-[16px] leading-[22px]">
+                            <div class="text-base/[22px]">
                               <div>
                                 {benefit.text}{' '}
                                 <span class="text-primary font-semibold">
@@ -206,13 +206,13 @@ const Plan: Component<PlanProps> = (props) => {
           onClick={local.onSelect}
         >
           {local.isActive && (
-            <div class="absolute top-0 left-[30px] -m-4 rounded-full bg-[#F8D3D5] px-[12px] py-[2px] font-semibold text-[#DD252E]">
+            <div class="absolute top-0 left-[30px] -m-4 rounded-full bg-[#F8D3D5] px-3 py-0.5 font-semibold text-[#DD252E]">
               Lựa chọn của bạn
             </div>
           )}
           <div class="flex flex-col">
             <div class="flex items-center justify-between">
-              <div class="text-primary text-[24px] leading-[40px] font-bold">
+              <div class="text-primary text-2xl/10 font-bold">
                 {statePlan.data.name}
               </div>
               <div class="text-primary text-2xl leading-7 font-bold">
@@ -223,7 +223,7 @@ const Plan: Component<PlanProps> = (props) => {
               <div class="font-light">{statePlan.data.description}</div>
               <button
                 type="button"
-                class="btn rounded-[8px] px-[20px] py-[8px] text-[17px] font-semibold"
+                class="btn rounded-lg px-5 py-2 text-[17px] font-semibold"
                 classList={{
                   'bg-[#F8D3D5] text-[#DD252E] flex items-center':
                     local.isActive,
@@ -262,8 +262,8 @@ const Plan: Component<PlanProps> = (props) => {
                       }) => (
                         <div class="flex items-center gap-[11px]">
                           <div class="w-[20px]">{benefit.svg}</div>
-                          <div class="flex w-full justify-between text-[16px] leading-[22px]">
-                            <div class="text-[12px]">{benefit.text}</div>
+                          <div class="flex w-full justify-between text-base/[22px]">
+                            <div class="text-xs">{benefit.text}</div>
                             <div class="text-primary font-semibold">
                               {benefit.price &&
                                 numb2CurrencyStr(Number(benefit.price), 'vn')}
