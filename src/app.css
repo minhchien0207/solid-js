@@ -1,11 +1,12 @@
 @import 'tailwindcss';
+
+/* safe list */
+@source inline('{sm:,md:,lg:,xl:,}grid-cols-{1,2,3,4,5,6}');
+
 @plugin 'daisyui' {
-  themes: light --default;
-}
-@plugin 'daisyui/theme' {
-  name: 'light';
-  default: true;
-  --color-primary: #26245f;
+  themes:
+    light --default,
+    dark;
 
   @theme {
     --animate-zoom-in-out: zoom-in-out 500ms ease-in-out;
@@ -62,6 +63,76 @@
   }
 }
 
+@plugin 'daisyui/theme' {
+  name: 'light';
+  default: true;
+  --color-primary: #26245f;
+  --color-secondary: #dd252e;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'dark';
+  /* --color-primary: #8b7ff5; */
+}
+
+/* staggered animation */
+[data-stagger] {
+  transition:
+    opacity 0.25s ease,
+    translate 0.25s ease;
+  transition-delay: calc(0.1s * (sibling-index() - 1));
+
+  @starting-style {
+    opacity: 0;
+  }
+}
+
+[data-stagger='rtl'] {
+  @starting-style {
+    translate: 1em 0;
+  }
+}
+
+[data-stagger='ltr'] {
+  @starting-style {
+    translate: -1em 0;
+  }
+}
+
+[data-stagger='ttb'] {
+  @starting-style {
+    translate: 0 -1em;
+  }
+}
+
+[data-stagger='btt'] {
+  @starting-style {
+    translate: 0 1em;
+  }
+}
+
+@utility stagger-animation {
+  --stagger-delay: 0.1s;
+  --stagger-duration: 0.25s;
+  --stagger-translate-x: 1em;
+  --stagger-translate-y: 0;
+
+  transition:
+    opacity var(--stagger-duration) ease,
+    translate var(--stagger-duration) ease;
+  transition-delay: calc(var(--stagger-delay) * (sibling-index() - 1));
+
+  @starting-style {
+    opacity: 0;
+    translate: var(--stagger-translate-x) var(--stagger-translate-y);
+  }
+}
+
+li {
+  @apply stagger-animation;
+}
+
+/* calendar */
 calendar-date {
   &::part(heading) {
     @apply hidden;
@@ -93,6 +164,7 @@ calendar-select-year {
     @apply select select-ghost cursor-pointer bg-none p-0 text-center text-base font-semibold;
   }
 }
+
 calendar-select-month {
   &::part(label) {
     @apply hidden;

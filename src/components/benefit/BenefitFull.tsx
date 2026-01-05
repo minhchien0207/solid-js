@@ -44,7 +44,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
         ))}
       </div>
       <div class="flex w-full flex-col bg-[#F1F1F3] max-sm:hidden lg:visible lg:gap-4 lg:px-8 lg:py-4">
-        <div class="text-2xl font-bold text-[#DD252E]">Lưu ý quan trọng</div>
+        <div class="text-secondary text-2xl font-bold">Lưu ý quan trọng</div>
         <ol class="list-decimal text-justify text-base leading-6.5 lg:pl-5">
           <li>
             Quyền lợi "Mất hoặc hư hỏng hành lý": KHÔNG ÁP DỤNG đối với Hành lý
@@ -70,7 +70,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
       </div>
       <details class="collapse-arrow collapse rounded-b-[16px] bg-[#F1F1F3] max-sm:visible lg:hidden">
         <summary class="collapse-title p-6">
-          <span class="text-xl leading-8 font-bold text-[#DD252E]">
+          <span class="text-secondary text-xl leading-8 font-bold">
             Lưu ý quan trọng
           </span>
         </summary>

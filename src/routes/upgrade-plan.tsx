@@ -103,7 +103,7 @@ export default function UpgradePlanPage() {
               } else {
                 return (
                   <>
-                    &nbsp;<span class="text-[#DD252E]">{char}</span>
+                    &nbsp;<span class="text-secondary">{char}</span>
                   </>
                 );
               }

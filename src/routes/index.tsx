@@ -31,7 +31,7 @@ export default function Home() {
           <div class="mb-2.5 flex max-sm:flex-col max-sm:gap-6 lg:flex-row lg:justify-around">
             <div class="flex flex-col items-center gap-1">
               <p class="text-base leading-6 text-[#474653]">Trong chuyến đi</p>
-              <div class="flex items-center gap-1.5 text-lg/[26px] text-[#DD252E]">
+              <div class="text-secondary flex items-center gap-1.5 text-lg/[26px]">
                 <span class="h-[12px] w-[12px] bg-[#DD252E] mask-[url('/images/phone.svg')] mask-center mask-no-repeat"></span>
                 <span>+84 28 3535 9505</span>
               </div>
@@ -44,7 +44,7 @@ export default function Home() {
               <p class="text-base leading-6 text-[#474653]">
                 Trước và sau chuyến đi
               </p>
-              <div class="flex items-center gap-1.5 text-lg/[26px] text-[#DD252E]">
+              <div class="text-secondary flex items-center gap-1.5 text-lg/[26px]">
                 <span class="h-[12px] w-[12px] bg-[#DD252E] mask-[url('/images/phone.svg')] mask-center mask-no-repeat"></span>
                 <span>0888 176 198</span>
               </div>

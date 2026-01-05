@@ -123,7 +123,10 @@ const menuMobile = (
   return (
     <For each={menu}>
       {(item) => (
-        <li on:click={() => setOpen(!statusOpen)}>
+        <li
+          // style={`--stagger-translate-x: -1em;--stagger-translate-y: 0;`}
+          on:click={() => setOpen(!statusOpen)}
+        >
           {item.child ? (
             <details open={statusOpen}>
               <summary on:click={(e) => e.stopPropagation()}>

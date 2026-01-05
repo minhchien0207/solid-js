@@ -12,7 +12,7 @@ const formatPlanName = (name: string | any) => {
         {parts[0]}
         {parts.slice(1).map((char) => (
           <>
-            &nbsp;<span class="text-[#DD252E]">{char}</span>
+            &nbsp;<span class="text-secondary">{char}</span>
           </>
         ))}
       </>
@@ -75,7 +75,7 @@ const Plan: Component<PlanProps> = (props) => {
         onClick={local.onSelect}
       >
         {local.isActive && (
-          <div class="absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-1.5 text-center text-lg/[26px] font-semibold text-[#DD252E]">
+          <div class="text-secondary absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-1.5 text-center text-lg/[26px] font-semibold">
             {local.textHighlight ?? 'Lựa chọn của bạn'}
           </div>
         )}
@@ -226,7 +226,7 @@ const Plan: Component<PlanProps> = (props) => {
           onClick={local.onSelect}
         >
           {local.isActive && (
-            <div class="absolute top-0 left-[30px] -m-4 rounded-full bg-[#F8D3D5] px-3 py-0.5 font-semibold text-[#DD252E]">
+            <div class="text-secondary absolute top-0 left-[30px] -m-4 rounded-full bg-[#F8D3D5] px-3 py-0.5 font-semibold">
               Lựa chọn của bạn
             </div>
           )}
@@ -245,7 +245,7 @@ const Plan: Component<PlanProps> = (props) => {
                 type="button"
                 class="btn rounded-lg px-5 py-2 text-[17px] font-semibold"
                 classList={{
-                  'bg-[#F8D3D5] text-[#DD252E] flex items-center':
+                  'bg-[#F8D3D5] text-secondary flex items-center':
                     local.isActive,
                   'bg-[#E0E7FF] text-primary': !local.isActive,
                 }}
