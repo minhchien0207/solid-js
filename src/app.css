@@ -77,37 +77,47 @@
 
 /* staggered animation */
 [data-stagger] {
+  --stagger-delay: 0.1s;
+  --stagger-duration: 0.25s;
+  --stagger-translate-x: 1em;
+  --stagger-translate-y: 0;
+
   transition:
-    opacity 0.25s ease,
-    translate 0.25s ease;
-  transition-delay: calc(0.1s * (sibling-index() - 1));
+    opacity var(--stagger-duration) ease,
+    translate var(--stagger-duration) ease;
+  transition-delay: calc(var(--stagger-delay) * (sibling-index() - 1));
 
   @starting-style {
     opacity: 0;
+    translate: var(--stagger-translate-x) var(--stagger-translate-y); /* default right -> left */
   }
 }
 
 [data-stagger='rtl'] {
   @starting-style {
-    translate: 1em 0;
+    --stagger-translate-x: 1em;
+    --stagger-translate-y: 0;
   }
 }
 
 [data-stagger='ltr'] {
   @starting-style {
-    translate: -1em 0;
+    --stagger-translate-x: -1em;
+    --stagger-translate-y: 0;
   }
 }
 
 [data-stagger='ttb'] {
   @starting-style {
-    translate: 0 -1em;
+    --stagger-translate-x: 0;
+    --stagger-translate-y: -1em;
   }
 }
 
 [data-stagger='btt'] {
   @starting-style {
-    translate: 0 1em;
+    --stagger-translate-x: 0;
+    --stagger-translate-y: 1em;
   }
 }
 

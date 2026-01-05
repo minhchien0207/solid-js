@@ -124,6 +124,7 @@ const menuMobile = (
     <For each={menu}>
       {(item) => (
         <li
+          // data-stagger="ttb"
           // style={`--stagger-translate-x: -1em;--stagger-translate-y: 0;`}
           on:click={() => setOpen(!statusOpen)}
         >
