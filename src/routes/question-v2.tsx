@@ -172,7 +172,7 @@ export default function QuestionPage() {
                 >
                   {item?.title ?? item?.question}
                 </Dynamic>
-                <Show when={item?.answers?.length > 0}>
+                {item?.answers?.length > 0 && (
                   <div class="collapse-content text-regular text-sm/[25px]">
                     <ul
                       role="list"
@@ -183,7 +183,7 @@ export default function QuestionPage() {
                       ))}
                     </ul>
                   </div>
-                </Show>
+                )}
               </Dynamic>
             );
           })}

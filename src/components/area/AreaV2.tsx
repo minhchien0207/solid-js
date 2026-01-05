@@ -50,11 +50,11 @@ const Area: Component<AreaProps> = (props) => {
             </div>
           </div>
         ))}
-        <Show when={stateArea.children} keyed>
+        {stateArea.children && (
           <div class="w-max gap-2 transition-all duration-300 ease-in-out">
             {stateArea.children}
           </div>
-        </Show>
+        )}
       </div>
     </>
   );

@@ -21,11 +21,11 @@ export default function Modal({
 }) {
   return (
     <div>
-      <Show when={children} keyed>
+      {children && (
         <label for={attr?.id} class={attr?.class?.label}>
           {children}
         </label>
-      </Show>
+      )}
 
       <input type="checkbox" id={attr?.id} class="modal-toggle" />
       <div class="modal" role="dialog">

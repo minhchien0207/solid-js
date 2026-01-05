@@ -7,15 +7,6 @@ import type { BenefitItem } from '~/types/models';
 export default function BenefitFull({ data }: BenefitFullProps) {
   const [local] = splitProps(data, ['plans', 'benefits']);
 
-  const cols = Math.min(local?.plans?.length + 1, 5);
-  const cls = {
-    1: 'lg:grid-cols-1 max-sm:grid-cols-1',
-    2: 'lg:grid-cols-2 max-sm:grid-cols-1',
-    3: 'lg:grid-cols-3 max-sm:grid-cols-2',
-    4: 'lg:grid-cols-4 max-sm:grid-cols-3',
-    5: 'lg:grid-cols-5 max-sm:grid-cols-4',
-  }[cols];
-
   return (
     <div class="flex flex-col lg:w-full">
       <div class="tabs tabs-border bg-[#F1F1F3]">
@@ -30,7 +21,9 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             />
             <div class="tab-content border-base-300 bg-base-100 start-0 rounded-none">
               <div class="max-sm:w-full">
-                <div class={`grid max-sm:text-sm ${cls}`}>
+                <div
+                  class={`grid max-sm:text-sm lg:grid-cols-${Math.min(local?.plans?.length + 1, 5)}`}
+                >
                   <div class="bg-[#E4E3E8] text-[#18171C] max-sm:hidden lg:col-span-1"></div>
                   {local?.plans?.map((plan) => (
                     <div class="col-span-1 bg-[#E4E3E8] font-semibold text-[#18171C] max-sm:sticky max-sm:py-3 lg:py-5 lg:text-lg/7">

@@ -39,15 +39,6 @@ export default function BenefitFull({ data }: BenefitFullProps) {
     setStore('activeBenefits', benefits?.benefits);
   });
 
-  const cols = Math.min(local?.plans?.length + 1, 5);
-  const cls = {
-    1: 'lg:grid-cols-1 max-sm:grid-cols-1',
-    2: 'lg:grid-cols-2 max-sm:grid-cols-1',
-    3: 'lg:grid-cols-3 max-sm:grid-cols-2',
-    4: 'lg:grid-cols-4 max-sm:grid-cols-3',
-    5: 'lg:grid-cols-5 max-sm:grid-cols-4',
-  }[cols];
-
   return (
     <div class="flex flex-col">
       <div class="header-tabs flex w-full gap-4 overflow-x-auto bg-[#F1F1F3] p-4 pb-0">
@@ -68,7 +59,9 @@ export default function BenefitFull({ data }: BenefitFullProps) {
         ))}
       </div>
       <div class="w-full" id="content-tab">
-        <div class={`grid max-sm:text-sm ${cls}`}>
+        <div
+          class={`grid max-sm:text-sm lg:grid-cols-${Math.min(local?.plans?.length + 1, 5)}`}
+        >
           {store.activeBenefits && (
             <>
               <div class="bg-[#E4E3E8] text-[#18171C] max-sm:hidden lg:col-span-1"></div>

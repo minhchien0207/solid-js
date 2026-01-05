@@ -87,7 +87,7 @@ const Step: Component<StepProps> = (initialProps) => {
             {props.name}
           </div>
         </div>
-        <Show when={props?.progress} keyed>
+        {props?.progress && (
           <div class="relative">
             <div
               class="radial-progress text-primary relative z-1"
@@ -104,7 +104,7 @@ const Step: Component<StepProps> = (initialProps) => {
               role="progressbar"
             ></div>
           </div>
-        </Show>
+        )}
       </div>
       {local.children}
     </Dynamic>

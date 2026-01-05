@@ -227,21 +227,13 @@ export default function PlanPage() {
   const selectPlanById = (id?: string) =>
     setStatePlan({ planIdActiveId: id ?? '' });
 
-  const cols = layout === 'row' ? 1 : Math.min(statePlan.plans.length, 6);
-  const cls = {
-    1: 'lg:grid-cols-1',
-    2: 'lg:grid-cols-2',
-    3: 'lg:grid-cols-3',
-    4: 'lg:grid-cols-4',
-    5: 'lg:grid-cols-5',
-    6: 'lg:grid-cols-6',
-  }[cols];
-
   return (
     <main>
       <Title>Plan</Title>
       <div class="flex w-full justify-center max-md:flex-col">
-        <div class={`grid gap-6 max-sm:grid-cols-1 ${cls}`}>
+        <div
+          class={`grid gap-6 max-sm:grid-cols-1 lg:grid-cols-${layout === 'row' ? 1 : Math.min(statePlan.plans.length, 6)}`}
+        >
           {statePlan.plans.map((plan, i) => (
             <Plan
               data={plan}

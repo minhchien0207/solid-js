@@ -10,10 +10,10 @@ export const initialArea: AreaType[] = [
     attr: { name: 'area', id: 'sea' },
     hint: (
       <div>
-        <div class="font-[15px] font-semibold">
+        <div class="text-[15px] font-semibold">
           Quốc gia thuộc khu vực Đông Nam Á
         </div>
-        <div class="font-[13px] font-[400] italic">
+        <div class="text-[13px] font-normal italic">
           Đông Nam Á, Úc, Trung Quốc, Hong Kong, Ấn Độ, Nhật Bản, Hàn Quốc,
           Macau, New Zealand, Đài Loan
         </div>
@@ -27,10 +27,10 @@ export const initialArea: AreaType[] = [
     attr: { name: 'area', id: 'asia' },
     hint: (
       <div>
-        <div class="font-[15px] font-semibold">
+        <div class="text-[15px] font-semibold">
           Quốc gia thuộc khu vực Châu Á
         </div>
-        <div class="font-[13px] font-[400] italic">
+        <div class="text-[13px] font-normal italic">
           Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines,
           Singapore, Thái Lan, Đông Timor
         </div>
@@ -44,8 +44,8 @@ export const initialArea: AreaType[] = [
     attr: { name: 'area', id: 'worldwide' },
     hint: (
       <div>
-        <div class="font-[15px] font-semibold">Toàn cầu</div>
-        <div class="font-[13px] font-[400] italic">
+        <div class="text-[15px] font-semibold">Toàn cầu</div>
+        <div class="text-[13px] font-normal italic">
           Tất cả các quốc gia, loại trừ các quốc gia bị cấm vận theo Nghị quyết
           của Liên Hiệp Quốc, Hợp Chủng quốc Hoa Kỳ, Liên minh Châu Âu, Nhật
           Bản, Thụy Sĩ và Vương Quốc Anh

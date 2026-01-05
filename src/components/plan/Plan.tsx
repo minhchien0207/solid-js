@@ -74,34 +74,32 @@ const Plan: Component<PlanProps> = (props) => {
         }}
         onClick={local.onSelect}
       >
-        <Show when={local.isActive} keyed>
+        {local.isActive && (
           <div class="absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-1.5 text-center text-lg/[26px] font-semibold text-[#DD252E]">
             {local.textHighlight ?? 'Lựa chọn của bạn'}
           </div>
-        </Show>
+        )}
 
-        <Show
-          when={
-            local.planIdActiveId && local.isActive && local.style?.showImgBottom
-          }
-          keyed
-        >
-          <div
-            class="absolute bottom-0 left-0 z-[-1] w-full"
-            classList={{
-              'bottom-0': local.style?.layout === 'col',
-              'lg:bottom-[-40px]':
-                local.style?.layout === 'row' &&
-                statePlan.benefits.length === 1,
-              'lg:bottom-[-70px]':
-                local.style?.layout === 'row' && statePlan.benefits.length > 1,
-              'animate-fade-in': local.isActive,
-              'animate-fade-out': !local.isActive,
-            }}
-          >
-            <img src="/images/pc-wave.webp" class="w-full opacity-70" />
-          </div>
-        </Show>
+        {local.planIdActiveId &&
+          local.isActive &&
+          local.style?.showImgBottom && (
+            <div
+              class="absolute bottom-0 left-0 z-[-1] w-full"
+              classList={{
+                'bottom-0': local.style?.layout === 'col',
+                'lg:bottom-[-40px]':
+                  local.style?.layout === 'row' &&
+                  statePlan.benefits.length === 1,
+                'lg:bottom-[-70px]':
+                  local.style?.layout === 'row' &&
+                  statePlan.benefits.length > 1,
+                'animate-fade-in': local.isActive,
+                'animate-fade-out': !local.isActive,
+              }}
+            >
+              <img src="/images/pc-wave.webp" class="w-full opacity-70" />
+            </div>
+          )}
 
         <div class="flex w-full flex-col items-center gap-6">
           <div
@@ -131,7 +129,7 @@ const Plan: Component<PlanProps> = (props) => {
             </div>
           </div>
           {/* Button */}
-          <Show when={local.style?.showButton ?? true} keyed>
+          {(local.style?.showButton ?? true) && (
             <button
               type="button"
               class="btn w-full rounded-lg"
@@ -146,12 +144,12 @@ const Plan: Component<PlanProps> = (props) => {
             >
               {local.isActive ? 'Gói đã chọn' : 'Chọn gói'}
             </button>
-          </Show>
+          )}
         </div>
         {/* Benefit + child plan */}
         <div class="flex flex-col items-center gap-4">
           {/* Benefit */}
-          <Show when={statePlan.data?.benefits} keyed>
+          {statePlan.data?.benefits && (
             <div
               class="flex flex-col gap-[11px]"
               classList={{
@@ -213,12 +211,12 @@ const Plan: Component<PlanProps> = (props) => {
                 )}
               </div>
             </div>
-          </Show>
+          )}
           <div class="w-full text-center">{local.children}</div>
         </div>
       </div>
       {/* for mobile */}
-      <Show when={!local.mustShow} keyed>
+      {!local.mustShow && (
         <div
           class="relative rounded-lg border-2 bg-white p-4 max-sm:visible md:hidden"
           classList={{
@@ -304,7 +302,7 @@ const Plan: Component<PlanProps> = (props) => {
               )}
           </div>
         </div>
-      </Show>
+      )}
     </>
   );
 };
