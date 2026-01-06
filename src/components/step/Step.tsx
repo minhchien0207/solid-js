@@ -79,7 +79,7 @@ const Step: Component<StepProps> = (initialProps) => {
       {/* for mobile */}
       <div class="hidden flex-row flex-nowrap items-center gap-2 max-md:flex">
         <div class="flex flex-col items-end">
-          <div class="sub-step font-light text-[#ADACB9]">{`Bước ${props.order}`}</div>
+          <div class="sub-step font-normal text-[#ADACB9]">{`Bước ${props.order}`}</div>
           <div
             class="name text-lg text-[#18171C]"
             classList={{ 'font-semibold': props.active }}

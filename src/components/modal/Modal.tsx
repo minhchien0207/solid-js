@@ -20,7 +20,7 @@ export default function Modal({
   body?: any;
 }) {
   return (
-    <div>
+    <div class="absolute">
       {children && (
         <label for={attr?.id} class={attr?.class?.label}>
           {children}
@@ -48,6 +48,9 @@ export default function Modal({
           {/* body */}
           <div class="flex flex-col gap-4 p-4 pt-3">{body}</div>
         </div>
+        <label class="modal-backdrop" for={attr?.id} onclick={fncHandleClose}>
+          Close
+        </label>
       </div>
     </div>
   );

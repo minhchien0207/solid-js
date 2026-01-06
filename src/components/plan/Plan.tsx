@@ -54,10 +54,11 @@ const Plan: Component<PlanProps> = (props) => {
 
   return (
     <>
+      {/* for desktop/tablet */}
       <div
-        class={`relative flex cursor-pointer ${layoutGeneral} md:visible]: z-0 gap-6 overflow-hidden rounded-2xl border bg-white transition-all duration-300 lg:hover:scale-[1.05] lg:hover:opacity-100`}
+        class={`relative flex cursor-pointer ${layoutGeneral} md:visible]: z-0 gap-6 overflow-hidden rounded-2xl border bg-white transition-all duration-300 xl:hover:scale-[1.05] xl:hover:opacity-100`}
         classList={{
-          'lg:w-[299px] p-5': local.style?.layout === 'col',
+          'xl:w-[299px] p-5': local.style?.layout === 'col',
           'items-center lg:items-start justify-evenly p-15':
             local.style?.layout === 'row',
           'lg:w-[1140px]':
@@ -67,7 +68,7 @@ const Plan: Component<PlanProps> = (props) => {
           'opacity-100': !local.planIdActiveId, // support for case no plan selected
           'border-transparent opacity-70':
             !local.isActive || !local.planIdActiveId,
-          'active max-sm:animate-zoom-in-out lg:animate-zoom-out-in border-[#DD252E]':
+          'active max-sm:animate-zoom-in-out xl:animate-zoom-out-in border-[#DD252E]':
             local.isActive,
           'pb-12': local.style?.showImgBottom,
           'max-sm:hidden': !local.mustShow,
@@ -147,7 +148,7 @@ const Plan: Component<PlanProps> = (props) => {
           )}
         </div>
         {/* Benefit + child plan */}
-        <div class="flex flex-col items-center gap-4">
+        <div class="flex flex-col gap-4 md:h-full md:items-start md:justify-between xl:items-center">
           {/* Benefit */}
           {statePlan.data?.benefits && (
             <div
@@ -184,10 +185,10 @@ const Plan: Component<PlanProps> = (props) => {
                           price?: string;
                           description?: JSX.Element;
                         }) => (
-                          <div class="flex items-center gap-[11px]">
+                          <div class="flex w-full items-center gap-[11px]">
                             <div class="icon">
                               <img
-                                class="w-[40px]"
+                                class="md:w-[30px] xl:w-[40px]"
                                 src={`/images/benefit/small/${benefit.code}.svg`}
                               />
                             </div>
@@ -283,7 +284,7 @@ const Plan: Component<PlanProps> = (props) => {
                         <div class="flex items-center gap-[11px]">
                           <div class="w-[20px]">
                             <img
-                              class="w-[40px]"
+                              class="md:w-[30px] xl:w-[40px]"
                               src={`/images/benefit/small/${benefit.code}.svg`}
                             />
                           </div>

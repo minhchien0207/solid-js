@@ -232,7 +232,7 @@ export default function PlanPage() {
       <Title>Plan</Title>
       <div class="flex w-full justify-center max-md:flex-col">
         <div
-          class={`grid gap-6 max-sm:grid-cols-1 lg:grid-cols-${layout === 'row' ? 1 : Math.min(statePlan.plans.length, 6)}`}
+          class={`grid gap-6 max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-${layout === 'row' ? 1 : Math.min(statePlan.plans.length, 6)}`}
         >
           {statePlan.plans.map((plan, i) => (
             <Plan
