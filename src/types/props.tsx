@@ -1,4 +1,3 @@
-import { JSX } from 'solid-js';
 import { Area, Plan, BenefitItem } from './models';
 
 type AreaProps = {
@@ -68,4 +67,35 @@ type BenefitFullProps = {
 
 type DateProps = SingleDateProps | RangeDateProps;
 
-export type { AreaProps, PlanProps, DateProps, BenefitFullProps };
+type PolicyTypeProps = {
+  types: {
+    text: string;
+    value: string;
+    hint?: string;
+    min?: number;
+    max?: number;
+    adults?: {
+      text?: string;
+      hint?: string;
+      default?: number;
+      min?: number;
+      max?: number;
+    };
+    children?: {
+      text?: string;
+      hint?: string;
+      default?: number;
+      min?: number;
+      max?: number;
+    };
+  }[];
+  onSelect?: (value: any) => void;
+};
+
+export type {
+  AreaProps,
+  PlanProps,
+  DateProps,
+  BenefitFullProps,
+  PolicyTypeProps,
+};

@@ -83,6 +83,10 @@ const menu = [
         name: 'Form',
         href: '/form',
       },
+      {
+        name: 'Policy Type',
+        href: '/policy-type',
+      },
     ],
   },
 ];

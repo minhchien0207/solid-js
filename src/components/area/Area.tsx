@@ -37,7 +37,6 @@ const Area: Component<AreaProps> = (props) => {
 
   return (
     <>
-      <Title>Area</Title>
       <div class="flex w-max flex-col gap-2">
         {stateArea.areas.map((area, i) => (
           <div
