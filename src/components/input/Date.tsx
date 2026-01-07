@@ -111,6 +111,7 @@ export default function DateInput(props: DateProps) {
   });
 
   onMount(() => {
+    // onMount run only client side + cally is library client side
     import("cally");
     const mask = getDateMask(state.locale);
 

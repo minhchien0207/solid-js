@@ -139,7 +139,7 @@
 }
 
 li {
-  @apply stagger-animation;
+  /* @apply stagger-animation; */
 }
 
 /* calendar */
