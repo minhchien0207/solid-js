@@ -81,11 +81,24 @@ export default function QuestionPage() {
           <div
             tabindex="0"
             role="button"
-            class="btn flex items-center gap-2 rounded-full"
+            class="btn flex items-center gap-2 rounded-full transition-all duration-200"
           >
             <div class="size-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
             <span class="">Hỏi đáp</span>
           </div>
+
+          {/* version hover button show text */}
+          {/* <div
+            tabindex="0"
+            role="button"
+            class="btn group flex items-center gap-2 rounded-full lg:grid lg:grid-cols-[auto_0fr] lg:gap-0 lg:overflow-hidden lg:transition-[grid-template-columns] lg:duration-300 lg:ease-in-out lg:hover:grid-cols-[auto_1fr] lg:focus-visible:grid-cols-[auto_1fr]"
+          >
+            <div class="size-[15px] bg-black mask-[url('/images/question-mark.svg')] mask-center mask-no-repeat opacity-60"></div>
+
+            <span class="whitespace-nowrap lg:ml-0 lg:overflow-hidden lg:opacity-0 lg:transition-all lg:delay-100 lg:duration-200 lg:group-hover:ml-2 lg:group-hover:opacity-100 lg:group-focus-visible:ml-2 lg:group-focus-visible:opacity-100">
+              Hỏi đáp
+            </span>
+          </div> */}
 
           <div class="fab-close">
             Đóng&nbsp;<span class="btn btn-circle btn-error">✕</span>
