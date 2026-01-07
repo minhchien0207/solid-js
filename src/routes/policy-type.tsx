@@ -12,6 +12,7 @@ export default function PolicyTypePage() {
             value: 'individual',
             min: 1,
             max: 1,
+            // hint: 'Đơn bảo hiểm cho tối đa %d người.\n Phí bảo hiểm được tính như nhau cho cả người lớn và người phụ thuộc',
           },
           {
             text: 'Tôi đi với gia đình',
@@ -37,7 +38,7 @@ export default function PolicyTypePage() {
           {
             text: 'Tôi đi theo nhóm',
             value: 'group',
-            hint: 'Đơn bảo hiểm cho tối đa %d người. \nPhí bảo hiểm được tính như nhau cho cả người lớn và người phụ thuộc',
+            hint: 'Đơn bảo hiểm cho tối đa %d người.\n Phí bảo hiểm được tính như nhau cho cả người lớn và người phụ thuộc',
             min: 1,
             max: 10,
             adults: {

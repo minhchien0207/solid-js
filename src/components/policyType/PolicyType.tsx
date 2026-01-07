@@ -112,7 +112,7 @@ const PolicyType = (props: PolicyTypeProps) => {
                         </span>
                       )}
                     </div>
-                    <div class="flex items-center gap-6">
+                    <div class="grid grid-cols-3 place-items-center gap-3">
                       <button
                         class="btn h-9 w-9 rounded-lg bg-white font-light text-[#474653]"
                         on:click={() => handleSelectAdults(adults() - 1)}
@@ -143,7 +143,7 @@ const PolicyType = (props: PolicyTypeProps) => {
                         </span>
                       )}
                     </div>
-                    <div class="flex items-center gap-6">
+                    <div class="grid grid-cols-3 place-items-center gap-3">
                       <button
                         class="btn h-9 w-9 rounded-lg bg-white font-light text-[#474653]"
                         on:click={() => handleSelectChildren(children() - 1)}
