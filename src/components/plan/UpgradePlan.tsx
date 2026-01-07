@@ -1,8 +1,8 @@
-import { Component, JSX, onMount, splitProps } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import { Plan } from '~/types/models';
-import { convertCurrency, numb2CurrencyStr, toPlainText } from '~/utils';
-import './upgrade-plan.css';
+import { Component, JSX, onMount, splitProps } from "solid-js";
+import { createStore } from "solid-js/store";
+import { Plan } from "~/types/models";
+import { convertCurrency, numb2CurrencyStr, toPlainText } from "~/utils";
+import "./upgrade-plan.css";
 
 type UpgradePlanProps = {
   plans?: Plan[];
@@ -18,10 +18,10 @@ type UpgradePlanProps = {
 
 const UpgradePlan: Component<UpgradePlanProps> = (props) => {
   const [local, others] = splitProps(props, [
-    'plans',
-    'benefits',
-    'currentPlan',
-    'recommendedPlan',
+    "plans",
+    "benefits",
+    "currentPlan",
+    "recommendedPlan",
   ]);
   const [state, setState] = createStore<UpgradePlanProps>({
     plans: local.plans,
@@ -37,11 +37,11 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
           ...bnf.plans.flatMap((plan) => {
             const benefit = plan.benefits?.find((b) => b.code === bnf.code);
             if (!benefit) return 0;
-            if (typeof benefit.price === 'number') {
+            if (typeof benefit.price === "number") {
               return benefit.price;
             }
-            if (typeof benefit.price === 'string') {
-              return parseInt(benefit.price.replace(/\D/g, '')) || 0;
+            if (typeof benefit.price === "string") {
+              return parseInt(benefit.price.replace(/\D/g, "")) || 0;
             }
             return 0;
           }),
@@ -54,10 +54,10 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
             benefits: plan.benefits?.map((benefit) => {
               if (benefit.code === bnf.code) {
                 let price = 0;
-                if (typeof benefit.price === 'number') {
+                if (typeof benefit.price === "number") {
                   price = benefit.price;
-                } else if (typeof benefit.price === 'string') {
-                  price = parseInt(benefit.price.replace(/\D/g, '')) || 0;
+                } else if (typeof benefit.price === "string") {
+                  price = parseInt(benefit.price.replace(/\D/g, "")) || 0;
                 }
                 return {
                   ...benefit,
@@ -91,7 +91,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
           Nâng cấp quyền lợi bảo hiểm để an tâm trải nghiệm trọn vẹn chuyến đi
           của bạn. Được bảo vệ nhiều hơn cho các trường hợp khẩn cấp y tế, hủy
           chuyến, tai nạn cá nhân và mất hành lý. Một bước nhỏ giúp bạn tránh
-          những chi phí bất ngờ lớn.{' '}
+          những chi phí bất ngờ lớn.{" "}
           <span class="italic">
             Du lịch thoải mái, vì luôn biết rằng bạn đã được bảo vệ toàn diện.
           </span>
@@ -118,8 +118,8 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                         <div class="items-cente flex flex-col">
                           <div class="text-black">
                             {plan.code === state.currentPlan?.code
-                              ? 'Gói hiện tại'
-                              : 'Gói nâng cấp'}
+                              ? "Gói hiện tại"
+                              : "Gói nâng cấp"}
                           </div>
                           <span>{plan.name}</span>
                         </div>
@@ -147,8 +147,8 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                           <td
                             class="border border-[#E4E3E8] text-center text-base/6 lg:px-2 lg:py-[22px]"
                             classList={{
-                              'text-[#9191A1]': !isMax,
-                              'text-primary font-semibold': isMax,
+                              "text-[#9191A1]": !isMax,
+                              "text-primary font-semibold": isMax,
                             }}
                           >
                             {price ? (
@@ -172,26 +172,26 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                   <div
                     class="text-primary flex flex-col items-center justify-center rounded-lg px-1 py-2 text-sm/5 font-bold"
                     classList={{
-                      'bg-[#F3F4F6]': plan.code === state.currentPlan?.code,
-                      'bg-primary': plan.code === state.recommendedPlan?.code,
+                      "bg-[#F3F4F6]": plan.code === state.currentPlan?.code,
+                      "bg-primary": plan.code === state.recommendedPlan?.code,
                     }}
                   >
                     <div
                       class=""
                       classList={{
-                        'text-[#1F2937]': plan.code === state.currentPlan?.code,
-                        'text-white': plan.code === state.recommendedPlan?.code,
+                        "text-[#1F2937]": plan.code === state.currentPlan?.code,
+                        "text-white": plan.code === state.recommendedPlan?.code,
                       }}
                     >
                       {plan.code === state.currentPlan?.code
-                        ? 'Gói hiện tại'
-                        : 'Gói nâng cấp'}
+                        ? "Gói hiện tại"
+                        : "Gói nâng cấp"}
                     </div>
                     <div
                       class=""
                       classList={{
-                        'text-[#6B7280]': plan.code === state.currentPlan?.code,
-                        'text-[#C7D2FE]':
+                        "text-[#6B7280]": plan.code === state.currentPlan?.code,
+                        "text-[#C7D2FE]":
                           plan.code === state.recommendedPlan?.code,
                       }}
                     >
@@ -204,7 +204,7 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                     <div
                       class="text-sm/[22px]"
                       classList={{
-                        'm-1': index === 0,
+                        "m-1": index === 0,
                       }}
                     >
                       {benefit.text}
@@ -218,8 +218,8 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
                         <div
                           class="flex items-center justify-center text-base/6"
                           classList={{
-                            'text-[#9191A1]': !isMax,
-                            'text-primary font-bold': isMax,
+                            "text-[#9191A1]": !isMax,
+                            "text-primary font-bold": isMax,
                           }}
                         >
                           {price ? (
@@ -246,12 +246,12 @@ const UpgradePlan: Component<UpgradePlanProps> = (props) => {
           class="btn rounded-lg px-5 py-3 text-base leading-6 font-semibold text-[#474653] max-sm:order-2 lg:order-2"
           on:click={(e) => {
             e.stopPropagation();
-            console.log('clicked');
+            console.log("clicked");
           }}
         >
           {state.plans && state.plans?.length > 1
-            ? 'Tôi sẽ suy nghĩ thêm'
-            : 'Đóng'}
+            ? "Tôi sẽ suy nghĩ thêm"
+            : "Đóng"}
         </button>
         {state.plans &&
           state.plans?.length > 1 &&

@@ -1,7 +1,7 @@
-import { Component, JSX, mergeProps, splitProps, Show } from 'solid-js';
-import { A, useMatch } from '@solidjs/router';
-import { Dynamic } from 'solid-js/web';
-import './step.css';
+import { Component, JSX, mergeProps, splitProps, Show } from "solid-js";
+import { A, useMatch } from "@solidjs/router";
+import { Dynamic } from "solid-js/web";
+import "./step.css";
 
 export interface StepPropsCore extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   order: number;
@@ -22,7 +22,7 @@ interface Progress {
 interface StepProps extends Partial<StepPropsCore> {}
 
 const mergeClass = (...classes: Array<string | undefined>) =>
-  classes.filter(Boolean).join(' ');
+  classes.filter(Boolean).join(" ");
 
 const Step: Component<StepProps> = (initialProps) => {
   const props = mergeProps(
@@ -33,14 +33,14 @@ const Step: Component<StepProps> = (initialProps) => {
     initialProps,
   );
 
-  const [local, rest] = splitProps(props, ['children', 'class', 'href', 'as']);
+  const [local, rest] = splitProps(props, ["children", "class", "href", "as"]);
 
   const isLink = () => Boolean(local.href);
 
   // useMatch trả về match object nếu href khớp; null/undefined nếu không khớp
   const match = () => (isLink() ? useMatch(() => local.href!)() : null);
 
-  const tag = () => (isLink() ? A : (local.as ?? 'div'));
+  const tag = () => (isLink() ? A : (local.as ?? "div"));
 
   // Khi component là A, truyền href; khi là div không truyền href
   const hrefProps = isLink() ? { href: local.href } : {};
@@ -50,9 +50,9 @@ const Step: Component<StepProps> = (initialProps) => {
       component={tag()}
       {...rest}
       {...hrefProps}
-      class={mergeClass('step', local.class)}
+      class={mergeClass("step", local.class)}
       classList={{
-        'opacity-50': !props.active,
+        "opacity-50": !props.active,
       }}
     >
       {/* for tablet or higher */}
@@ -63,7 +63,7 @@ const Step: Component<StepProps> = (initialProps) => {
           </div>
           <div
             class="name text-lg"
-            classList={{ 'font-semibold': props.active }}
+            classList={{ "font-semibold": props.active }}
           >
             {props.name}
           </div>
@@ -82,7 +82,7 @@ const Step: Component<StepProps> = (initialProps) => {
           <div class="sub-step font-normal text-[#ADACB9]">{`Bước ${props.order}`}</div>
           <div
             class="name text-lg text-[#18171C]"
-            classList={{ 'font-semibold': props.active }}
+            classList={{ "font-semibold": props.active }}
           >
             {props.name}
           </div>

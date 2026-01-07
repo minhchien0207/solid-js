@@ -1,11 +1,11 @@
-import type { PolicyTypeProps } from '~/types/props';
-import { Show, createSignal, createEffect, splitProps } from 'solid-js';
-import { createStore } from 'solid-js/store';
+import type { PolicyTypeProps } from "~/types/props";
+import { Show, createSignal, createEffect, splitProps } from "solid-js";
+import { createStore } from "solid-js/store";
 
 const PolicyType = (props: PolicyTypeProps) => {
-  const [local, others] = splitProps(props, ['types', 'onSelect']);
+  const [local, others] = splitProps(props, ["types", "onSelect"]);
 
-  const [policyType, setPolicyType] = createSignal('');
+  const [policyType, setPolicyType] = createSignal("");
   const [adults, setAdults] = createSignal(1);
   const [children, setChildren] = createSignal(0);
 
@@ -164,7 +164,7 @@ const PolicyType = (props: PolicyTypeProps) => {
                 )}
                 {type?.hint && (
                   <div class="text-center text-base/[26px] font-semibold text-[#C23232] italic">
-                    {type.hint.split('\n').map((line, index) => {
+                    {type.hint.split("\n").map((line, index) => {
                       const currentType = local.types.find(
                         (type) => type.value === policyType(),
                       );
@@ -174,11 +174,11 @@ const PolicyType = (props: PolicyTypeProps) => {
                       return (
                         <>
                           {line
-                            .replace('%adults', maxAdult.toString())
-                            .replace('%children', maxChildren.toString())
-                            .replace('%d', max.toString())}
+                            .replace("%adults", maxAdult.toString())
+                            .replace("%children", maxChildren.toString())
+                            .replace("%d", max.toString())}
                           {type?.hint &&
-                            index < type.hint.split('\n').length - 1 && <br />}
+                            index < type.hint.split("\n").length - 1 && <br />}
                         </>
                       );
                     })}

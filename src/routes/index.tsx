@@ -1,7 +1,7 @@
-import { Title } from '@solidjs/meta';
+import { Title } from "@solidjs/meta";
 // import Counter from '~/components/Counter';
-import Card from '~/components/card/Card';
-import { For } from 'solid-js';
+import Card from "~/components/card/Card";
+import { For } from "solid-js";
 
 export default function Home() {
   return (

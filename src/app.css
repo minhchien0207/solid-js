@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* safe list */
 @source inline('{sm:,md:,lg:,xl:,}grid-cols-{1,2,3,4,5,6}');
@@ -64,14 +64,14 @@
 }
 
 @plugin 'daisyui/theme' {
-  name: 'light';
+  name: "light";
   default: true;
   --color-primary: #26245f;
   --color-secondary: #dd252e;
 }
 
 @plugin 'daisyui/theme' {
-  name: 'dark';
+  name: "dark";
   /* --color-primary: #8b7ff5; */
 }
 
@@ -93,28 +93,28 @@
   }
 }
 
-[data-stagger='rtl'] {
+[data-stagger="rtl"] {
   @starting-style {
     --stagger-translate-x: 1em;
     --stagger-translate-y: 0;
   }
 }
 
-[data-stagger='ltr'] {
+[data-stagger="ltr"] {
   @starting-style {
     --stagger-translate-x: -1em;
     --stagger-translate-y: 0;
   }
 }
 
-[data-stagger='ttb'] {
+[data-stagger="ttb"] {
   @starting-style {
     --stagger-translate-x: 0;
     --stagger-translate-y: -1em;
   }
 }
 
-[data-stagger='btt'] {
+[data-stagger="btt"] {
   @starting-style {
     --stagger-translate-x: 0;
     --stagger-translate-y: 1em;
@@ -185,8 +185,8 @@ calendar-select-month {
   }
 }
 
-[href^='http://']::after,
-[href^='https://']::after {
+[href^="http://"]::after,
+[href^="https://"]::after {
   mask-image: url(images/link.svg);
   mask-size: contain;
   mask-repeat: no-repeat;
@@ -195,7 +195,7 @@ calendar-select-month {
   height: 15px;
 }
 
-[href$='.pdf']::after {
+[href$=".pdf"]::after {
   mask-image: url(images/file-pdf.svg);
   mask-size: contain;
   mask-repeat: no-repeat;

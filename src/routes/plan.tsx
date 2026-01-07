@@ -1,40 +1,40 @@
-import { Title } from '@solidjs/meta';
-import { onMount } from 'solid-js';
-import Plan from '~/components/plan/Plan';
-import { createStore } from 'solid-js/store';
-import { useSearchParams } from '@solidjs/router';
-import { Plan as PlanType } from '~/types/models';
-import { toPlainText } from '~/utils';
+import { Title } from "@solidjs/meta";
+import { onMount } from "solid-js";
+import Plan from "~/components/plan/Plan";
+import { createStore } from "solid-js/store";
+import { useSearchParams } from "@solidjs/router";
+import { Plan as PlanType } from "~/types/models";
+import { toPlainText } from "~/utils";
 
 const initialPlan: PlanType[] = [
   {
-    code: 'easy-1',
-    name: 'Easy 1',
-    description: 'Gói quyền lợi cơ bản',
+    code: "easy-1",
+    name: "Easy 1",
+    description: "Gói quyền lợi cơ bản",
     price: 220000,
-    attr: { name: 'plan[]', id: 'easy-1' },
+    attr: { name: "plan[]", id: "easy-1" },
     active: false,
     benefits: [
       {
-        code: 'delay',
+        code: "delay",
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        text: "Trễ chuyến, hủy chuyến bay lên đến",
         price: 12000000,
         description: (
           <div class="">
-            Trễ chuyến, hủy chuyến bay lên đến{' '}
+            Trễ chuyến, hủy chuyến bay lên đến{" "}
             <span class="text-primary font-semibold">12.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'baggage',
+        code: "baggage",
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        text: "Bảo hiểm mất, hư hỏng hành lý lên đến",
         price: 24000000,
         description: (
           <div class="">
-            Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
+            Bảo hiểm mất, hư hỏng hành lý lên đến{" "}
             <span class="text-primary font-semibold">24.000.000 VNĐ</span>
           </div>
         ),
@@ -42,57 +42,57 @@ const initialPlan: PlanType[] = [
     ],
   },
   {
-    code: 'easy-2',
-    name: 'Easy 2',
-    description: 'Gói quyền lợi phố biển nhất',
+    code: "easy-2",
+    name: "Easy 2",
+    description: "Gói quyền lợi phố biển nhất",
     price: 360000,
-    attr: { name: 'plan[]', id: 'easy-2' },
+    attr: { name: "plan[]", id: "easy-2" },
     active: false,
     benefits: [
       {
-        code: 'delay',
+        code: "delay",
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        text: "Trễ chuyến, hủy chuyến bay lên đến",
         price: 12000000,
         description: (
           <div class="">
-            Trễ chuyến, hủy chuyến bay lên đến{' '}
+            Trễ chuyến, hủy chuyến bay lên đến{" "}
             <span class="text-primary font-semibold">12.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'baggage',
+        code: "baggage",
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        text: "Bảo hiểm mất, hư hỏng hành lý lên đến",
         price: 24000000,
         description: (
           <div class="">
-            Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
+            Bảo hiểm mất, hư hỏng hành lý lên đến{" "}
             <span class="text-primary font-semibold">24.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'pa',
+        code: "pa",
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
-        text: 'Bảo hiểm tai nạn cá nhân lên đến',
+        text: "Bảo hiểm tai nạn cá nhân lên đến",
         price: 1800000000,
         description: (
           <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{' '}
+            Bảo hiểm tai nạn cá nhân lên đến{" "}
             <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'medical',
+        code: "medical",
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
-        text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
+        text: "Bảo hiểm chi phí y tế, điều trị lên đến",
         price: 2400000000,
         description: (
           <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{' '}
+            Bảo hiểm chi phí y tế, điều trị lên đến{" "}
             <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
           </div>
         ),
@@ -100,57 +100,57 @@ const initialPlan: PlanType[] = [
     ],
   },
   {
-    code: 'easy-3',
-    name: 'Easy 3',
-    description: 'Gói quyền lợi tối đa',
+    code: "easy-3",
+    name: "Easy 3",
+    description: "Gói quyền lợi tối đa",
     price: 480000,
-    attr: { name: 'plan[]', id: 'easy-3' },
+    attr: { name: "plan[]", id: "easy-3" },
     active: false,
     benefits: [
       {
-        code: 'delay',
+        code: "delay",
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        text: "Trễ chuyến, hủy chuyến bay lên đến",
         price: 12000000,
         description: (
           <div class="">
-            Trễ chuyến, hủy chuyến bay lên đến{' '}
+            Trễ chuyến, hủy chuyến bay lên đến{" "}
             <span class="text-primary font-semibold">12.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'baggage',
+        code: "baggage",
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        text: "Bảo hiểm mất, hư hỏng hành lý lên đến",
         price: 24000000,
         description: (
           <div class="">
-            Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
+            Bảo hiểm mất, hư hỏng hành lý lên đến{" "}
             <span class="text-primary font-semibold">24.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'pa',
+        code: "pa",
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
-        text: 'Bảo hiểm tai nạn cá nhân lên đến',
+        text: "Bảo hiểm tai nạn cá nhân lên đến",
         price: 1800000000,
         description: (
           <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{' '}
+            Bảo hiểm tai nạn cá nhân lên đến{" "}
             <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'medical',
+        code: "medical",
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
-        text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
+        text: "Bảo hiểm chi phí y tế, điều trị lên đến",
         price: 2400000000,
         description: (
           <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{' '}
+            Bảo hiểm chi phí y tế, điều trị lên đến{" "}
             <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
           </div>
         ),
@@ -158,46 +158,46 @@ const initialPlan: PlanType[] = [
     ],
   },
   {
-    code: 'easy-visa',
-    name: 'Easy Visa',
-    description: 'Gói quyền lợi phù hợp xin thị thực',
+    code: "easy-visa",
+    name: "Easy Visa",
+    description: "Gói quyền lợi phù hợp xin thị thực",
     price: 172000,
-    attr: { name: 'plan[]', id: 'easy-visa' },
+    attr: { name: "plan[]", id: "easy-visa" },
     active: false,
     benefits: [
       {
-        code: 'pa',
+        code: "pa",
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
-        text: 'Bảo hiểm tai nạn cá nhân',
+        text: "Bảo hiểm tai nạn cá nhân",
         price: 180000000,
         description: (
           <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{' '}
+            Bảo hiểm tai nạn cá nhân lên đến{" "}
             <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'medical',
+        code: "medical",
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
-        text: 'Bảo hiểm chi phí y tế, điều trị',
+        text: "Bảo hiểm chi phí y tế, điều trị",
         price: 2400000000,
         description: (
           <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{' '}
+            Bảo hiểm chi phí y tế, điều trị lên đến{" "}
             <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
           </div>
         ),
       },
       {
-        code: 'worldwide-support-247',
+        code: "worldwide-support-247",
         svg: (
           <img
             class="w-[40px]"
             src="/images/benefit/small/worldwide-support-247.svg"
           />
         ),
-        text: 'Dịch vụ hỗ trợ du lịch 24/7 của MSIG Việt Nam',
+        text: "Dịch vụ hỗ trợ du lịch 24/7 của MSIG Việt Nam",
       },
     ],
   },
@@ -206,33 +206,33 @@ const initialPlan: PlanType[] = [
 export default function PlanPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const rawLayout = searchParams.layout;
-  const layout: 'row' | 'col' =
-    typeof rawLayout === 'string' &&
-    (rawLayout === 'row' || rawLayout === 'col')
+  const layout: "row" | "col" =
+    typeof rawLayout === "string" &&
+    (rawLayout === "row" || rawLayout === "col")
       ? rawLayout
-      : 'col';
+      : "col";
 
   const [statePlan, setStatePlan] = createStore<{
     plans: PlanType[];
     planIdActiveId?: string;
     textHighlight?: string;
-    layout?: 'row' | 'col';
+    layout?: "row" | "col";
   }>({
     plans: initialPlan,
     planIdActiveId: undefined,
-    textHighlight: 'Được đề xuất',
+    textHighlight: "Được đề xuất",
     layout,
   });
 
   const selectPlanById = (id?: string) =>
-    setStatePlan({ planIdActiveId: id ?? '' });
+    setStatePlan({ planIdActiveId: id ?? "" });
 
   return (
     <main>
       <Title>Plan</Title>
       <div class="flex w-full justify-center max-md:flex-col">
         <div
-          class={`grid gap-6 max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-${layout === 'row' ? 1 : Math.min(statePlan.plans.length, 6)}`}
+          class={`grid gap-6 max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-${layout === "row" ? 1 : Math.min(statePlan.plans.length, 6)}`}
         >
           {statePlan.plans.map((plan, i) => (
             <Plan

@@ -1,16 +1,16 @@
-import { Component, splitProps, createEffect, Show } from 'solid-js';
-import { Title } from '@solidjs/meta';
-import { createStore } from 'solid-js/store';
-import { Area as AreaType } from '~/types/models';
-import { AreaProps } from '~/types/props';
+import { Component, splitProps, createEffect, Show } from "solid-js";
+import { Title } from "@solidjs/meta";
+import { createStore } from "solid-js/store";
+import { Area as AreaType } from "~/types/models";
+import { AreaProps } from "~/types/props";
 
 const Area: Component<AreaProps> = (props) => {
   const [local, others] = splitProps(props, [
-    'areas',
-    'value',
-    'activeHintId',
-    'onSelect',
-    'onSelectHint',
+    "areas",
+    "value",
+    "activeHintId",
+    "onSelect",
+    "onSelectHint",
   ]);
 
   const [stateArea, setStateArea] = createStore<{
@@ -21,8 +21,8 @@ const Area: Component<AreaProps> = (props) => {
   }>({
     areas: local.areas,
     value: local.value,
-    activeId: '',
-    activeHintId: '',
+    activeId: "",
+    activeHintId: "",
   });
 
   createEffect(() => {

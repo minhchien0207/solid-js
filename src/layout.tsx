@@ -1,7 +1,7 @@
 // routes/layout.tsx
-import { A, useLocation } from '@solidjs/router';
-import { For, Show, createSignal, Suspense } from 'solid-js';
-import Footer from '~/components/Footer';
+import { A, useLocation } from "@solidjs/router";
+import { For, Show, createSignal, Suspense } from "solid-js";
+import Footer from "~/components/Footer";
 
 type Menu = {
   name: string;
@@ -12,80 +12,80 @@ type Menu = {
 
 const menu = [
   {
-    name: 'Trang chủ',
-    href: '/',
+    name: "Trang chủ",
+    href: "/",
   },
   {
-    name: 'Về chúng tôi',
-    href: '/about',
+    name: "Về chúng tôi",
+    href: "/about",
   },
   {
-    name: 'Component',
+    name: "Component",
     child: [
       {
-        name: 'Area',
+        name: "Area",
         child: [
           {
-            name: 'v1',
-            href: '/area',
+            name: "v1",
+            href: "/area",
           },
           {
-            name: 'v2',
-            href: '/area-v2',
+            name: "v2",
+            href: "/area-v2",
             highLight: true,
           },
         ],
       },
       {
-        name: 'Step',
-        href: '/step',
+        name: "Step",
+        href: "/step",
       },
       {
-        name: 'Benefit',
-        href: '/benefit',
+        name: "Benefit",
+        href: "/benefit",
       },
       {
-        name: 'Full Benefit',
+        name: "Full Benefit",
         child: [
           {
-            name: 'v1',
-            href: '/full-benefit',
+            name: "v1",
+            href: "/full-benefit",
           },
           {
-            name: 'v2',
-            href: '/full-benefit-v2',
+            name: "v2",
+            href: "/full-benefit-v2",
           },
         ],
       },
       {
-        name: 'Plan',
-        href: '/plan',
+        name: "Plan",
+        href: "/plan",
       },
       {
-        name: 'Upgrade Plan',
-        href: '/upgrade-plan',
+        name: "Upgrade Plan",
+        href: "/upgrade-plan",
       },
       {
-        name: 'Question',
+        name: "Question",
         child: [
           {
-            name: 'v1',
-            href: '/question',
+            name: "v1",
+            href: "/question",
           },
           {
-            name: 'v2',
-            href: '/question-v2',
+            name: "v2",
+            href: "/question-v2",
             highLight: true,
           },
         ],
       },
       {
-        name: 'Form',
-        href: '/form',
+        name: "Form",
+        href: "/form",
       },
       {
-        name: 'Policy Type',
-        href: '/policy-type',
+        name: "Policy Type",
+        href: "/policy-type",
       },
     ],
   },
@@ -105,8 +105,8 @@ const menuDesktop = (menu: Menu[]) => {
             </>
           ) : (
             <A
-              href={item?.href ?? ''}
-              end={item.href === '/'}
+              href={item?.href ?? ""}
+              end={item.href === "/"}
               activeClass="bg-gray-200"
               class="whitespace-nowrap"
             >
@@ -143,8 +143,8 @@ const menuMobile = (
             </details>
           ) : (
             <A
-              href={item?.href ?? ''}
-              end={item.href === '/'}
+              href={item?.href ?? ""}
+              end={item.href === "/"}
               activeClass="bg-gray-200"
               class="whitespace-nowrap"
               on:click={(e) => {
@@ -184,13 +184,13 @@ export default function Layout(props: { children: any }) {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                {' '}
+                {" "}
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
                   d="M4 6h16M4 12h8m-8 6h16"
-                />{' '}
+                />{" "}
               </svg>
             </div>
             <ul

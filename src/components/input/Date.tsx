@@ -1,8 +1,8 @@
-import { splitProps, Show, createSignal, onMount, onCleanup } from 'solid-js';
-import { createStore } from 'solid-js/store';
-import './Date.css';
-import type { DateProps } from '~/types/props';
-import IMask from 'imask';
+import { splitProps, Show, createSignal, onMount, onCleanup } from "solid-js";
+import { createStore } from "solid-js/store";
+import "./Date.css";
+import type { DateProps } from "~/types/props";
+import IMask from "imask";
 
 const getDateMask = (locale: string) => {
   const dtf = new Intl.DateTimeFormat(locale);
@@ -10,19 +10,19 @@ const getDateMask = (locale: string) => {
 
   const inputMask = parts
     .map((p) => {
-      if (p.type === 'day') return 'dd';
-      if (p.type === 'month') return 'mm';
-      if (p.type === 'year') return 'yyyy';
+      if (p.type === "day") return "dd";
+      if (p.type === "month") return "mm";
+      if (p.type === "year") return "yyyy";
       return p.value;
     })
-    .join('');
+    .join("");
 
   return {
     inputMask,
-    literals: parts.find((p) => p.type === 'literal')?.value ?? '-',
+    literals: parts.find((p) => p.type === "literal")?.value ?? "-",
     partsOrder: parts
-      .filter((p) => ['day', 'month', 'year'].includes(p.type))
-      .map((p) => p.type as 'day' | 'month' | 'year'),
+      .filter((p) => ["day", "month", "year"].includes(p.type))
+      .map((p) => p.type as "day" | "month" | "year"),
     maxValues: {
       day: 31,
       month: 12,
@@ -44,9 +44,9 @@ const buildIMaskDateConfig = (locale: string) => {
     month: string;
     year: string;
   } = {
-    day: 'DD',
-    month: 'MM',
-    year: 'YYYY',
+    day: "DD",
+    month: "MM",
+    year: "YYYY",
   };
 
   const pattern = partsOrder.map((p) => tokenMap[p]).join(literals);
@@ -95,29 +95,29 @@ export default function DateInput(props: DateProps) {
   let maskRef: IMask.InputMask<any> | null = null;
 
   const [local, rest] = splitProps(props, [
-    'value',
-    'label',
-    'helper',
-    'attr',
-    'onChange',
+    "value",
+    "label",
+    "helper",
+    "attr",
+    "onChange",
   ]);
 
   const [open, setOpen] = createSignal(false);
   const [state, setState] = createStore({
-    value: local.value ?? '',
+    value: local.value ?? "",
     locale: navigator.language,
-    inputMask: '',
-    separator: '',
+    inputMask: "",
+    separator: "",
   });
 
   onMount(() => {
-    import('cally');
+    import("cally");
     const mask = getDateMask(state.locale);
 
     maskRef = IMask(inputRef, buildIMaskDateConfig(state.locale));
 
     // Lắng nghe sự kiện khi giá trị thay đổi
-    maskRef.on('accept', () => {
+    maskRef.on("accept", () => {
       const unmaskedValue = maskRef!.unmaskedValue;
       console.log(maskRef);
 
@@ -172,12 +172,12 @@ export default function DateInput(props: DateProps) {
       const parts = dtf.formatToParts(date);
       const dateFormat = parts
         .map((p) => {
-          if (p.type === 'day') return `0${p.value}`.slice(-2);
-          if (p.type === 'month') return `0${p.value}`.slice(-2);
-          if (p.type === 'year') return p.value;
+          if (p.type === "day") return `0${p.value}`.slice(-2);
+          if (p.type === "month") return `0${p.value}`.slice(-2);
+          if (p.type === "year") return p.value;
           return p.value;
         })
-        .join('');
+        .join("");
 
       setState({
         value: target.value,
