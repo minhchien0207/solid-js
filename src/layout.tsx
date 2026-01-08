@@ -1,6 +1,6 @@
 // routes/layout.tsx
 import { A } from "@solidjs/router";
-import { For, createSignal, Suspense } from "solid-js";
+import { For, createSignal, Suspense, onMount } from "solid-js";
 import Footer from "~/components/Footer";
 
 type Menu = {
@@ -168,9 +168,13 @@ const menuDesktop = (
 };
 
 export default function Layout(props: { children: any }) {
-  let languageRef;
+  let languageRef: HTMLElement | undefined;
   const [open, setOpen] = createSignal(false);
-  const [language, setLanguage] = createSignal(navigator.language);
+  const [language, setLanguage] = createSignal("vi");
+
+  onMount(() => {
+    setLanguage(navigator.language);
+  });
 
   const handleChangeLanguage = (lang: string) => {
     setLanguage(lang);
