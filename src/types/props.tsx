@@ -1,4 +1,4 @@
-import { Area, Plan, BenefitItem } from "./models";
+import { Area, Plan, BenefitItem } from './models';
 
 type AreaProps = {
   areas: Area[];
@@ -13,7 +13,7 @@ type PlanProps = {
   textHighlight?: string;
   isActive: boolean;
   style?: {
-    layout?: "col" | "row";
+    layout?: 'col' | 'row';
     showButton?: boolean;
     showBenefit?: boolean;
     showImgBottom?: boolean;
@@ -40,11 +40,11 @@ type BaseDateProps = {
 };
 
 type SingleDateProps = BaseDateProps & {
-  type?: "date"; // default
+  type?: 'date'; // default
 };
 
 type RangeDateProps = BaseDateProps & {
-  type: "range";
+  type: 'range';
   // from: string;
   // to: string;
 };

@@ -1,10 +1,10 @@
-import { Show } from "solid-js";
-import { Dynamic } from "solid-js/web";
+import { Show } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 // import { A } from '@solidjs/router';
-import { Title } from "@solidjs/meta";
-import { createStore } from "solid-js/store";
-import { initial as faq } from "~/routes/question";
-import Modal from "~/components/modal/Modal";
+import { Title } from '@solidjs/meta';
+import { createStore } from 'solid-js/store';
+import { initial as faq } from '~/routes/question';
+import Modal from '~/components/modal/Modal';
 
 export default function QuestionPage() {
   const [state, setState] = createStore<{
@@ -19,29 +19,29 @@ export default function QuestionPage() {
     data: {
       faq_modal: {
         content: faq,
-        style: "lg:max-w-5xl",
+        style: 'lg:max-w-5xl',
       },
       list_document_modal: {
         content: [
           {
-            title: "Quy tắc bảo hiểm (Toàn diện)",
-            link: "https://ecom-uat.msig.com.vn/assets/documents/Policy_Wording_TravelEasy_Comprehensive_VN.pdf",
+            title: 'Quy tắc bảo hiểm (Toàn diện)',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Policy_Wording_TravelEasy_Comprehensive_VN.pdf',
           },
           {
-            title: "Quy tắc bảo hiểm (Một quyền lợi)",
-            link: "https://ecom-uat.msig.com.vn/assets/documents/Policy_Wording_TravelEasy_Single_Benefit.pdf",
+            title: 'Quy tắc bảo hiểm (Một quyền lợi)',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Policy_Wording_TravelEasy_Single_Benefit.pdf',
           },
           {
-            title: "Hướng dẫn thủ tục khiếu nại bồi thường",
-            link: "https://ecom-uat.msig.com.vn/assets/documents/Travel_Claim_Guidelines_VN.pdf",
+            title: 'Hướng dẫn thủ tục khiếu nại bồi thường',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Travel_Claim_Guidelines_VN.pdf',
           },
           {
-            title: "Đơn yêu cầu bồi thường",
-            link: "https://ecom-uat.msig.com.vn/assets/documents/Travel_Claim_Form.pdf",
+            title: 'Đơn yêu cầu bồi thường',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/Travel_Claim_Form.pdf',
           },
           {
-            title: "Mẫu biên bản tường tình",
-            link: "https://ecom-uat.msig.com.vn/assets/documents/claim_report.doc",
+            title: 'Mẫu biên bản tường tình',
+            link: 'https://ecom-uat.msig.com.vn/assets/documents/claim_report.doc',
           },
         ],
       },
@@ -50,11 +50,11 @@ export default function QuestionPage() {
 
   const handleModalChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
-    const modalId = target.dataset.modalId || "";
+    const modalId = target.dataset.modalId || '';
     setState({
       modalActive: {
         id: modalId,
-        title: target.dataset.modalTitle || "",
+        title: target.dataset.modalTitle || '',
         body: state?.data?.[modalId]?.content,
         style: state?.data?.[modalId]?.style,
       },
@@ -65,7 +65,7 @@ export default function QuestionPage() {
     setState({
       modalActive: {
         id: undefined,
-        title: "",
+        title: '',
         body: undefined,
         style: undefined,
       },
@@ -153,7 +153,7 @@ export default function QuestionPage() {
             id: state?.modalActive?.id,
             class: {
               label:
-                "btn flex items-center gap-2 rounded-[20px] bg-[#D8DEEE] font-bold text-[#474653]",
+                'btn flex items-center gap-2 rounded-[20px] bg-[#D8DEEE] font-bold text-[#474653]',
               ...(state?.modalActive?.style && {
                 modal: state?.modalActive?.style,
               }),
@@ -162,15 +162,15 @@ export default function QuestionPage() {
           fncHandleClose={handleModalClose}
           title={state?.modalActive?.title}
           body={state?.modalActive?.body?.map((item, index) => {
-            const tag = () => (item?.answers?.length > 0 ? "details" : "div");
-            const titleTag = () => (item?.link ? "a" : "summary");
+            const tag = () => (item?.answers?.length > 0 ? 'details' : 'div');
+            const titleTag = () => (item?.link ? 'a' : 'summary');
 
             return (
               <Dynamic
                 component={tag()}
                 class="bg-base-100 border-base-300 text-primary collapse border"
                 classList={{
-                  "collapse-arrow": item?.answers?.length > 0,
+                  'collapse-arrow': item?.answers?.length > 0,
                 }}
                 name="content_modal"
               >
@@ -179,7 +179,7 @@ export default function QuestionPage() {
                   href={item?.link}
                   class="collapse-title text-base/[22px] font-semibold max-sm:text-pretty lg:whitespace-nowrap"
                   classList={{
-                    "flex items-center p-4 justify-between after:bg-primary":
+                    'flex items-center p-4 justify-between after:bg-primary':
                       item?.link,
                   }}
                 >

@@ -1,4 +1,4 @@
-import { JSX } from "solid-js";
+import { JSX } from 'solid-js';
 
 type Area = {
   text: string;
@@ -24,7 +24,7 @@ type BenefitItem = {
       id: string;
       si?: string;
       siInWords?: string;
-      siInSymbols?: "check" | "close";
+      siInSymbols?: 'check' | 'close';
       [key: string]: any;
     };
   };
@@ -73,15 +73,15 @@ type InsuredPerson = BasePerson & {
 };
 
 type Individual = BasePerson & {
-  type: "individual";
+  type: 'individual';
   mobileNumber: string;
 };
 
 type Corporate = Omit<
   BasePerson,
-  "dob" | "gender" | "nationality" | "relationship" | "idType" | "idNumber"
+  'dob' | 'gender' | 'nationality' | 'relationship' | 'idType' | 'idNumber'
 > & {
-  type: "corporate";
+  type: 'corporate';
   taxNumber: string;
 };
 

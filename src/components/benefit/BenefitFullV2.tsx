@@ -1,16 +1,16 @@
-import { splitProps, JSX, createEffect, Show } from "solid-js";
-import { Dynamic } from "solid-js/web";
-import { createStore } from "solid-js/store";
-import { numb2CurrencyStr, convertCurrency } from "~/utils";
-import type { BenefitFullProps } from "~/types/props";
-import type { BenefitItem } from "~/types/models";
+import { splitProps, JSX, createEffect, Show } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
+import { createStore } from 'solid-js/store';
+import { numb2CurrencyStr, convertCurrency } from '~/utils';
+import type { BenefitFullProps } from '~/types/props';
+import type { BenefitItem } from '~/types/models';
 
 export default function BenefitFull({ data }: BenefitFullProps) {
   const [local] = splitProps(data, [
-    "activeId",
-    "plans",
-    "headers",
-    "benefits",
+    'activeId',
+    'plans',
+    'headers',
+    'benefits',
   ]);
 
   const [store, setStore] = createStore<{
@@ -28,7 +28,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
 
   const handleTabChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
-    setStore("activeId", target.value);
+    setStore('activeId', target.value);
   };
 
   createEffect(() => {
@@ -36,7 +36,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
     const benefits = local.benefits?.benefits?.find(
       (benefit) => benefit.benefit.id === activeId,
     );
-    setStore("activeBenefits", benefits?.benefits);
+    setStore('activeBenefits', benefits?.benefits);
   });
 
   return (
@@ -48,7 +48,7 @@ export default function BenefitFull({ data }: BenefitFullProps) {
             name="full_benefit"
             class="tab h-fit p-0 pb-4 font-semibold text-[#76758A]"
             classList={{
-              "before:absolute before:w-full before:h-[3px] before:bg-primary before:bottom-0 text-primary":
+              'before:absolute before:w-full before:h-[3px] before:bg-primary before:bottom-0 text-primary':
                 store.activeId === header.id,
             }}
             aria-label={`${header.name}`}
@@ -146,23 +146,23 @@ const renderBenefitsV2 = (
   if (!bnfGroup || bnfGroup.length === 0) return null;
   return bnfGroup.map((bnf, index) => {
     const lb = level && level > 1 ? `${label}${index + 1}` : `${index + 1}`;
-    const tag = () => (bnf.benefit.description ? "details" : "div");
+    const tag = () => (bnf.benefit.description ? 'details' : 'div');
 
     const cols = Math.min(plans?.length + 1, 5);
     const clsItem = {
-      1: "max-sm:col-end-1",
-      2: "max-sm:col-end-2",
-      3: "max-sm:col-end-3",
-      4: "max-sm:col-end-4",
-      5: "max-sm:col-end-5",
+      1: 'max-sm:col-end-1',
+      2: 'max-sm:col-end-2',
+      3: 'max-sm:col-end-3',
+      4: 'max-sm:col-end-4',
+      5: 'max-sm:col-end-5',
     }[cols];
 
     const clsDivider = {
-      1: "lg:col-end-2 max-sm:col-end-1",
-      2: "lg:col-end-3 max-sm:col-end-2",
-      3: "lg:col-end-4 max-sm:col-end-3",
-      4: "lg:col-end-5 max-sm:col-end-4",
-      5: "lg:col-end-6 max-sm:col-end-5",
+      1: 'lg:col-end-2 max-sm:col-end-1',
+      2: 'lg:col-end-3 max-sm:col-end-2',
+      3: 'lg:col-end-4 max-sm:col-end-3',
+      4: 'lg:col-end-5 max-sm:col-end-4',
+      5: 'lg:col-end-6 max-sm:col-end-5',
     }[cols];
 
     return (
@@ -175,10 +175,10 @@ const renderBenefitsV2 = (
         <div
           class={`level-${level} index-${index} max-sm:col-start-1 max-sm:w-full max-sm:px-6 max-sm:pt-4 lg:max-w-[444px] lg:px-8 lg:py-4 ${clsItem}`}
           classList={{
-            "font-semibold":
+            'font-semibold':
               level === 1 || (level === 2 && bnf.benefits?.length > 0),
-            "lg:pl-12": level ? level > 1 : false,
-            "lg:pl-14": level ? level > 2 : false,
+            'lg:pl-12': level ? level > 1 : false,
+            'lg:pl-14': level ? level > 2 : false,
           }}
         >
           <div class="flex justify-between">
@@ -186,13 +186,13 @@ const renderBenefitsV2 = (
               <summary
                 class="collapse-title p-0 lg:w-fit"
                 classList={{
-                  "font-semibold": !!bnf?.benefit?.description,
+                  'font-semibold': !!bnf?.benefit?.description,
                 }}
               >
                 <div class="flex items-center gap-2">
                   <span
                     classList={{
-                      "text-primary": level ? level === 1 : false,
+                      'text-primary': level ? level === 1 : false,
                     }}
                   >
                     {lb}. {bnf.benefit.name}
@@ -224,8 +224,8 @@ const renderBenefitsV2 = (
                 <div
                   class="collapse-content mt-2.5 w-fit border-l-2 border-[#E6A441] pr-0 pb-0 text-justify text-sm font-normal italic"
                   classList={{
-                    "ml-1": level ? level === 1 : false,
-                    "ml-2": level ? level > 1 : false,
+                    'ml-1': level ? level === 1 : false,
+                    'ml-2': level ? level > 1 : false,
                   }}
                 >
                   {bnf.benefit.description}
@@ -249,7 +249,7 @@ const renderBenefitsV2 = (
                   </div>
                 </>
               ) : (
-                ""
+                ''
               ))}
           </div>
         ))}

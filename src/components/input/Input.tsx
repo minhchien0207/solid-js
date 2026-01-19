@@ -1,9 +1,9 @@
-import { splitProps, Show, createSignal, createEffect, on } from "solid-js";
-import { debounce } from "@solid-primitives/scheduled";
+import { splitProps, Show, createSignal, createEffect, on } from 'solid-js';
+import { debounce } from '@solid-primitives/scheduled';
 
 // Types cho validation
 type ValidationRule = {
-  type: "local" | "api";
+  type: 'local' | 'api';
   validator: (value: string) => Promise<string | null> | string | null;
   message?: string;
 };
@@ -21,14 +21,14 @@ type InputProps = {
 
 export default function Input(props: InputProps) {
   const [local, rest] = splitProps(props, [
-    "value",
-    "label",
-    "helper",
-    "attr",
-    "onChange",
-    "validationRules",
-    "debounceTime",
-    "onValidationChange",
+    'value',
+    'label',
+    'helper',
+    'attr',
+    'onChange',
+    'validationRules',
+    'debounceTime',
+    'onValidationChange',
   ]);
 
   const [error, setError] = createSignal<string | null>(null);
@@ -39,9 +39,9 @@ export default function Input(props: InputProps) {
     if (!local.validationRules) return null;
 
     for (const rule of local.validationRules) {
-      if (rule.type === "local") {
+      if (rule.type === 'local') {
         const result = rule.validator(value);
-        if (typeof result === "string") {
+        if (typeof result === 'string') {
           return result;
         }
       }
@@ -56,9 +56,9 @@ export default function Input(props: InputProps) {
     setIsValidating(true);
     try {
       for (const rule of local.validationRules) {
-        if (rule.type === "api") {
+        if (rule.type === 'api') {
           const result = await rule.validator(value);
-          if (typeof result === "string") {
+          if (typeof result === 'string') {
             return result;
           }
         }
@@ -98,7 +98,7 @@ export default function Input(props: InputProps) {
     // Nếu không có lỗi local, trigger API validation với debounce
     if (
       !localError &&
-      local.validationRules?.some((rule) => rule.type === "api")
+      local.validationRules?.some((rule) => rule.type === 'api')
     ) {
       debouncedAPIValidation(value);
     } else if (!localError) {
@@ -124,13 +124,13 @@ export default function Input(props: InputProps) {
           type="text"
           class="input rounded-lg placeholder:text-[#9191A1] focus:outline-0 lg:px-4 lg:py-3"
           classList={{
-            "border-red-500": error() !== null,
-            "border-gray-300": error() === null,
+            'border-red-500': error() !== null,
+            'border-gray-300': error() === null,
           }}
           autocomplete="off"
           name={local.attr?.name}
           id={local.attr?.id}
-          value={local?.value ?? ""}
+          value={local?.value ?? ''}
           placeholder={local?.attr?.placeholder}
           required={local.attr?.required ?? false}
           onInput={handleInput}

@@ -13,13 +13,6 @@
     "lint-staged": "lint-staged",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "*.{css,scss,less}": "pnpm run format",
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "pnpm run lint:fix",
-      "pnpm run format"
-    ]
-  },
   "dependencies": {
     "@solid-primitives/scheduled": "^1.5.2",
     "@solidjs/meta": "^0.29.4",
@@ -41,6 +34,13 @@
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "solid-devtools": "^0.34.4"
+  },
+  "lint-staged": {
+    "*.{css,scss,less}": "pnpm run format",
+    "*.{js,jsx,ts,tsx,mjs,cjs}": [
+      "pnpm run lint:fix",
+      "pnpm run format"
+    ]
   },
   "engines": {
     "node": ">=22"

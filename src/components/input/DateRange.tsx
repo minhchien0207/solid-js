@@ -1,7 +1,7 @@
-import { splitProps, Show, createSignal, onMount } from "solid-js";
-import { createStore } from "solid-js/store";
-import "./Date.css";
-import type { DateProps } from "~/types/props";
+import { splitProps, Show, createSignal, onMount } from 'solid-js';
+import { createStore } from 'solid-js/store';
+import './Date.css';
+import type { DateProps } from '~/types/props';
 
 const getDateMask = (locale: string) => {
   const dtf = new Intl.DateTimeFormat(locale);
@@ -10,22 +10,22 @@ const getDateMask = (locale: string) => {
   return {
     inputMask: `${parts
       .map((p) => {
-        if (p.type === "day") return "dd";
-        if (p.type === "month") return "mm";
-        if (p.type === "year") return "yyyy";
+        if (p.type === 'day') return 'dd';
+        if (p.type === 'month') return 'mm';
+        if (p.type === 'year') return 'yyyy';
         return p.value;
       })
-      .join("")} - ${parts
+      .join('')} - ${parts
       .map((p) => {
-        if (p.type === "day") return "dd";
-        if (p.type === "month") return "mm";
-        if (p.type === "year") return "yyyy";
+        if (p.type === 'day') return 'dd';
+        if (p.type === 'month') return 'mm';
+        if (p.type === 'year') return 'yyyy';
         return p.value;
       })
-      .join("")}`,
-    literals: parts.find((p) => p.type === "literal")?.value ?? "-",
+      .join('')}`,
+    literals: parts.find((p) => p.type === 'literal')?.value ?? '-',
     partsOrder: parts
-      .filter((p) => ["day", "month", "year"].includes(p.type))
+      .filter((p) => ['day', 'month', 'year'].includes(p.type))
       .map((p) => p.type), // Thứ tự: ['month', 'day', 'year'] hoặc tương tự
     maxValues: {
       day: 31,
@@ -42,23 +42,23 @@ const getDateMask = (locale: string) => {
 
 export default function DateRangeInput(props: DateProps) {
   const [local, rest] = splitProps(props, [
-    "value",
-    "label",
-    "helper",
-    "attr",
-    "onChange",
+    'value',
+    'label',
+    'helper',
+    'attr',
+    'onChange',
   ]);
 
   const [open, setOpen] = createSignal(false);
   const [state, setState] = createStore({
-    value: local.value ?? "",
-    inputMask: "",
-    separator: "",
+    value: local.value ?? '',
+    inputMask: '',
+    separator: '',
     numDate: 0,
   });
 
   onMount(() => {
-    import("cally");
+    import('cally');
     const mask = getDateMask(navigator.language);
     setState({
       inputMask: mask.inputMask,
@@ -69,7 +69,7 @@ export default function DateRangeInput(props: DateProps) {
   const handleDateChange = (e: Event) => {
     const target = e.target as HTMLInputElement;
     // it's "range"
-    const dates = target.value.split("/");
+    const dates = target.value.split('/');
     const startDate = new Date(dates[0]);
     const endDate = new Date(dates[1]);
     const dtf = new Intl.DateTimeFormat(navigator.language);
@@ -78,19 +78,19 @@ export default function DateRangeInput(props: DateProps) {
     setState({
       value: `${partsStartDate
         .map((p) => {
-          if (p.type === "day") return `0${p.value}`.slice(-2);
-          if (p.type === "month") return `0${p.value}`.slice(-2);
-          if (p.type === "year") return p.value;
+          if (p.type === 'day') return `0${p.value}`.slice(-2);
+          if (p.type === 'month') return `0${p.value}`.slice(-2);
+          if (p.type === 'year') return p.value;
           return p.value;
         })
-        .join("")} - ${partsEndDate
+        .join('')} - ${partsEndDate
         .map((p) => {
-          if (p.type === "day") return `0${p.value}`.slice(-2);
-          if (p.type === "month") return `0${p.value}`.slice(-2);
-          if (p.type === "year") return p.value;
+          if (p.type === 'day') return `0${p.value}`.slice(-2);
+          if (p.type === 'month') return `0${p.value}`.slice(-2);
+          if (p.type === 'year') return p.value;
           return p.value;
         })
-        .join("")}`,
+        .join('')}`,
       numDate: Math.round(
         (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1,
       ),
@@ -180,11 +180,11 @@ export default function DateRangeInput(props: DateProps) {
             {local.helper?.hint ||
               (state.numDate ? (
                 <div>
-                  Hành trình của bạn sẽ kéo dài trong{" "}
+                  Hành trình của bạn sẽ kéo dài trong{' '}
                   <span class="font-semibold">{state.numDate} ngày</span>.
                 </div>
               ) : (
-                ""
+                ''
               ))}
           </p>
         </Show>

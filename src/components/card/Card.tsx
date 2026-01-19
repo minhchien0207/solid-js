@@ -1,7 +1,7 @@
 export default function Card() {
   return (
     <>
-      <div class="card w-full bg-base-100 shadow-sm">
+      <div class="card bg-base-100 w-full shadow-sm">
         <div class="card-body">
           <span class="badge badge-xs badge-warning">Most Popular</span>
           <div class="flex justify-between">
@@ -12,7 +12,7 @@ export default function Card() {
             <li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4 me-2 inline-block text-success"
+                class="text-success me-2 inline-block size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -29,7 +29,7 @@ export default function Card() {
             <li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4 me-2 inline-block text-success"
+                class="text-success me-2 inline-block size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -46,7 +46,7 @@ export default function Card() {
             <li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4 me-2 inline-block text-success"
+                class="text-success me-2 inline-block size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -63,7 +63,7 @@ export default function Card() {
             <li>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4 me-2 inline-block text-success"
+                class="text-success me-2 inline-block size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -80,7 +80,7 @@ export default function Card() {
             <li class="opacity-50">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4 me-2 inline-block text-base-content/50"
+                class="text-base-content/50 me-2 inline-block size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -97,7 +97,7 @@ export default function Card() {
             <li class="opacity-50">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4 me-2 inline-block text-base-content/50"
+                class="text-base-content/50 me-2 inline-block size-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

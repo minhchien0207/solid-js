@@ -1,12 +1,12 @@
-import { Component, JSX, splitProps, Show } from "solid-js";
-import { createStore } from "solid-js/store";
-import { PlanProps } from "~/types/props";
-import { chunk2Array, numb2CurrencyStr, convertCurrency } from "~/utils";
-import "./plan.css";
+import { Component, JSX, splitProps, Show } from 'solid-js';
+import { createStore } from 'solid-js/store';
+import { PlanProps } from '~/types/props';
+import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/utils';
+import './plan.css';
 
 const formatPlanName = (name: string | any) => {
-  if (typeof name === "string" && name.startsWith("Easy")) {
-    const parts = name.split(" ");
+  if (typeof name === 'string' && name.startsWith('Easy')) {
+    const parts = name.split(' ');
     return (
       <>
         {parts[0]}
@@ -23,14 +23,14 @@ const formatPlanName = (name: string | any) => {
 
 const Plan: Component<PlanProps> = (props) => {
   const [local, rest] = splitProps(props, [
-    "data",
-    "textHighlight",
-    "style",
-    "planIdActiveId",
-    "isActive",
-    "onSelect",
-    "children",
-    "mustShow",
+    'data',
+    'textHighlight',
+    'style',
+    'planIdActiveId',
+    'isActive',
+    'onSelect',
+    'children',
+    'mustShow',
   ]);
 
   const [statePlan, setStatePlan] = createStore({
@@ -39,18 +39,18 @@ const Plan: Component<PlanProps> = (props) => {
   });
 
   const layoutGeneral = local.style?.layout
-    ? local.style.layout === "row"
-      ? "max-sm:flex-col lg:flex-row"
-      : "flex-col"
-    : "flex-col";
+    ? local.style.layout === 'row'
+      ? 'max-sm:flex-col lg:flex-row'
+      : 'flex-col'
+    : 'flex-col';
 
   const layoutBenefit = local.style?.layout
-    ? local.style.layout === "row"
+    ? local.style.layout === 'row'
       ? statePlan.benefits.length > 1
-        ? "max-sm:grid-cols-1 lg:grid-cols-2"
-        : "grid-cols-1"
-      : "grid-cols-1"
-    : "grid-cols-1";
+        ? 'max-sm:grid-cols-1 lg:grid-cols-2'
+        : 'grid-cols-1'
+      : 'grid-cols-1'
+    : 'grid-cols-1';
 
   return (
     <>
@@ -58,26 +58,26 @@ const Plan: Component<PlanProps> = (props) => {
       <div
         class={`relative flex cursor-pointer ${layoutGeneral} md:visible]: z-0 gap-6 overflow-hidden rounded-2xl border bg-white transition-all duration-300 xl:hover:scale-[1.05] xl:hover:opacity-100`}
         classList={{
-          "xl:w-[299px] p-5": local.style?.layout === "col",
-          "items-center lg:items-start justify-evenly p-15":
-            local.style?.layout === "row",
-          "lg:w-[1140px]":
-            local.style?.layout === "row" && statePlan.benefits.length > 1,
-          "lg:w-[796px]":
-            local.style?.layout === "row" && statePlan.benefits.length === 1,
-          "opacity-100": !local.planIdActiveId, // support for case no plan selected
-          "border-transparent opacity-70":
+          'xl:w-[299px] p-5': local.style?.layout === 'col',
+          'items-center lg:items-start justify-evenly p-15':
+            local.style?.layout === 'row',
+          'lg:w-[1140px]':
+            local.style?.layout === 'row' && statePlan.benefits.length > 1,
+          'lg:w-[796px]':
+            local.style?.layout === 'row' && statePlan.benefits.length === 1,
+          'opacity-100': !local.planIdActiveId, // support for case no plan selected
+          'border-transparent opacity-70':
             !local.isActive || !local.planIdActiveId,
-          "active max-sm:animate-zoom-in-out xl:animate-zoom-out-in border-[#DD252E]":
+          'active max-sm:animate-zoom-in-out xl:animate-zoom-out-in border-[#DD252E]':
             local.isActive,
-          "pb-12": local.style?.showImgBottom,
-          "max-sm:hidden": !local.mustShow,
+          'pb-12': local.style?.showImgBottom,
+          'max-sm:hidden': !local.mustShow,
         }}
         onClick={local.onSelect}
       >
         {local.isActive && (
           <div class="text-secondary absolute top-0 left-0 w-full rounded-tl-[16px] rounded-tr-[16px] bg-[#F8D3D5] p-1.5 text-center text-lg/[26px] font-semibold">
-            {local.textHighlight ?? "Lựa chọn của bạn"}
+            {local.textHighlight ?? 'Lựa chọn của bạn'}
           </div>
         )}
 
@@ -87,15 +87,15 @@ const Plan: Component<PlanProps> = (props) => {
             <div
               class="absolute bottom-0 left-0 z-[-1] w-full"
               classList={{
-                "bottom-0": local.style?.layout === "col",
-                "lg:bottom-[-40px]":
-                  local.style?.layout === "row" &&
+                'bottom-0': local.style?.layout === 'col',
+                'lg:bottom-[-40px]':
+                  local.style?.layout === 'row' &&
                   statePlan.benefits.length === 1,
-                "lg:bottom-[-70px]":
-                  local.style?.layout === "row" &&
+                'lg:bottom-[-70px]':
+                  local.style?.layout === 'row' &&
                   statePlan.benefits.length > 1,
-                "animate-fade-in": local.isActive,
-                "animate-fade-out": !local.isActive,
+                'animate-fade-in': local.isActive,
+                'animate-fade-out': !local.isActive,
               }}
             >
               <img src="/images/pc-wave.webp" class="w-full opacity-70" />
@@ -106,15 +106,15 @@ const Plan: Component<PlanProps> = (props) => {
           <div
             class="flex flex-col items-center"
             classList={{
-              "gap-4": local.style?.layout === "row",
-              "gap-8": local.style?.layout === "col",
+              'gap-4': local.style?.layout === 'row',
+              'gap-8': local.style?.layout === 'col',
             }}
           >
             {/* Name + Description */}
             <div
               class="flex flex-col items-center"
               classList={{
-                "mt-7": local.style?.layout === "col",
+                'mt-7': local.style?.layout === 'col',
               }}
             >
               <div class="name text-primary text-2xl/10 font-bold">
@@ -135,15 +135,15 @@ const Plan: Component<PlanProps> = (props) => {
               type="button"
               class="btn w-full rounded-lg"
               classList={{
-                "btn-primary text-white": local.isActive,
-                "bg-[#EEF1FC] text-primary": !local.isActive,
+                'btn-primary text-white': local.isActive,
+                'bg-[#EEF1FC] text-primary': !local.isActive,
               }}
               onClick={(e) => {
                 e.stopPropagation();
                 local.onSelect();
               }}
             >
-              {local.isActive ? "Gói đã chọn" : "Chọn gói"}
+              {local.isActive ? 'Gói đã chọn' : 'Chọn gói'}
             </button>
           )}
         </div>
@@ -154,11 +154,11 @@ const Plan: Component<PlanProps> = (props) => {
             <div
               class="flex flex-col gap-[11px]"
               classList={{
-                "lg:w-[644px]":
-                  local.style?.layout === "row" &&
+                'lg:w-[644px]':
+                  local.style?.layout === 'row' &&
                   statePlan.benefits.length > 1,
-                "lg:w-[322px]":
-                  local.style?.layout === "row" &&
+                'lg:w-[322px]':
+                  local.style?.layout === 'row' &&
                   statePlan.benefits.length === 1,
               }}
             >
@@ -194,12 +194,12 @@ const Plan: Component<PlanProps> = (props) => {
                             </div>
                             <div class="text-base/[22px]">
                               <div>
-                                {benefit.text}{" "}
+                                {benefit.text}{' '}
                                 <span class="text-primary font-semibold">
                                   {benefit.price &&
-                                    new Intl.NumberFormat("vi-VN", {
-                                      style: "currency",
-                                      currency: "VND",
+                                    new Intl.NumberFormat('vi-VN', {
+                                      style: 'currency',
+                                      currency: 'VND',
                                     }).format(Number(benefit.price))}
                                 </span>
                               </div>
@@ -221,8 +221,8 @@ const Plan: Component<PlanProps> = (props) => {
         <div
           class="relative rounded-lg border-2 bg-white p-4 max-sm:visible md:hidden"
           classList={{
-            "border-transparent": !local.isActive,
-            "border-[#F8D3D5]": local.isActive,
+            'border-transparent': !local.isActive,
+            'border-[#F8D3D5]': local.isActive,
           }}
           onClick={local.onSelect}
         >
@@ -246,9 +246,9 @@ const Plan: Component<PlanProps> = (props) => {
                 type="button"
                 class="btn rounded-lg px-5 py-2 text-[17px] font-semibold"
                 classList={{
-                  "bg-[#F8D3D5] text-secondary flex items-center":
+                  'bg-[#F8D3D5] text-secondary flex items-center':
                     local.isActive,
-                  "bg-[#E0E7FF] text-primary": !local.isActive,
+                  'bg-[#E0E7FF] text-primary': !local.isActive,
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -258,7 +258,7 @@ const Plan: Component<PlanProps> = (props) => {
                 {local.isActive && (
                   <div class="h-[14px] w-[14px] bg-[#DD252E] mask-[url('/images/success.svg')] mask-center mask-no-repeat"></div>
                 )}
-                {local.isActive ? "Đã chọn" : "Chọn gói"}
+                {local.isActive ? 'Đã chọn' : 'Chọn gói'}
               </button>
             </div>
           </div>
@@ -292,7 +292,7 @@ const Plan: Component<PlanProps> = (props) => {
                             <div class="text-xs">{benefit.text}</div>
                             <div class="text-primary font-semibold">
                               {benefit.price &&
-                                numb2CurrencyStr(Number(benefit.price), "vn")}
+                                numb2CurrencyStr(Number(benefit.price), 'vn')}
                             </div>
                           </div>
                         </div>

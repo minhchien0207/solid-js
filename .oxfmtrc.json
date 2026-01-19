@@ -1,9 +1,8 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [],
-  "formatter": {
-    "enabled": true,
-    "quotes": "single",
-    "jsxQuotes": "single"
-  }
+  "experimentalTailwindcss": {},
+  "endOfLine": "lf",
+  "printWidth": 80,
+  "singleQuote": true,
+  "ignorePatterns": []
 }

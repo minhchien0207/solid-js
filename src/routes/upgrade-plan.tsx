@@ -1,82 +1,82 @@
-import { Title } from "@solidjs/meta";
-import { JSX } from "solid-js";
-import { createStore } from "solid-js/store";
-import UpgradePlan from "../components/plan/UpgradePlan";
-import { Plan } from "~/types/models";
+import { Title } from '@solidjs/meta';
+import { JSX } from 'solid-js';
+import { createStore } from 'solid-js/store';
+import UpgradePlan from '../components/plan/UpgradePlan';
+import { Plan } from '~/types/models';
 
 const initialPlan: Plan[] = [
   {
-    code: "easy-1",
-    name: "Easy 1",
+    code: 'easy-1',
+    name: 'Easy 1',
     price: 220000,
     active: true,
     benefits: [
       {
-        code: "DELAY",
+        code: 'DELAY',
         svg: <img src="/images/benefit/small/delay.svg" class="" alt="" />,
-        text: "Bảo hiểm trễ, hủy chuyến bay",
+        text: 'Bảo hiểm trễ, hủy chuyến bay',
         price: 12000000,
       },
       {
-        code: "BAGGAGE",
+        code: 'BAGGAGE',
         svg: <img src="/images/benefit/small/baggage.svg" class="" alt="" />,
-        text: "Bảo hiểm mất, hư hỏng hành lý",
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 24000000,
       },
       {
-        code: "PA",
+        code: 'PA',
         svg: <img src="/images/benefit/small/pa.svg" class="" alt="" />,
-        text: "Bảo hiểm tai nạn cá nhân",
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 1800000000,
       },
       {
-        code: "MEDICAL",
+        code: 'MEDICAL',
         svg: <img src="/images/benefit/small/medical.svg" class="" alt="" />,
-        text: "Bảo hiểm chi phí y tế, điều trị",
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2100000000,
       },
       {
-        code: "MEDICAL2",
+        code: 'MEDICAL2',
         svg: <img src="/images/benefit/small/medical.svg" class="" alt="" />,
-        text: "Bảo hiểm chi phí y tế, điều trị",
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 10000,
       },
     ],
   },
   {
-    code: "easy-2",
-    name: "Easy 2",
+    code: 'easy-2',
+    name: 'Easy 2',
     price: 360000,
     active: false,
     benefits: [
       {
-        code: "DELAY",
+        code: 'DELAY',
         svg: <img src="/images/benefit/small/delay.svg" class="" alt="" />,
-        text: "Bảo hiểm trễ, hủy chuyến bay",
+        text: 'Bảo hiểm trễ, hủy chuyến bay',
         price: 18000000,
       },
       {
-        code: "BAGGAGE",
+        code: 'BAGGAGE',
         svg: <img src="/images/benefit/small/baggage.svg" class="" alt="" />,
-        text: "Bảo hiểm mất, hư hỏng hành lý",
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 34000000,
       },
       {
-        code: "PA",
+        code: 'PA',
         svg: <img src="/images/benefit/small/pa.svg" class="" alt="" />,
-        text: "Bảo hiểm tai nạn cá nhân",
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 2400000000,
       },
       {
-        code: "PA2",
+        code: 'PA2',
         svg: <img src="/images/benefit/small/pa.svg" class="" alt="" />,
-        text: "Bảo hiểm tai nạn cá nhân",
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 10000,
       },
       {
-        code: "MEDICAL",
+        code: 'MEDICAL',
         svg: <img src="/images/benefit/small/medical.svg" class="" alt="" />,
-        text: "Bảo hiểm chi phí y tế, điều trị",
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2800000000,
       },
     ],
@@ -96,8 +96,8 @@ export default function UpgradePlanPage() {
     plans: initialPlan.map((plan) => ({
       ...plan,
       name:
-        typeof plan?.name === "string" && plan?.name?.startsWith("Easy")
-          ? plan.name.split(" ").map((char, i) => {
+        typeof plan?.name === 'string' && plan?.name?.startsWith('Easy')
+          ? plan.name.split(' ').map((char, i) => {
               if (i === 0) {
                 return char;
               } else {
