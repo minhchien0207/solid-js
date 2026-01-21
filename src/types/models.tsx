@@ -1,11 +1,16 @@
 import { JSX } from 'solid-js';
 
+type AreaChildrenHandlers = {
+  isSchengen: boolean;
+  onSchengenChange: (value: boolean) => void;
+};
+
 type Area = {
   text: string;
   value: string;
   attr: { name: string; id: string };
   active: boolean;
-  children?: any;
+  children?: JSX.Element | ((handlers: AreaChildrenHandlers) => JSX.Element);
   hint?: any;
 };
 
@@ -96,6 +101,7 @@ type PolicyHolder = Individual | Corporate;
 
 export type {
   Area,
+  AreaChildrenHandlers,
   Benefit,
   Plan,
   InsuredPerson,

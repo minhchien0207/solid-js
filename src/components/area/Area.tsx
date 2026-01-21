@@ -1,5 +1,4 @@
 import { Component, splitProps, createEffect, Show } from 'solid-js';
-import { Title } from '@solidjs/meta';
 import { createStore } from 'solid-js/store';
 import { Area as AreaType } from '~/types/models';
 import { AreaProps } from '~/types/props';

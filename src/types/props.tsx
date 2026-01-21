@@ -4,7 +4,7 @@ type AreaProps = {
   areas: Area[];
   value?: string;
   activeHintId?: string;
-  onSelect?: (value: string) => void;
+  onSelect?: (value: any) => void;
   onSelectHint?: (value: string) => void;
 };
 

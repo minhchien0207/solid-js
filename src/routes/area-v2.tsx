@@ -8,52 +8,35 @@ export const initialArea: AreaType[] = [
     text: 'Đông Nam Á',
     value: 'sea',
     attr: { name: 'area', id: 'sea' },
-    hint: (
-      <div>
-        <div class="text-[15px] font-semibold">
-          Quốc gia thuộc khu vực Đông Nam Á
-        </div>
-        <div class="text-[13px] font-normal italic">
-          Đông Nam Á, Úc, Trung Quốc, Hong Kong, Ấn Độ, Nhật Bản, Hàn Quốc,
-          Macau, New Zealand, Đài Loan
-        </div>
-      </div>
-    ),
+    hint: {
+      title: 'Quốc gia thuộc khu vực Đông Nam Á',
+      content:
+        'Đông Nam Á, Úc, Trung Quốc, Hong Kong, Ấn Độ, Nhật Bản, Hàn Quốc, Macau, New Zealand, Đài Loan',
+    },
     active: false,
   },
   {
     text: 'Châu Á',
     value: 'asia',
     attr: { name: 'area', id: 'asia' },
-    hint: (
-      <div>
-        <div class="text-[15px] font-semibold">
-          Quốc gia thuộc khu vực Châu Á
-        </div>
-        <div class="text-[13px] font-normal italic">
-          Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines,
-          Singapore, Thái Lan, Đông Timor
-        </div>
-      </div>
-    ),
+    hint: {
+      title: 'Quốc gia thuộc khu vực Châu Á',
+      content:
+        'Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines, Singapore, Thái Lan, Đông Timor',
+    },
     active: false,
   },
   {
     text: 'Toàn cầu',
     value: 'worldwide',
     attr: { name: 'area', id: 'worldwide' },
-    hint: (
-      <div>
-        <div class="text-[15px] font-semibold">Toàn cầu</div>
-        <div class="text-[13px] font-normal italic">
-          Tất cả các quốc gia, loại trừ các quốc gia bị cấm vận theo Nghị quyết
-          của Liên Hiệp Quốc, Hợp Chủng quốc Hoa Kỳ, Liên minh Châu Âu, Nhật
-          Bản, Thụy Sĩ và Vương Quốc Anh
-        </div>
-      </div>
-    ),
+    hint: {
+      title: 'Toàn cầu',
+      content:
+        'Tất cả các quốc gia, loại trừ các quốc gia bị cấm vận theo Nghị quyết của Liên Hiệp Quốc, Hợp Chủng quốc Hoa Kỳ, Liên minh Châu Âu, Nhật Bản, Thụy Sĩ và Vương Quốc Anh',
+    },
     active: false,
-    children: (
+    children: (handlers) => (
       <div class="flex flex-row items-center gap-2 rounded-lg bg-white p-5">
         <svg
           width="14"
@@ -71,7 +54,12 @@ export const initialArea: AreaType[] = [
           Điểm đến của bạn có yêu cầu{' '}
           <span class="text-primary font-semibold">Visa Schengen</span>?
         </label>
-        <input type="checkbox" checked={true} class="checkbox checkbox-xs" />
+        <input
+          type="checkbox"
+          checked={handlers.isSchengen}
+          onchange={(e) => handlers.onSchengenChange(e.currentTarget.checked)}
+          class="checkbox checkbox-xs"
+        />
       </div>
     ),
   },
@@ -80,32 +68,17 @@ export const initialArea: AreaType[] = [
 export default function AreaPage() {
   const [stateArea, setStateArea] = createStore<{
     areas: AreaType[];
-    value?: string;
-    activeHintId: string;
+    value?: any;
   }>({
     areas: initialArea,
-    value: '',
-    activeHintId: '',
   });
 
-  const selectArea = (val: string) =>
+  const selectArea = (value: any) => {
+    console.log(value);
     setStateArea({
-      value: val,
-      activeHintId:
-        stateArea.activeHintId && stateArea.activeHintId !== val
-          ? ''
-          : stateArea.activeHintId,
+      value: value,
     });
-
-  const selectAreaHintById = (id: string) =>
-    setStateArea(
-      'activeHintId',
-      stateArea.activeHintId === ''
-        ? id
-        : stateArea.activeHintId === id
-          ? ''
-          : id,
-    );
+  };
 
   return (
     <>
@@ -114,9 +87,7 @@ export default function AreaPage() {
         <Area
           areas={stateArea.areas}
           value={stateArea.value}
-          activeHintId={stateArea.activeHintId}
           onSelect={selectArea}
-          onSelectHint={selectAreaHintById}
         />
       </div>
     </>
