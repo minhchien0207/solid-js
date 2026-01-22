@@ -3,7 +3,7 @@ import { Dynamic } from 'solid-js/web';
 // import { A } from '@solidjs/router';
 import { Title } from '@solidjs/meta';
 import { createStore } from 'solid-js/store';
-import { initial as faq } from '~/routes/question';
+import { initial as faq } from '~/routes/(question)/question';
 import Modal from '~/components/modal/Modal';
 
 export default function QuestionPage() {

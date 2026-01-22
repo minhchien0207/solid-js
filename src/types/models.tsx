@@ -5,13 +5,18 @@ type AreaChildrenHandlers = {
   onSchengenChange: (value: boolean) => void;
 };
 
+type AreaHint = {
+  title?: string;
+  content?: string;
+};
+
 type Area = {
   text: string;
   value: string;
   attr: { name: string; id: string };
   active: boolean;
   children?: JSX.Element | ((handlers: AreaChildrenHandlers) => JSX.Element);
-  hint?: any;
+  hint?: AreaHint;
 };
 
 type BenefitDetail = {

@@ -15,32 +15,50 @@ const Area: Component<AreaProps> = (props) => {
   const [stateArea, setStateArea] = createStore<{
     areas: AreaType[];
     value?: string;
-    activeId: string;
-    activeHintId: string;
+    activeId?: string;
+    children?: any;
+    activeHintId?: string;
+    isSchengen?: boolean;
   }>({
     areas: local.areas,
     value: local.value,
-    activeId: '',
-    activeHintId: '',
+    isSchengen: false,
   });
 
-  createEffect(() => {
-    const val = local.value;
-    const hintId = local.activeHintId;
-
+  const selectArea = (val: string) => {
+    const selectedArea = local.areas.find((area) => area.value === val);
     setStateArea({
       value: val,
-      activeHintId: hintId,
+      children: selectedArea?.children,
+      activeHintId:
+        stateArea.activeHintId &&
+        stateArea.activeHintId === selectedArea?.attr?.id
+          ? selectedArea?.attr?.id
+          : undefined,
+      isSchengen: selectedArea?.children ? true : false, // set default in here
     });
-  });
+    local?.onSelect?.({
+      value: val,
+      isSchengen: selectedArea?.children ? true : false,
+    });
+  };
+
+  const showHint = (id: string) => {
+    setStateArea({
+      activeHintId:
+        stateArea.activeHintId && stateArea.activeHintId === id
+          ? undefined
+          : id,
+    });
+  };
 
   return (
     <>
       <div class="flex w-max flex-col gap-2">
-        {stateArea.areas.map((area, i) => (
+        {local.areas.map((area, i) => (
           <div
             class="flex cursor-pointer flex-row items-center gap-2 rounded-lg bg-white p-5"
-            on:click={() => local.onSelect?.(area.value)}
+            on:click={() => selectArea(area.value)}
           >
             <input
               type="radio"
@@ -50,7 +68,7 @@ const Area: Component<AreaProps> = (props) => {
               checked={stateArea.value === area.value}
               on:click={(e) => {
                 e.stopPropagation();
-                local?.onSelect?.(area.value);
+                selectArea(area.value);
               }}
             />
             <label
@@ -62,12 +80,12 @@ const Area: Component<AreaProps> = (props) => {
             >
               {area.text}
             </label>
-            <Show when={area.hint}>
+            {area.hint && (
               <div
                 class="info cursor-pointer"
                 on:click={(e) => {
                   e.stopPropagation();
-                  local?.onSelectHint?.(area.attr.id);
+                  showHint(area.attr?.id);
                 }}
               >
                 <svg
@@ -83,23 +101,13 @@ const Area: Component<AreaProps> = (props) => {
                   />
                 </svg>
               </div>
-            </Show>
+            )}
           </div>
         ))}
       </div>
-      <Show
-        when={
-          stateArea.value &&
-          stateArea.areas.find((area) => area.value === stateArea.value)
-            ?.children
-        }
-        keyed
-      >
+      <Show when={stateArea.children} keyed>
         <div class="w-max gap-2 transition-all duration-300 ease-in-out">
-          {
-            stateArea.areas.find((area) => area.value === stateArea.value)
-              ?.children
-          }
+          {stateArea.children}
         </div>
       </Show>
       <Show
@@ -112,11 +120,22 @@ const Area: Component<AreaProps> = (props) => {
         keyed
       >
         <div class="gap-2 rounded-lg bg-[#E8191C] p-2 font-light text-white opacity-50 transition-all duration-300 ease-in-out">
-          {
+          {Object.entries(
             stateArea.areas.find(
               (area) => area.attr.id === stateArea.activeHintId,
-            )?.hint
-          }
+            )?.hint ?? {},
+          ).map(([key, value]) => (
+            <>
+              {key === 'title' && (
+                <div class="text-[15px] font-semibold">{value}</div>
+              )}
+              {key === 'content' && (
+                <div class="text-[13px] font-normal text-pretty italic">
+                  {value}
+                </div>
+              )}
+            </>
+          ))}
         </div>
       </Show>
     </>

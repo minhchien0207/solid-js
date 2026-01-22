@@ -1,4 +1,4 @@
-import { Component, splitProps } from 'solid-js';
+import { Component, splitProps, Show } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { Area as AreaType } from '~/types/models';
 import { AreaProps } from '~/types/props';
@@ -22,6 +22,7 @@ const Area: Component<AreaProps> = (props) => {
     setStateArea({
       value: val,
       children: selectedArea?.children,
+      isSchengen: selectedArea?.children ? true : false, // set default in here
     });
     local?.onSelect?.({
       value: val,
@@ -30,7 +31,7 @@ const Area: Component<AreaProps> = (props) => {
   };
 
   return (
-    <div class="flex w-max flex-col gap-2">
+    <div class="flex flex-col gap-2">
       {stateArea.areas.map((area, i) => (
         <div class="bg-base-100 border-base-300 collapse border">
           <input
@@ -52,15 +53,15 @@ const Area: Component<AreaProps> = (props) => {
               <div class="text-[15px] font-semibold">{area.hint.title}</div>
             )}
             {area?.hint?.content && (
-              <div class="text-[13px] font-normal italic">
+              <div class="text-[13px] font-normal text-pretty italic">
                 {area.hint.content}
               </div>
             )}
           </div>
         </div>
       ))}
-      {stateArea.children && (
-        <div class="w-max gap-2 transition-all duration-300 ease-in-out">
+      <Show when={stateArea.children}>
+        <div class="gap-2">
           {typeof stateArea.children === 'function'
             ? stateArea.children({
                 isSchengen: stateArea.isSchengen ?? false,
@@ -74,7 +75,7 @@ const Area: Component<AreaProps> = (props) => {
               })
             : stateArea.children}
         </div>
-      )}
+      </Show>
     </div>
   );
 };

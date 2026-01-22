@@ -1,7 +1,7 @@
 import { Title } from '@solidjs/meta';
 import { createStore } from 'solid-js/store';
-import Area from '~/components/area/AreaV2';
-import type { Area as AreaType } from '~/types/models';
+import Area from '~/components/area/Area';
+import { Area as AreaType } from '~/types/models';
 
 export const initialArea: AreaType[] = [
   {
@@ -36,7 +36,7 @@ export const initialArea: AreaType[] = [
         'Tất cả các quốc gia, loại trừ các quốc gia bị cấm vận theo Nghị quyết của Liên Hiệp Quốc, Hợp Chủng quốc Hoa Kỳ, Liên minh Châu Âu, Nhật Bản, Thụy Sĩ và Vương Quốc Anh',
     },
     active: false,
-    children: (handlers) => (
+    children: (
       <div class="flex flex-row items-center gap-2 rounded-lg bg-white p-5">
         <svg
           width="14"
@@ -54,12 +54,7 @@ export const initialArea: AreaType[] = [
           Điểm đến của bạn có yêu cầu{' '}
           <span class="text-primary font-semibold">Visa Schengen</span>?
         </label>
-        <input
-          type="checkbox"
-          checked={handlers.isSchengen}
-          onchange={(e) => handlers.onSchengenChange(e.currentTarget.checked)}
-          class="checkbox checkbox-xs"
-        />
+        <input type="checkbox" checked={true} class="checkbox checkbox-xs" />
       </div>
     ),
   },
@@ -68,16 +63,13 @@ export const initialArea: AreaType[] = [
 export default function AreaPage() {
   const [stateArea, setStateArea] = createStore<{
     areas: AreaType[];
-    value?: any;
+    value?: string;
   }>({
     areas: initialArea,
   });
 
-  const selectArea = (value: any) => {
-    console.log(value);
-    setStateArea({
-      value: value,
-    });
+  const selectArea = (val: any) => {
+    console.log(val);
   };
 
   return (
