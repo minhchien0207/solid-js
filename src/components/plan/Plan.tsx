@@ -1,8 +1,9 @@
-import { Component, JSX, splitProps, Show } from 'solid-js';
+import { Component, splitProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { PlanProps } from '~/types/props';
 import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/utils';
 import './plan.css';
+import AnimatedNumber from '~/components/animate/AnimatedNumber';
 
 const formatPlanName = (name: string | any) => {
   if (typeof name === 'string' && name.startsWith('Easy')) {
@@ -174,7 +175,6 @@ const Plan: Component<PlanProps> = (props) => {
                       code: string;
                       text?: string;
                       price?: string;
-                      description?: JSX.Element;
                     }[],
                   ) => (
                     <div class="flex flex-col items-center gap-[11px]">
@@ -183,7 +183,6 @@ const Plan: Component<PlanProps> = (props) => {
                           code: string;
                           text?: string;
                           price?: string;
-                          description?: JSX.Element;
                         }) => (
                           <div class="flex w-full items-center gap-[11px]">
                             <div class="icon">
@@ -270,7 +269,6 @@ const Plan: Component<PlanProps> = (props) => {
                 (
                   arrBenefit: {
                     code: string;
-                    description?: JSX.Element;
                   }[],
                 ) => (
                   <div class="flex flex-col gap-[11px]">
@@ -279,7 +277,6 @@ const Plan: Component<PlanProps> = (props) => {
                         code: string;
                         text?: string;
                         price?: string;
-                        description?: JSX.Element;
                       }) => (
                         <div class="flex items-center gap-[11px]">
                           <div class="w-[20px]">
@@ -290,10 +287,17 @@ const Plan: Component<PlanProps> = (props) => {
                           </div>
                           <div class="flex w-full justify-between text-base/[22px]">
                             <div class="text-xs">{benefit.text}</div>
-                            <div class="text-primary font-semibold">
-                              {benefit.price &&
-                                numb2CurrencyStr(Number(benefit.price), 'vn')}
-                            </div>
+                            {benefit.price && (
+                              <>
+                                lên đến{' '}
+                                <div class="text-primary font-semibold">
+                                  {numb2CurrencyStr(
+                                    Number(benefit.price),
+                                    'vn',
+                                  )}
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
                       ),

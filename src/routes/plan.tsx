@@ -1,5 +1,4 @@
 import { Title } from '@solidjs/meta';
-import { onMount } from 'solid-js';
 import Plan from '~/components/plan/Plan';
 import { createStore } from 'solid-js/store';
 import { useSearchParams } from '@solidjs/router';
@@ -18,26 +17,14 @@ const initialPlan: PlanType[] = [
       {
         code: 'delay',
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        text: 'Trễ chuyến, hủy chuyến bay',
         price: 12000000,
-        description: (
-          <div class="">
-            Trễ chuyến, hủy chuyến bay lên đến{' '}
-            <span class="text-primary font-semibold">12.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'baggage',
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 24000000,
-        description: (
-          <div class="">
-            Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
-            <span class="text-primary font-semibold">24.000.000 VNĐ</span>
-          </div>
-        ),
       },
     ],
   },
@@ -52,50 +39,26 @@ const initialPlan: PlanType[] = [
       {
         code: 'delay',
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        text: 'Trễ chuyến, hủy chuyến bay',
         price: 12000000,
-        description: (
-          <div class="">
-            Trễ chuyến, hủy chuyến bay lên đến{' '}
-            <span class="text-primary font-semibold">12.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'baggage',
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 24000000,
-        description: (
-          <div class="">
-            Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
-            <span class="text-primary font-semibold">24.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'pa',
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
-        text: 'Bảo hiểm tai nạn cá nhân lên đến',
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 1800000000,
-        description: (
-          <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{' '}
-            <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'medical',
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
-        text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2400000000,
-        description: (
-          <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{' '}
-            <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
-          </div>
-        ),
       },
     ],
   },
@@ -110,50 +73,26 @@ const initialPlan: PlanType[] = [
       {
         code: 'delay',
         svg: <img class="w-[40px]" src="/images/benefit/small/delay.svg" />,
-        text: 'Trễ chuyến, hủy chuyến bay lên đến',
+        text: 'Trễ chuyến, hủy chuyến bay',
         price: 12000000,
-        description: (
-          <div class="">
-            Trễ chuyến, hủy chuyến bay lên đến{' '}
-            <span class="text-primary font-semibold">12.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'baggage',
         svg: <img class="w-[40px]" src="/images/benefit/small/baggage.svg" />,
-        text: 'Bảo hiểm mất, hư hỏng hành lý lên đến',
+        text: 'Bảo hiểm mất, hư hỏng hành lý',
         price: 24000000,
-        description: (
-          <div class="">
-            Bảo hiểm mất, hư hỏng hành lý lên đến{' '}
-            <span class="text-primary font-semibold">24.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'pa',
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
-        text: 'Bảo hiểm tai nạn cá nhân lên đến',
+        text: 'Bảo hiểm tai nạn cá nhân',
         price: 1800000000,
-        description: (
-          <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{' '}
-            <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'medical',
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
-        text: 'Bảo hiểm chi phí y tế, điều trị lên đến',
+        text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2400000000,
-        description: (
-          <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{' '}
-            <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
-          </div>
-        ),
       },
     ],
   },
@@ -170,24 +109,12 @@ const initialPlan: PlanType[] = [
         svg: <img class="w-[40px]" src="/images/benefit/small/pa.svg" />,
         text: 'Bảo hiểm tai nạn cá nhân',
         price: 180000000,
-        description: (
-          <div class="">
-            Bảo hiểm tai nạn cá nhân lên đến{' '}
-            <span class="text-primary font-semibold">1.800.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'medical',
         svg: <img class="w-[40px]" src="/images/benefit/small/medical.svg" />,
         text: 'Bảo hiểm chi phí y tế, điều trị',
         price: 2400000000,
-        description: (
-          <div class="">
-            Bảo hiểm chi phí y tế, điều trị lên đến{' '}
-            <span class="text-primary font-semibold">2.400.000.000 VNĐ</span>
-          </div>
-        ),
       },
       {
         code: 'worldwide-support-247',
