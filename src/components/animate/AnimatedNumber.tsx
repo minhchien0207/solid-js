@@ -2,6 +2,15 @@ import { createSignal, onMount, onCleanup } from 'solid-js';
 import { Motion } from 'solid-motionone';
 import { animate } from 'motion';
 
+/**
+ * Animated number component
+ *
+ * @param from - Start number
+ * @param to - End number
+ * @param duration - Animation duration in seconds
+ * @param class - CSS class
+ * @returns Animated number component
+ */
 export default function AnimatedNumber({
   from,
   to,
@@ -18,7 +27,7 @@ export default function AnimatedNumber({
   onMount(() => {
     const animation = animate(from, to, {
       duration,
-      easing: 'circ-out',
+      ease: 'circOut',
       onUpdate: (latest) => setCount(Math.round(latest)),
     });
     onCleanup(() => animation.stop());

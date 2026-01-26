@@ -1,9 +1,9 @@
-import { Component, splitProps } from 'solid-js';
+import { Component, splitProps, onMount } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { PlanProps } from '~/types/props';
 import { chunk2Array, numb2CurrencyStr, convertCurrency } from '~/utils';
+import { animate, press } from 'motion';
 import './plan.css';
-import AnimatedNumber from '~/components/animate/AnimatedNumber';
 
 const formatPlanName = (name: string | any) => {
   if (typeof name === 'string' && name.startsWith('Easy')) {
@@ -52,6 +52,15 @@ const Plan: Component<PlanProps> = (props) => {
         : 'grid-cols-1'
       : 'grid-cols-1'
     : 'grid-cols-1';
+
+  // onMount(() => {
+  //   press('.plan', (element) => {
+  //     animate(element, { scale: 0.95 }, { type: 'spring', stiffness: 1000 });
+
+  //     return () =>
+  //       animate(element, { scale: 1 }, { type: 'spring', stiffness: 1000 });
+  //   });
+  // });
 
   return (
     <>
